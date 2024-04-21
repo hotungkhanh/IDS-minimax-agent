@@ -1,22 +1,10 @@
-# Functions that implement the game-playing logic
-# Can be called by the Agent
-
-# Things to consider:
-#   how should we store the board state (still tup/dict?)
-#   implement minimax
-
 from .core import PlayerColor, Coord, PlaceAction, BOARD_N
 from .utils import render_board
 from queue import PriorityQueue as pq
 import time
 
-def test():   
-    print("test")
+PIECE_N = 4
 
-def minimax(state, depth: int, maximisingPlayer: bool):
-    return
-
-# Functions and Classes from Part A
 class State():
     """
     A class representing one state of the game, along with its path cost, 
