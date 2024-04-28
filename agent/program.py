@@ -6,6 +6,7 @@ from referee.game.pieces import *
 from .part_a.utils import render_board
 from .helpers import test
 from .board import Board
+from referee.game.exceptions import IllegalActionException
 
 PIECE_N = 4
 
@@ -86,28 +87,30 @@ class Agent:
         print(f"Testing: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
 
     def generate_moves(self):
-        if self.board.turn_count == 0:
-            return PlaceAction(
-                    Coord(3, 3), 
-                    Coord(3, 4), 
-                    Coord(4, 3), 
-                    Coord(4, 4)
-                )
-        if self.board.turn_count == 1:
-            return PlaceAction(
-                    Coord(2, 3), 
-                    Coord(2, 4), 
-                    Coord(2, 5), 
-                    Coord(2, 6)
-                )
+        if self.board._player_token_count(self._color) == 0:
+            empty_coords = set(filter(self.board._cell_empty, self.board._state.keys()))
+            for piece_type in PieceType: 
+                for coord in empty_coords:
+                    try:
+                        piece_coords = set(create_piece(piece_type, coord).coords)
 
+                        self.board.apply_action(PlaceAction(*piece_coords))
+                        self.board.undo_action()
+
+                        return PlaceAction(*piece_coords)
+                    
+                    except (ValueError, IllegalActionException):
+                        pass
         for cell, colour in self.board._state.items():
             if colour.player == None:
                 continue
             if colour.player == self._color:
+                print(cell)
                 piece_combinations = self.generate_piece_combinations(cell)
-                # modify code below
+                if cell == Coord(4, 3):
+                    print(piece_combinations)
                 for piece in piece_combinations:
+                    print(piece)
                     try:
                         c1, c2, c3, c4 = piece
                         action = PlaceAction(c1, c2, c3, c4)
@@ -117,6 +120,7 @@ class Agent:
                         print(self.board.render())
                         return action
                     except:
+                        print("error")
                         continue
     
     def generate_piece_combinations(self, touched_coord) -> list:
@@ -130,13 +134,19 @@ class Agent:
         while stack:
             current_coord, current_piece = stack.pop()
             if len(current_piece) == PIECE_N:
+                # if touched_coord == Coord(4, 3):
+                #     print(current_piece)
                 piece_combinations.add(tuple(sorted(current_piece)))
             else:
                 for adjacent_coord in adjacent(current_coord):
+                    # check if adj coord is empty and not already in curr piece
                     if ((self.board._state[adjacent_coord].player == None) and 
                         (adjacent_coord not in current_piece)):
                         stack.append((adjacent_coord, current_piece + 
                                       [adjacent_coord]))
+                        for coord in current_piece:
+                            stack.append((coord, current_piece + [adjacent_coord]))
+                        
 
         return piece_combinations
     
