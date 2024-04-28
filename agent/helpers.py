@@ -2,7 +2,7 @@
 # Can be called by the Agent
 
 # Things to consider:
-#   how should we store the board state (still tup/dict?)
+#   how should we store the board state (still tup/dict?) - done for now
 #   implement minimax
 #       design evaluation function
 #   integrate with referee - check goal state etc.
