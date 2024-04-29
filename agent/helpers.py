@@ -36,7 +36,7 @@ def minimax(state: State, depth: int, maximisingPlayer: bool):
         minEval = +infinity
         for each child of state:
             eval = minimax(child, depth - 1, true)
-            maxEval = min(minEval, eval)
+            mixEval = min(minEval, eval)
         return minEval
     '''  
     
