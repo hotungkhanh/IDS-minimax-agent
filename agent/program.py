@@ -42,7 +42,7 @@ class Agent:
         # the agent is playing as BLUE or RED. Obviously this won't work beyond
         # the initial moves of the game, so you should use some game playing
         # technique(s) to determine the best action to take.
-        eval, child = minimax(self.board, 1, self._color)
+        eval, child = minimax(self.board, 2, self._color)
         action = child._history[-1].action
 
         # RUN MINIMAX HERE
@@ -80,13 +80,14 @@ def generate_moves(board: Board, color: PlayerColor):
     '''
     moves = []          # needs to be a list of states here 
     # no piece of player colour on board
+    # FOR TESTING PURPOSES: remove randomness of first step 
     if board._player_token_count(color) == 0:
         empty_coords = set(filter(board._cell_empty, board._state.keys()))
-        for piece_type in PieceType: 
-            for coord in empty_coords:
+        for i in range(5):
+            coord = random.choice(list(empty_coords))
+            for piece_type in PieceType: 
                 try:
                     piece_coords = set(create_piece(piece_type, coord).coords)
-
                     
                     board.apply_action(PlaceAction(*piece_coords))
                     new_board = copy.deepcopy(board)
@@ -99,13 +100,29 @@ def generate_moves(board: Board, color: PlayerColor):
         return moves
     
     # board has 1+ piece of player colour
+    # FOR TESTING PURPOSES: remove randomness
     for cell, colour in board._state.items():
         if colour.player == None:
             continue
         if colour.player == color:
-            piece_combinations = generate_piece_combinations(cell)
+            piece_combinations = generate_piece_combinations(board, cell)
 
-            for piece in piece_combinations:
+            # for random piece 
+            # for piece in piece_combinations:
+            #     c1, c2, c3, c4 = piece
+            #     action = PlaceAction(c1, c2, c3, c4)
+            #     board.apply_action(action)
+            #     new_board = copy.deepcopy(board)
+            #     board.undo_action()
+            #     moves.append(new_board)
+
+            # for less random piece
+            for i in range(20):
+                if len(piece_combinations) == 0:
+                    # print('ooops')
+                    break
+                piece = random.choice(list(piece_combinations))
+                piece_combinations.remove(piece)
                 c1, c2, c3, c4 = piece
                 action = PlaceAction(c1, c2, c3, c4)
                 board.apply_action(action)
@@ -184,9 +201,9 @@ def minimax(board: Board, depth: int, color: PlayerColor) -> tuple[int, Board]:
         maxEval = -(math.inf)
         children = generate_moves(board, color)
         for child in children:
-            eval = minimax(child, depth - 1, PlayerColor.BLUE)
-            if eval[0] > maxEval:
-                maxEval = eval[0]
+            val = minimax(child, depth - 1, PlayerColor.BLUE)
+            if val[0] > maxEval:
+                maxEval = val[0]
                 best_child = child
         return (maxEval, best_child)
     else:
@@ -194,9 +211,9 @@ def minimax(board: Board, depth: int, color: PlayerColor) -> tuple[int, Board]:
         minEval = math.inf
         children = generate_moves(board, color)
         for child in children:
-            eval = minimax(child, depth - 1, PlayerColor.RED)
-            if eval[0] < minEval:
-                minEval = eval[0]
+            val = minimax(child, depth - 1, PlayerColor.RED)
+            if val[0] < minEval:
+                minEval = val[0]
                 best_child = child
         return (minEval, best_child)
 
