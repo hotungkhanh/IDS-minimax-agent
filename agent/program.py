@@ -7,7 +7,7 @@ from .part_a.utils import render_board
 from .helpers import test
 from .board import Board
 from referee.game.exceptions import IllegalActionException
-import random
+import random, math, copy
 
 PIECE_N = 4
 
@@ -42,7 +42,10 @@ class Agent:
         # the agent is playing as BLUE or RED. Obviously this won't work beyond
         # the initial moves of the game, so you should use some game playing
         # technique(s) to determine the best action to take.
-        action = self.generate_moves()
+        eval, child = minimax(self.board, 1, self._color)
+        action = child._history[-1].action
+
+        # RUN MINIMAX HERE
 
         match self._color:
             case PlayerColor.RED:
@@ -64,88 +67,78 @@ class Agent:
         c1, c2, c3, c4 = place_action.coords
 
         self.board.apply_action(place_action)
-            
-        # print(self.board.render())
-        # output = ""
-        # for r in range(11):
-        #     for c in range(11):
-        #         if self.board.get(Coord(r, c), None):
-        #             color = self.board[Coord(r, c)]
-        #             color = "r" if color == PlayerColor.RED else "b"
-        #             text = f"{color}"
-        #             output += text
-        #         else:
-        #             output += "."
-        #         output += " "
-        #     output += "\n"
-        # print(output)
-
-        
 
         # Here we are just printing out the PlaceAction coordinates for
         # demonstration purposes. You should replace this with your own logic
         # to update your agent's internal game state representation.
         print(f"Testing: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
 
-    def generate_moves(self):
-        moves = []
-        # no piece of player colour on board
-        if self.board._player_token_count(self._color) == 0:
-            empty_coords = set(filter(self.board._cell_empty, self.board._state.keys()))
-            for piece_type in PieceType: 
-                for coord in empty_coords:
-                    try:
-                        piece_coords = set(create_piece(piece_type, coord).coords)
+    
+def generate_moves(board: Board, color: PlayerColor):
+    '''
+    Returns a list of boards with new valid moves that can be made 
+    '''
+    moves = []          # needs to be a list of states here 
+    # no piece of player colour on board
+    if board._player_token_count(color) == 0:
+        empty_coords = set(filter(board._cell_empty, board._state.keys()))
+        for piece_type in PieceType: 
+            for coord in empty_coords:
+                try:
+                    piece_coords = set(create_piece(piece_type, coord).coords)
 
-                        self.board.apply_action(PlaceAction(*piece_coords))
-                        self.board.undo_action()
-
-                        moves.append(PlaceAction(*piece_coords))
                     
-                    except (ValueError, IllegalActionException):
-                        pass
-            return random.choice(moves)
-        # board has 1+ piece of player colour
-        for cell, colour in self.board._state.items():
-            if colour.player == None:
-                continue
-            if colour.player == self._color:
-                piece_combinations = self.generate_piece_combinations(cell)
+                    board.apply_action(PlaceAction(*piece_coords))
+                    new_board = copy.deepcopy(board)
+                    board.undo_action()
 
-                for piece in piece_combinations:
-                    c1, c2, c3, c4 = piece
-                    action = PlaceAction(c1, c2, c3, c4)
-                    self.board.apply_action(action)
-                    self.board.undo_action()
-                    moves.append(action)
-        return random.choice(moves)
-
+                    moves.append(new_board)
+                
+                except (ValueError, IllegalActionException):
+                    pass
+        return moves
     
-    def generate_piece_combinations(self, touched_coord) -> list:
-        """
-        Generate all possible piece combinations touching a given coordinate.
-        """
+    # board has 1+ piece of player colour
+    for cell, colour in board._state.items():
+        if colour.player == None:
+            continue
+        if colour.player == color:
+            piece_combinations = generate_piece_combinations(cell)
 
-        piece_combinations = set()
-        stack = [(touched_coord, [])]
+            for piece in piece_combinations:
+                c1, c2, c3, c4 = piece
+                action = PlaceAction(c1, c2, c3, c4)
+                board.apply_action(action)
+                new_board = copy.deepcopy(board)
+                board.undo_action()
+                moves.append(new_board)
+    return moves
 
-        while stack:
-            current_coord, current_piece = stack.pop()
-            if len(current_piece) == PIECE_N:
-                piece_combinations.add(tuple(sorted(current_piece)))
-            else:
-                for adjacent_coord in adjacent(current_coord):
-                    # check if adj coord is empty and not already in curr piece
-                    if ((self.board._state[adjacent_coord].player == None) and 
-                        (adjacent_coord not in current_piece)):
-                        stack.append((adjacent_coord, current_piece + 
-                                      [adjacent_coord]))
-                        for coord in current_piece:
-                            stack.append((coord, current_piece + [adjacent_coord]))
-                        
 
-        return piece_combinations
-    
+def generate_piece_combinations(board: Board, touched_coord) -> list:
+    """
+    Generate all possible piece combinations touching a given coordinate.
+    """
+
+    piece_combinations = set()
+    stack = [(touched_coord, [])]
+
+    while stack:
+        current_coord, current_piece = stack.pop()
+        if len(current_piece) == PIECE_N:
+            piece_combinations.add(tuple(sorted(current_piece)))
+        else:
+            for adjacent_coord in adjacent(current_coord):
+                # check if adj coord is empty and not already in curr piece
+                if ((board._state[adjacent_coord].player == None) and 
+                    (adjacent_coord not in current_piece)):
+                    stack.append((adjacent_coord, current_piece + 
+                                    [adjacent_coord]))
+                    for coord in current_piece:
+                        stack.append((coord, current_piece + [adjacent_coord]))
+
+    return piece_combinations
+
 def adjacent(
     coord: Coord
 ):
@@ -162,3 +155,53 @@ def adjacent(
 
     return [coord.down(), coord.up(), coord.left(), coord.right()]
 
+
+def minimax(board: Board, depth: int, color: PlayerColor) -> tuple[int, Board]:
+    ''' 
+    recursive pseudocode:
+
+    if depth == 0 or game over in state then:
+        return static eval of state
+
+    if maximisingPlayer then:
+        maxEval = -infinity
+        for each child of state:
+            eval = minimax(child, depth - 1, false)
+            maxEval = max(maxEval, eval)
+        return maxEval
+    else:
+        minEval = +infinity
+        for each child of state:
+            eval = minimax(child, depth - 1, true)
+            minEval = min(minEval, eval)
+        return minEval
+    '''  
+
+    if depth == 0 or board.game_over:
+        return (eval(board), None)
+    if color == PlayerColor.RED:
+        best_child = None
+        maxEval = -(math.inf)
+        children = generate_moves(board, color)
+        for child in children:
+            eval = minimax(child, depth - 1, PlayerColor.BLUE)
+            if eval[0] > maxEval:
+                maxEval = eval[0]
+                best_child = child
+        return (maxEval, best_child)
+    else:
+        best_child = None
+        minEval = math.inf
+        children = generate_moves(board, color)
+        for child in children:
+            eval = minimax(child, depth - 1, PlayerColor.RED)
+            if eval[0] < minEval:
+                minEval = eval[0]
+                best_child = child
+        return (minEval, best_child)
+
+
+def eval(board: Board):
+    blue_count = board._player_token_count(PlayerColor.BLUE)
+    red_count = board._player_token_count(PlayerColor.RED)
+    return red_count - blue_count
