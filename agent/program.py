@@ -9,8 +9,6 @@ from .board import Board
 from referee.game.exceptions import IllegalActionException
 import random, math, copy
 
-PIECE_N = 4
-
 class Agent:
     """
     This class is the "entry point" for your agent, providing an interface to
@@ -43,7 +41,9 @@ class Agent:
         # the initial moves of the game, so you should use some game playing
         # technique(s) to determine the best action to take.
         eval, child = minimax(self.board, 2, self._color)
-        action = child._history[-1].action
+        action = None
+        if child is not None: 
+            action = child.last_piece
 
         # RUN MINIMAX HERE
 
@@ -78,36 +78,40 @@ def generate_moves(board: Board, color: PlayerColor):
     '''
     Returns a list of boards with new valid moves that can be made 
     '''
-    moves = []          # needs to be a list of states here 
+    moves = set()          # needs to be a list of states here 
     # no piece of player colour on board
-    # FOR TESTING PURPOSES: remove randomness of first step 
-    if board._player_token_count(color) == 0:
-        empty_coords = set(filter(board._cell_empty, board._state.keys()))
-        for i in range(5):
-            coord = random.choice(list(empty_coords))
-            for piece_type in PieceType: 
-                try:
-                    piece_coords = set(create_piece(piece_type, coord).coords)
-                    
-                    board.apply_action(PlaceAction(*piece_coords))
-                    new_board = copy.deepcopy(board)
-                    board.undo_action()
+    # FOR TESTING PURPOSES: remove randomness of first step
 
-                    moves.append(new_board)
-                
-                except (ValueError, IllegalActionException):
-                    pass
-        return moves
-    
-    # board has 1+ piece of player colour
-    # FOR TESTING PURPOSES: remove randomness
-    for cell, colour in board._state.items():
-        if colour.player == None:
-            continue
-        if colour.player == color:
-            piece_combinations = generate_piece_combinations(board, cell)
+    if color == PlayerColor.RED:
+        my_cells = board.red_cells
+    else:
+        my_cells = board.blue_cells
 
-            # for random piece 
+    if len(my_cells) == 0:
+        if len(board.red_cells) == 0 and len(board.blue_cells) == 0:            
+            action = PlaceAction(
+                    Coord(3, 3), 
+                    Coord(3, 4), 
+                    Coord(4, 3), 
+                    Coord(4, 4)
+                )
+
+            # place piece on board
+            new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
+            new_board.apply_action(action)
+            moves.add(new_board)
+            return moves
+        
+        empty_coords = [
+            Coord(r, c)
+            for r in range(BOARD_N)
+            for c in range(BOARD_N)
+            if ((Coord(r, c) not in board.red_cells) or (Coord(r, c) not in board.blue_cells))
+        ]
+        for cell in empty_coords:
+            piece_combinations = board.generate_piece_combinations(cell)
+
+            # code for random piece 
             # for piece in piece_combinations:
             #     c1, c2, c3, c4 = piece
             #     action = PlaceAction(c1, c2, c3, c4)
@@ -116,7 +120,7 @@ def generate_moves(board: Board, color: PlayerColor):
             #     board.undo_action()
             #     moves.append(new_board)
 
-            # for less random piece
+            # code for less random piece
             for i in range(20):
                 if len(piece_combinations) == 0:
                     # print('ooops')
@@ -125,52 +129,48 @@ def generate_moves(board: Board, color: PlayerColor):
                 piece_combinations.remove(piece)
                 c1, c2, c3, c4 = piece
                 action = PlaceAction(c1, c2, c3, c4)
-                board.apply_action(action)
-                new_board = copy.deepcopy(board)
-                board.undo_action()
-                moves.append(new_board)
-    return moves
 
+                # place piece on board
+                new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
+                new_board.apply_action(action)
+                moves.add(new_board)
 
-def generate_piece_combinations(board: Board, touched_coord) -> list:
-    """
-    Generate all possible piece combinations touching a given coordinate.
-    """
+        return moves
+    
+    # board has 1+ piece of player colour
+    # FOR TESTING PURPOSES: reduce randomness
+    else:
+        for cell in my_cells:
+            # if cell does not have empty neighbours
+            #   continue
 
-    piece_combinations = set()
-    stack = [(touched_coord, [])]
+            piece_combinations = board.generate_piece_combinations(cell)
 
-    while stack:
-        current_coord, current_piece = stack.pop()
-        if len(current_piece) == PIECE_N:
-            piece_combinations.add(tuple(sorted(current_piece)))
-        else:
-            for adjacent_coord in adjacent(current_coord):
-                # check if adj coord is empty and not already in curr piece
-                if ((board._state[adjacent_coord].player == None) and 
-                    (adjacent_coord not in current_piece)):
-                    stack.append((adjacent_coord, current_piece + 
-                                    [adjacent_coord]))
-                    for coord in current_piece:
-                        stack.append((coord, current_piece + [adjacent_coord]))
+            # code for less random piece
+            for i in range(20):
+                if len(piece_combinations) == 0:
+                    # print('ooops')
+                    break
+                piece = random.choice(list(piece_combinations))
+                piece_combinations.remove(piece)
+                c1, c2, c3, c4 = piece
+                action = PlaceAction(c1, c2, c3, c4)
 
-    return piece_combinations
+                # place piece on board
+                new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
+                new_board.apply_action(action)
+                moves.add(new_board)
 
-def adjacent(
-    coord: Coord
-):
-    """
-    Computes all 4 possible adjacent coordinates
+        return moves
 
-    Parameters:
-        `coord`: a `Coord` instance that represents the coordinate that we want
-        to find adjacent coordinates for
-
-    Returns:
-        An array of adjacent coordinates on the board
-    """
-
-    return [coord.down(), coord.up(), coord.left(), coord.right()]
+def empty_neighbours(board: Board, coord: Coord) -> list[Coord]:
+    neighbours = [coord.down(), coord.up(), coord.left(), coord.right()]
+    output = []
+    for neighbour in neighbours:
+        if (neighbour not in board.blue_cells) and (neighbour not in board.red_cells):
+            output.append(neighbour)
+    
+    return output
 
 
 def minimax(board: Board, depth: int, color: PlayerColor) -> tuple[int, Board]:
@@ -219,6 +219,6 @@ def minimax(board: Board, depth: int, color: PlayerColor) -> tuple[int, Board]:
 
 
 def eval(board: Board):
-    blue_count = board._player_token_count(PlayerColor.BLUE)
-    red_count = board._player_token_count(PlayerColor.RED)
+    blue_count = len(board.blue_cells)
+    red_count = len(board.red_cells)
     return red_count - blue_count

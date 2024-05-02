@@ -65,30 +65,13 @@ class Agent:
 
         self.board.apply_action(place_action)
             
-        # print(self.board.render())
-        # output = ""
-        # for r in range(11):
-        #     for c in range(11):
-        #         if self.board.get(Coord(r, c), None):
-        #             color = self.board[Coord(r, c)]
-        #             color = "r" if color == PlayerColor.RED else "b"
-        #             text = f"{color}"
-        #             output += text
-        #         else:
-        #             output += "."
-        #         output += " "
-        #     output += "\n"
-        # print(output)
-
-        
-
         # Here we are just printing out the PlaceAction coordinates for
         # demonstration purposes. You should replace this with your own logic
         # to update your agent's internal game state representation.
         print(f"Testing: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
 
     def generate_moves(self):
-        moves = []
+        moves = set()
         # no piece of player colour on board
         if self.board._player_token_count(self._color) == 0:
             empty_coords = set(filter(self.board._cell_empty, self.board._state.keys()))
@@ -100,25 +83,27 @@ class Agent:
                         self.board.apply_action(PlaceAction(*piece_coords))
                         self.board.undo_action()
 
-                        moves.append(PlaceAction(*piece_coords))
+                        moves.add(PlaceAction(*piece_coords))
                     
                     except (ValueError, IllegalActionException):
                         pass
-            return random.choice(moves)
+            return random.choice(list(moves))
+        
         # board has 1+ piece of player colour
-        for cell, colour in self.board._state.items():
-            if colour.player == None:
-                continue
-            if colour.player == self._color:
-                piece_combinations = self.generate_piece_combinations(cell)
+        else:
+            for cell, colour in self.board._state.items():
+                if colour.player == None:
+                    continue
+                if colour.player == self._color:
+                    piece_combinations = self.generate_piece_combinations(cell)
 
-                for piece in piece_combinations:
-                    c1, c2, c3, c4 = piece
-                    action = PlaceAction(c1, c2, c3, c4)
-                    self.board.apply_action(action)
-                    self.board.undo_action()
-                    moves.append(action)
-        return random.choice(moves)
+                    for piece in piece_combinations:
+                        c1, c2, c3, c4 = piece
+                        action = PlaceAction(c1, c2, c3, c4)
+                        self.board.apply_action(action)
+                        self.board.undo_action()
+                        moves.add(action)
+            return random.choice(list(moves))
 
     
     def generate_piece_combinations(self, touched_coord) -> list:
