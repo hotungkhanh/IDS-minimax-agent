@@ -35,17 +35,13 @@ class Agent:
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
-
-        # Below we have hardcoded two actions to be played depending on whether
-        # the agent is playing as BLUE or RED. Obviously this won't work beyond
-        # the initial moves of the game, so you should use some game playing
-        # technique(s) to determine the best action to take.
+        # print("board in action()")
+        # print(self.board.render(True, True))
+        # print("done")
         eval, child = minimax(self.board, 2, self._color)
-        action = None
-        if child is not None: 
-            action = child.last_piece
-
-        # RUN MINIMAX HERE
+        print(hash(child))
+        # action should never be None
+        action = child.last_piece    
 
         match self._color:
             case PlayerColor.RED:
@@ -160,7 +156,6 @@ def generate_moves(board: Board, color: PlayerColor):
                 new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
                 new_board.apply_action(action)
                 moves.add(new_board)
-
         return moves
 
 def empty_neighbours(board: Board, coord: Coord) -> list[Coord]:
@@ -195,7 +190,7 @@ def minimax(board: Board, depth: int, color: PlayerColor) -> tuple[int, Board]:
     '''  
 
     if depth == 0 or board.game_over:
-        return (eval(board), None)
+        return (eval(board), board)
     if color == PlayerColor.RED:
         best_child = None
         maxEval = -(math.inf)
