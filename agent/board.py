@@ -37,6 +37,16 @@ class Board:
 
         self.turn_count = turn_count
 
+    def __eq__(self, other: 'Board'):
+        return self.hashable_value == other.hashable_value
+
+    def __hash__(self):
+        return hash(self.hashable_value)
+
+    @property
+    def hashable_value(self):
+        return (frozenset(self.red_cells), frozenset(self.blue_cells))
+
     def apply_action(self, action: Action):
         # used to return BoardMutation
         """

@@ -38,8 +38,7 @@ class Agent:
         # print("board in action()")
         # print(self.board.render(True, True))
         # print("done")
-        eval, child = minimax(self.board, 2, self._color)
-        print(hash(child))
+        eval, child = minimax_ab(self.board, 3, -(math.inf), math.inf, self._color)
         # action should never be None
         action = child.last_piece    
 
@@ -108,28 +107,28 @@ def generate_moves(board: Board, color: PlayerColor):
             piece_combinations = board.generate_piece_combinations(cell)
 
             # code for random piece 
-            # for piece in piece_combinations:
-            #     c1, c2, c3, c4 = piece
-            #     action = PlaceAction(c1, c2, c3, c4)
-            #     board.apply_action(action)
-            #     new_board = copy.deepcopy(board)
-            #     board.undo_action()
-            #     moves.append(new_board)
-
-            # code for less random piece
-            for i in range(20):
-                if len(piece_combinations) == 0:
-                    # print('ooops')
-                    break
-                piece = random.choice(list(piece_combinations))
-                piece_combinations.remove(piece)
+            for piece in piece_combinations:
                 c1, c2, c3, c4 = piece
                 action = PlaceAction(c1, c2, c3, c4)
 
-                # place piece on board
                 new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
                 new_board.apply_action(action)
                 moves.add(new_board)
+
+            # code for less random piece
+            # for i in range(20):
+            #     if len(piece_combinations) == 0:
+            #         # print('ooops')
+            #         break
+            #     piece = random.choice(list(piece_combinations))
+            #     piece_combinations.remove(piece)
+            #     c1, c2, c3, c4 = piece
+            #     action = PlaceAction(c1, c2, c3, c4)
+
+            #     # place piece on board
+            #     new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
+            #     new_board.apply_action(action)
+            #     moves.add(new_board)
 
         return moves
     
@@ -142,13 +141,13 @@ def generate_moves(board: Board, color: PlayerColor):
 
             piece_combinations = board.generate_piece_combinations(cell)
 
-            # code for less random piece
-            for i in range(20):
-                if len(piece_combinations) == 0:
-                    # print('ooops')
-                    break
-                piece = random.choice(list(piece_combinations))
-                piece_combinations.remove(piece)
+            # code for all pieces
+            for piece in piece_combinations:
+                # if len(piece_combinations) == 0:
+                #     # print('ooops')
+                #     break
+                # piece = random.choice(list(piece_combinations))
+                # piece_combinations.remove(piece)
                 c1, c2, c3, c4 = piece
                 action = PlaceAction(c1, c2, c3, c4)
 
@@ -190,7 +189,7 @@ def minimax(board: Board, depth: int, color: PlayerColor) -> tuple[int, Board]:
     '''  
 
     if depth == 0 or board.game_over:
-        return (eval(board), board)
+        return (eval(board), None)
     if color == PlayerColor.RED:
         best_child = None
         maxEval = -(math.inf)
@@ -210,6 +209,38 @@ def minimax(board: Board, depth: int, color: PlayerColor) -> tuple[int, Board]:
             if val[0] < minEval:
                 minEval = val[0]
                 best_child = child
+        return (minEval, best_child)
+    
+
+def minimax_ab(board: Board, depth: int, alpha, beta, color: PlayerColor) -> tuple[int, Board]:
+
+    if depth == 0 or board.game_over:
+        return (eval(board), None)
+    if color == PlayerColor.RED:
+        best_child = None
+        maxEval = -(math.inf)
+        children = generate_moves(board, color)
+        for child in children:
+            val = minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
+            if val[0] > maxEval:
+                maxEval = val[0]
+                best_child = child
+            alpha = max(alpha, val[0])
+            if beta <= alpha:
+                break
+        return (maxEval, best_child)
+    else:
+        best_child = None
+        minEval = math.inf
+        children = generate_moves(board, color)
+        for child in children:
+            val = minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
+            if val[0] < minEval:
+                minEval = val[0]
+                best_child = child
+            beta = min(minEval, val[0])
+            if beta <= alpha:
+                break
         return (minEval, best_child)
 
 
