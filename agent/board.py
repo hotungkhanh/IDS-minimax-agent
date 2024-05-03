@@ -53,9 +53,9 @@ class Board:
                 self.blue_cells.add(cell)
 
         # TODO: perform line removal if required (new function)
+        self.last_piece = action
         self.line_removal()
         
-        self.last_piece = action
         self._turn_color = self._turn_color.opponent
 
         self.turn_count += 1
@@ -81,7 +81,7 @@ class Board:
 
         Done, not tested
         '''
-
+        to_remove = set()
         # use last_piece to determine which rows & cols to check for 
         # line removal (reduces search space)
         check_row = set()
@@ -101,14 +101,22 @@ class Board:
             red_candidate = list(cell for cell in self.red_cells if cell.r == r)
 
             # if the row is not filled 
-            if len(blue_candidate) + len(red_candidate) != BOARD_N:
+            if (len(blue_candidate) + len(red_candidate)) != BOARD_N:
                 continue
             
+            # print("row filled:", r)
+            
             # otherwise if the row is filled
+            # print("Before: ")
+            # print(self.render())
             for candidate in blue_candidate:
-                self.blue_cells.remove(candidate)
+                to_remove.add(candidate)
+                # self.blue_cells.remove(candidate)
             for candidate in red_candidate:
-                self.red_cells.remove(candidate)
+                to_remove.add(candidate)
+                # self.red_cells.remove(candidate)
+            # print("After:")
+            # print(self.render())
 
         # check and remove columns
         for c in check_col:
@@ -117,14 +125,23 @@ class Board:
             red_candidate = list(cell for cell in self.red_cells if cell.c == c)
 
             # if the col is not filled 
-            if len(blue_candidate) + len(red_candidate) != BOARD_N:
+            if (len(blue_candidate) + len(red_candidate)) != BOARD_N:
                 continue
-            
+
+            # print("col filled:", c)
+            # print("Before: ")
+            # print(self.render())
             # otherwise if the col is filled
             for candidate in blue_candidate:
-                self.blue_cells.remove(candidate)
+                to_remove.add(candidate)
             for candidate in red_candidate:
-                self.red_cells.remove(candidate)
+                to_remove.add(candidate)
+            # print("After:")
+            # print(self.render())
+        
+        for item in to_remove:
+            self.blue_cells.discard(item)
+            self.red_cells.discard(item)
 
     def adjacent(self, coord: Coord):
         """
@@ -163,6 +180,43 @@ class Board:
                             stack.append((coord, current_piece + [adjacent_coord]))
 
         return piece_combinations
+
+    def render(self, use_color: bool=False, use_unicode: bool=False) -> str:
+        """
+        Returns a visualisation of the game board as a multiline string, with
+        optional ANSI color codes and Unicode characters (if applicable).
+        """
+        def apply_ansi(str, bold=True, color=None):
+            bold_code = "\033[1m" if bold else ""
+            color_code = ""
+            if color == "r":
+                color_code = "\033[31m"
+            if color == "b":
+                color_code = "\033[34m"
+            return f"{bold_code}{color_code}{str}\033[0m"
+
+        output = ""
+        for r in range(BOARD_N):
+            for c in range(BOARD_N):
+                if (Coord(r, c) in self.red_cells):
+                    color = "r"
+                    text = f"{color}"
+                    if use_color:
+                        output += apply_ansi(text, color=color, bold=False)
+                    else:
+                        output += text
+                elif (Coord(r, c) in self.blue_cells):
+                    color = "b"
+                    text = f"{color}"
+                    if use_color:
+                        output += apply_ansi(text, color=color, bold=False)
+                    else:
+                        output += text
+                else:
+                    output += "."
+                output += " "
+            output += "\n"
+        return output
     
     @property
     def game_over(self) -> bool:
@@ -184,7 +238,7 @@ class Board:
         for cell in empty_coords:
             piece_combinations = self.generate_piece_combinations(cell)
             
-            if len(piece_combinations) > 1:
+            if len(piece_combinations) > 0:
                 return False
 
         # Tried all possible moves and none were legal.
