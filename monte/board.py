@@ -275,18 +275,14 @@ class Board:
         Returns a random move that can be made 
         '''
 
-
         if self._turn_color == PlayerColor.RED:
             my_cells = self.red_cells
+            opponent_cells = self.blue_cells
         else:
             my_cells = self.blue_cells
+            opponent_cells = self.red_cells
         
-        if self.turn_count == 1:
-            if self._turn_color == PlayerColor.RED:
-                opponent_cells = self.blue_cells
-            else:
-                opponent_cells = self.red_cells
-            
+        if self.turn_count == 1:            
             empty_coords = [
                 Coord(r, c)
                 for r in range(BOARD_N)
@@ -297,37 +293,38 @@ class Board:
             current_coord = random.choice(empty_coords)
             current_piece = [current_coord]
 
-            for i in range(3):
-                adjacent_coord = random.choice(self.adjacent(current_coord))
-                # check if adj coord is empty and not already in curr piece
-                if (adjacent_coord not in opponent_cells):
-                    stack.append((adjacent_coord, current_piece + 
-                                    [adjacent_coord]))
-                    for coord in current_piece:
-                        stack.append((coord, current_piece + [adjacent_coord]))
+            while len(current_piece) < 4:
+                valid_adjacents = [coord for coord in self.adjacent(current_coord) if coord not in (opponent_cells, current_piece)]
+                
+                adjacent_coord = random.choice(valid_adjacents)
+                current_piece.append(adjacent_coord)
+                current_coord = adjacent_coord
 
-            return moves
+            c1, c2, c3, c4 = current_piece
+            action = PlaceAction(c1, c2, c3, c4)
+            return action
 
         
         # board has 1+ piece of player colour
-        # FOR TESTING PURPOSES: reduce randomness
         else:
-            for cell in my_cells:
-                # if cell does not have empty neighbours
-                #   continue
+            while True:
+                random_pool = list(my_cells)
+                current_coord = random.choice(random_pool)
+                random_pool.remove(current_coord)
+                current_piece = [current_coord]
 
-                piece_combinations = self.generate_piece_combinations(cell)
+                while len(current_piece) < 4:
+                    valid_adjacents = [coord for coord in self.adjacent(current_coord) if coord not in (my_cells, opponent_cells, current_piece)]
+                    if len(valid_adjacents) == 0:
+                        continue
 
-                # code for all pieces
-                for piece in piece_combinations:
-                    c1, c2, c3, c4 = piece
-                    action = PlaceAction(c1, c2, c3, c4)
+                    adjacent_coord = random.choice(valid_adjacents)
+                    current_piece.append(adjacent_coord)
+                    current_coord = adjacent_coord
 
-                    # place piece on board
-                    # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
-                    # new_board.apply_action(action)
-                    moves.add(action)
-            return moves
+                c1, c2, c3, c4 = current_piece
+                action = PlaceAction(c1, c2, c3, c4)
+                return action
 
     def render(self, use_color: bool=False, use_unicode: bool=False) -> str:
         """
