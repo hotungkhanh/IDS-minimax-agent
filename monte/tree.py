@@ -13,8 +13,8 @@ class TreeNode:
     def __init__(
         self,
         board: Board = Board(),
-        parent: Board = None,
-        children: list[Board] = None,
+        parent: 'TreeNode' = None,
+        children: list['TreeNode'] = None,
         wins: int = 0,
         times_visited: int = 0,
     ):
@@ -69,7 +69,10 @@ class TreeNode:
 
     def backpropagation(self):
         '''
-        After reaching terminal state, back propagate the values up to root
+        After rollout, back propagate the values up to root
         '''
-
-        pass
+        curr_node = self
+        while not curr_node.is_root():
+            curr_node.parent.wins += self.wins
+            curr_node.parent.times_visited += 1
+            curr_node = curr_node.parent
