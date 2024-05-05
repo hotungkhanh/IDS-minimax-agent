@@ -73,6 +73,6 @@ class TreeNode:
         '''
         curr_node = self
         while not curr_node.is_root():
-            curr_node.parent.wins += curr_node.wins
             curr_node.parent.times_visited += 1
+            curr_node.parent.wins += curr_node.wins
             curr_node = curr_node.parent

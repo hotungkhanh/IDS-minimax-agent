@@ -236,15 +236,13 @@ class Board:
         if self.turn_limit_reached:
             return True
         
-        # empty_coords = set(filter(self._cell_empty, self._state.keys()))
-        empty_coords = [
-            Coord(r, c)
-            for r in range(BOARD_N)
-            for c in range(BOARD_N)
-            if ((Coord(r, c) not in self.red_cells) and (Coord(r, c) not in self.blue_cells))
-        ]
 
-        for cell in empty_coords:
+        if self._turn_color == PlayerColor.RED:
+            my_cells = self.red_cells
+        else:
+            my_cells = self.blue_cells
+
+        for cell in my_cells:
             piece_combinations = self.generate_piece_combinations(cell)
             
             if len(piece_combinations) > 0:
