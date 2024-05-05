@@ -7,7 +7,10 @@ from .board import Board
 from referee.game.exceptions import IllegalActionException
 from .tree import TreeNode
 import random, math, copy
-import datetime
+from datetime import datetime, timedelta
+
+GAME_WON = 1
+GAME_NOT_WON = 0
 
 class Agent:
     """
@@ -38,10 +41,10 @@ class Agent:
         # print("board in action()")
         # print(self.board.render(True, True))
         # print("done")
-        eval, child = minimax_ab(self.board, 3, -(math.inf), math.inf, self._color)
-        # action should never be None
-        action = child.last_piece    
+        # eval, child = minimax_ab(self.board, 3, -(math.inf), math.inf, self._color)
+        # action = child.last_piece    
 
+        action = monte_carlo(self.board, self._color)
         match self._color:
             case PlayerColor.RED:
                 print("Testing: RED is playing a PLACE action")
@@ -69,7 +72,7 @@ class Agent:
         print(f"Testing: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
 
     
-def generate_moves(board: Board, color: PlayerColor):
+def generate_moves(board: Board, color: PlayerColor) -> PlaceAction:
     '''
     Returns a list of boards with new valid moves that can be made 
     '''
@@ -83,25 +86,25 @@ def generate_moves(board: Board, color: PlayerColor):
         my_cells = board.blue_cells
 
     if len(my_cells) == 0:
-        if len(board.red_cells) == 0 and len(board.blue_cells) == 0:            
-            action = PlaceAction(
-                    Coord(3, 3), 
-                    Coord(3, 4), 
-                    Coord(4, 3), 
-                    Coord(4, 4)
-                )
+        # if len(board.red_cells) == 0 and len(board.blue_cells) == 0:            
+        #     action = PlaceAction(
+        #             Coord(3, 3), 
+        #             Coord(3, 4), 
+        #             Coord(4, 3), 
+        #             Coord(4, 4)
+        #         )
 
-            # place piece on board
-            new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
-            new_board.apply_action(action)
-            moves.add(new_board)
-            return moves
+        #     # place piece on board
+        #     # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
+        #     # new_board.apply_action(action)
+        #     moves.add(action)
+        #     return moves
         
         empty_coords = [
             Coord(r, c)
             for r in range(BOARD_N)
             for c in range(BOARD_N)
-            if ((Coord(r, c) not in board.red_cells) or (Coord(r, c) not in board.blue_cells))
+            if ((Coord(r, c) not in board.red_cells) and (Coord(r, c) not in board.blue_cells))
         ]
         for cell in empty_coords:
             piece_combinations = board.generate_piece_combinations(cell)
@@ -111,9 +114,9 @@ def generate_moves(board: Board, color: PlayerColor):
                 c1, c2, c3, c4 = piece
                 action = PlaceAction(c1, c2, c3, c4)
 
-                new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
-                new_board.apply_action(action)
-                moves.add(new_board)
+                # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
+                # new_board.apply_action(action)
+                moves.add(action)
 
         return moves
     
@@ -132,9 +135,9 @@ def generate_moves(board: Board, color: PlayerColor):
                 action = PlaceAction(c1, c2, c3, c4)
 
                 # place piece on board
-                new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
-                new_board.apply_action(action)
-                moves.add(new_board)
+                # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
+                # new_board.apply_action(action)
+                moves.add(action)
         return moves
 
 def empty_neighbours(board: Board, coord: Coord) -> list[Coord]:
@@ -227,7 +230,7 @@ def eval(board: Board):
     return red_count - blue_count
 
 # Monte Carlo Implementation below ---------------------------------------------
-def monte_carlo(board: Board) -> PlaceAction:
+def monte_carlo(board: Board, self_colour: PlayerColor) -> PlaceAction:
     '''
     https://www.youtube.com/watch?v=UXW2yZndl7U
     curr state = initial state
@@ -248,50 +251,66 @@ def monte_carlo(board: Board) -> PlaceAction:
         backpropagate result at currstate to root
     '''
 
-    # current state = initial state of baord
+    # generate initial state i.e. root node + all its children
     root = TreeNode(board)
+    actions = generate_moves(board, board._turn_color)
+    for action in actions:
+        # make each action into a new TreeNode
+        child = Board(board.red_cells.copy(), board.blue_cells.copy(), 
+                        board._turn_color, action, board.turn_count)
+        child.apply_action(action)
+
+        child_node = TreeNode(child)
+        root.add_child(child_node)
+    
+    # current state = initial state of baord
     curr_state = root
     
     sec_to_run = 5
-    fin_time = datetime.datetime.now() + datetime.timedelta(sec_to_run)
-
+    fin_time = datetime.now() + timedelta(seconds=sec_to_run)
+    print("in monte carlo")
     while True:
         # keep within time limit
-        if datetime.datetime.now() >= fin_time:
+        if datetime.now() >= fin_time:
             break
 
         # find leaf node
+        curr_state = root
         while not curr_state.is_leaf():
             # calculate UCB1 value of all children LATER, don't worry about it now
             # max_UCB1 = max(child.UCB1() for child in curr_state.children)
 
             # just pick random child for now
+            print("not a leaf node here")
             curr_state = random.choice([child for child in curr_state.children])
+        print("leaf node found")
         if curr_state._times_visited == 0:
             # the node has NOT been visited before in previous rollouts 
-            curr_state.wins = rollout(curr_state) 
+            curr_state.wins = rollout(curr_state.board, self_colour) 
             curr_state.backpropagation()
         else:
             # the node has been visited before i.e. in previous rollouts
             actions = generate_moves(curr_state.board, curr_state.board._turn_color.opponent)
             for action in actions:
                 # make each action into a new TreeNode
-                child = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
+                child = Board(curr_state.board.red_cells.copy(), curr_state.board.blue_cells.copy(), 
+                              curr_state.board._turn_color, action, curr_state.board.turn_count)
                 child.apply_action(action)
 
                 child_node = TreeNode(child)
                 curr_state.add_child(child)
                 print(child_node.parent)        # for testing purposes
-
+            print("children added to tree")
             rand_child: TreeNode = random.choice(curr_state.children)
-            rand_child.wins = rollout(rand_child)
+            rand_child.wins = rollout(rand_child.board, self_colour)
             rand_child.backpropagation()
             
-    # return the direct child of roott with the most wins 
-    return max(root.children, key=lambda x: x.wins)
+    # return the direct child of root with the most wins 
+    final_node: TreeNode = max(root.children, key=lambda x: x.wins)
+    return final_node.board.last_piece
 
 
-def rollout(state: Board) -> int:
+def rollout(board: Board, self_colour: PlayerColor) -> int:
     '''
     while True:
         if state is a terminal state:
@@ -300,7 +319,23 @@ def rollout(state: Board) -> int:
         state = simulate(action, state) i.e. apply action, update state & look again
         # remember to flip player colours 
     '''
-
-    pass
+    temp_board = Board(board.red_cells.copy(), board.blue_cells.copy(), 
+                       board._turn_color, board.last_piece, board.turn_count)
+    while not temp_board.game_over:
+        actions = generate_moves(temp_board, temp_board._turn_color)
+        if len(actions) == 0:
+            print(temp_board.render())
+            print(temp_board.turn_count)
+            print(temp_board._turn_color)
+        action = random.choice(list(actions))
+        temp_board.apply_action(action)
+    
+    winner = temp_board.winner_color
+    if winner is None:
+        return GAME_NOT_WON
+    elif winner == self_colour:
+        return GAME_WON
+    else:
+        return GAME_NOT_WON
 
 

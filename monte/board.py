@@ -241,7 +241,7 @@ class Board:
             Coord(r, c)
             for r in range(BOARD_N)
             for c in range(BOARD_N)
-            if ((Coord(r, c) not in self.red_cells) or (Coord(r, c) not in self.blue_cells))
+            if ((Coord(r, c) not in self.red_cells) and (Coord(r, c) not in self.blue_cells))
         ]
 
         for cell in empty_coords:
@@ -253,6 +253,30 @@ class Board:
         # Tried all possible moves and none were legal.
         return True
     
+    @property
+    def winner_color(self) -> PlayerColor | None:
+        """
+        The player (color) who won the game, or None if no player has won.
+        """
+        if not self.game_over:
+            return None
+        
+        if self.turn_limit_reached:
+            # In this case the player with the most tokens wins, or if equal,
+            # the game ends in a draw.
+            red_count  = len(self.red_cells)
+            blue_count = len(self.blue_cells)
+            balance    = red_count - blue_count
+
+            if balance == 0:
+                return None
+            
+            return PlayerColor.RED if balance > 0 else PlayerColor.BLUE
+
+        else:
+            # Current player cannot place any more pieces. Opponent wins.
+            return self._turn_color.opponent
+
     @property
     def turn_limit_reached(self) -> bool:
         """

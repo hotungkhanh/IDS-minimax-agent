@@ -1,5 +1,5 @@
 from referee.game.constants import *
-from board import Board
+from .board import Board
 from math import log2
 
 UCB1_C = 2      # constant for balancing exploration & exploitation in UCB1
@@ -38,9 +38,9 @@ class TreeNode:
             return True
         return False
 
-    def add_child(self, node: 'TreeNode'):
-        node.parent = self
-        self.children.append(node)
+    def add_child(self, child: 'TreeNode'):
+        child.parent = self
+        self.children.append(child)
 
     @property
     def wins(self):
@@ -73,6 +73,6 @@ class TreeNode:
         '''
         curr_node = self
         while not curr_node.is_root():
-            curr_node.parent.wins += self.wins
+            curr_node.parent.wins += curr_node.wins
             curr_node.parent.times_visited += 1
             curr_node = curr_node.parent
