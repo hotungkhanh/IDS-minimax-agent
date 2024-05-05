@@ -10,6 +10,7 @@ from referee.game.player import PlayerColor
 from referee.game.actions import Action, PlaceAction
 from referee.game.exceptions import IllegalActionException
 from referee.game.constants import *
+from referee.game.pieces import *
 
 PIECE_N = 4
 
@@ -190,7 +191,7 @@ class Board:
 
         return piece_combinations
     
-    def generate_moves(self) -> PlaceAction:
+    def generate_all_moves(self) -> PlaceAction:
         '''
         Returns a list of boards with new valid moves that can be made 
         '''
@@ -203,53 +204,13 @@ class Board:
         else:
             my_cells = self.blue_cells
 
-        # if len(my_cells) == 0:
-        #     # if len(board.red_cells) == 0 and len(board.blue_cells) == 0:            
-        #     #     action = PlaceAction(
-        #     #             Coord(3, 3), 
-        #     #             Coord(3, 4), 
-        #     #             Coord(4, 3), 
-        #     #             Coord(4, 4)
-        #     #         )
-
-        #     #     # place piece on board
-        #     #     # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
-        #     #     # new_board.apply_action(action)
-        #     #     moves.add(action)
-        #     #     return moves
-            
-        #     empty_coords = [
-        #         Coord(r, c)
-        #         for r in range(BOARD_N)
-        #         for c in range(BOARD_N)
-        #         if ((Coord(r, c) not in board.red_cells) and (Coord(r, c) not in board.blue_cells))
-        #     ]
-        #     for cell in empty_coords:
-        #         piece_combinations = board.generate_piece_combinations(cell)
-
-        #         # code for random piece 
-        #         for piece in piece_combinations:
-        #             c1, c2, c3, c4 = piece
-        #             action = PlaceAction(c1, c2, c3, c4)
-
-        #             # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
-        #             # new_board.apply_action(action)
-        #             moves.add(action)
-
-        #     return moves
-
         if self.turn_count == 0:            
-            action = PlaceAction(
-                    Coord(3, 3), 
-                    Coord(3, 4), 
-                    Coord(4, 3), 
-                    Coord(4, 4)
-                )
+            for piece_type in PieceType:
+                piece_coords = set(create_piece(piece_type, Coord(0,0)).coords)
 
-            # place piece on board
-            # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
-            # new_board.apply_action(action)
-            moves.add(action)
+                action = (PlaceAction(*piece_coords))
+                moves.add(action)
+
             return moves
         
         elif self.turn_count == 1:
