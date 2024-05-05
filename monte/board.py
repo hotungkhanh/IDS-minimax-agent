@@ -12,6 +12,8 @@ from referee.game.exceptions import IllegalActionException
 from referee.game.constants import *
 from referee.game.pieces import *
 
+import random
+
 PIECE_N = 4
 
 class Board:
@@ -191,9 +193,9 @@ class Board:
 
         return piece_combinations
     
-    def generate_all_moves(self) -> PlaceAction:
+    def generate_all_moves(self) -> set[PlaceAction]:
         '''
-        Returns a list of boards with new valid moves that can be made 
+        Returns a set of valid moves that can be made 
         '''
         moves = set()          # needs to be a list of states here 
         # no piece of player colour on board
@@ -223,15 +225,12 @@ class Board:
                 Coord(r, c)
                 for r in range(BOARD_N)
                 for c in range(BOARD_N)
-                if ((Coord(r, c) not in self.red_cells) and (Coord(r, c) not in self.blue_cells))
+                if (Coord(r, c) not in opponent_cells)
             ]
 
-            
             stack = []
-            for r in range(BOARD_N):
-                for c in range(BOARD_N):
-                    current_coord = Coord(r,c)
-                    stack.append((current_coord, [current_coord]))
+            for current_coord in empty_coords:
+                stack.append((current_coord, [current_coord]))
 
             while stack:
                 current_coord, current_piece = stack.pop()
@@ -247,6 +246,65 @@ class Board:
                                             [adjacent_coord]))
                             for coord in current_piece:
                                 stack.append((coord, current_piece + [adjacent_coord]))
+
+            return moves
+
+        
+        # board has 1+ piece of player colour
+        # FOR TESTING PURPOSES: reduce randomness
+        else:
+            for cell in my_cells:
+                # if cell does not have empty neighbours
+                #   continue
+
+                piece_combinations = self.generate_piece_combinations(cell)
+
+                # code for all pieces
+                for piece in piece_combinations:
+                    c1, c2, c3, c4 = piece
+                    action = PlaceAction(c1, c2, c3, c4)
+
+                    # place piece on board
+                    # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
+                    # new_board.apply_action(action)
+                    moves.add(action)
+            return moves
+        
+    def generate_rand_move(self) -> PlaceAction:
+        '''
+        Returns a random move that can be made 
+        '''
+
+
+        if self._turn_color == PlayerColor.RED:
+            my_cells = self.red_cells
+        else:
+            my_cells = self.blue_cells
+        
+        if self.turn_count == 1:
+            if self._turn_color == PlayerColor.RED:
+                opponent_cells = self.blue_cells
+            else:
+                opponent_cells = self.red_cells
+            
+            empty_coords = [
+                Coord(r, c)
+                for r in range(BOARD_N)
+                for c in range(BOARD_N)
+                if (Coord(r, c) not in opponent_cells)
+            ]
+
+            current_coord = random.choice(empty_coords)
+            current_piece = [current_coord]
+
+            for i in range(3):
+                adjacent_coord = random.choice(self.adjacent(current_coord))
+                # check if adj coord is empty and not already in curr piece
+                if (adjacent_coord not in opponent_cells):
+                    stack.append((adjacent_coord, current_piece + 
+                                    [adjacent_coord]))
+                    for coord in current_piece:
+                        stack.append((coord, current_piece + [adjacent_coord]))
 
             return moves
 
@@ -317,7 +375,9 @@ class Board:
         if self.turn_limit_reached:
             return True
         
-
+        if self.turn_count in (0,1):
+            return False
+        
         if self._turn_color == PlayerColor.RED:
             my_cells = self.red_cells
         else:
