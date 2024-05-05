@@ -13,16 +13,16 @@ class TreeNode:
     def __init__(
         self,
         board: Board = Board(),
-        score: int = 0,
+        parent: Board = None,
+        children: list[Board] = None,
+        wins: int = 0,
         times_visited: int = 0,
-        children = None,
-        parent = None,
     ):
         self.board = board
-        self._score = score
-        self._times_visited = times_visited
-        self.children = []
         self.parent = parent
+        self.children = []
+        self._wins = wins
+        self._times_visited = times_visited
 
         if children is not None:
             for child in children:
@@ -43,15 +43,15 @@ class TreeNode:
         self.children.append(node)
 
     @property
-    def score(self):
+    def wins(self):
         '''
-        getter for score (used in UCB1)
+        getter for wins (used in UCB1)
         '''
-        return self._score
+        return self._wins
     
-    @score.setter
-    def score(self, value):
-        self._score = value
+    @wins.setter
+    def wins(self, value):
+        self._wins = value
 
     @property
     def times_visited(self):
@@ -62,7 +62,14 @@ class TreeNode:
         self._times_visited = value
 
     def UCB1(self):
+        '''
+        Calculate UCB1 value for this node
+        '''
         return 
 
     def backpropagation(self):
+        '''
+        After reaching terminal state, back propagate the values up to root
+        '''
+
         pass

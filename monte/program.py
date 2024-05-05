@@ -5,7 +5,9 @@ from referee.game import PlayerColor, Action, PlaceAction, coord
 from referee.game.pieces import *
 from .board import Board
 from referee.game.exceptions import IllegalActionException
+from .tree import TreeNode
 import random, math, copy
+import datetime
 
 class Agent:
     """
@@ -225,28 +227,60 @@ def eval(board: Board):
     return red_count - blue_count
 
 # Monte Carlo Implementation below ---------------------------------------------
-def monte_carlo(root: Board):
+def monte_carlo(board: Board):
     '''
+    https://www.youtube.com/watch?v=UXW2yZndl7U
     curr state = initial state
-    while curr state is not a leaf node:
-        curr state = child of curr state with max UCB1 value
-    if curr state (i.e. a leaf node) has times_visited = 0 then:
-        rollout curr state
-    else:
-        for each action from currr state:
-            add new state to tree (children of curr state)
-        curr state = first new child node
-        rollout curr state
+    while time remaining:
+        # selection
+        while curr state is not a leaf node:
+            curr state = child of curr state with max UCB1 value
+        if curr state (i.e. a leaf node) has times_visited = 0 then:
+            (this means node has NOT been sampled before)
+            rollout curr state
+        else:
+            (this means the node HAS BEEN sampled in previous rounds)
+            # expansion
+            for each action from curr state:
+                add new state to tree (children of curr state)
+            curr state = first new child node
+            rollout curr state
+        backpropagate result at currstate to root
     '''
-    pass
 
-def rollout(board: Board) -> int:
+    # current state = initial state of baord
+    curr_state = TreeNode(board)
+    
+    sec_to_run = 5
+    fin_time = datetime.datetime.now() + datetime.timedelta(sec_to_run)
+
+    while True:
+        # keep within time limit
+        if datetime.datetime.now() >= fin_time:
+            break
+        while not curr_state.is_leaf():
+            # calculate UCB1 value of all children LATER, don't worry about it now
+            # max_UCB1 = max(child.UCB1() for child in curr_state.children)
+
+            # just pick random child for now
+            curr_state = random.choice([child for child in curr_state.children])
+        if curr_state._times_visited == 0:
+            rollout(curr_state) 
+        else:
+            # the node has been visited before i.e. in a rollout
+            children = generate_moves()
+        pass
+
+
+
+
+def rollout(state: Board) -> int:
     '''
     while True:
-        if board is a terminal state:
-            return win percentage of board
+        if state is a terminal state:
+            return win percentage of state
         action = choose random action out of all possible actions
-        board = simulate(action, board) i.e. apply action, update board & look again
+        state = simulate(action, state) i.e. apply action, update state & look again
         # remember to flip player colours 
     '''
     pass
