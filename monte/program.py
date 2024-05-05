@@ -227,7 +227,7 @@ def eval(board: Board):
     return red_count - blue_count
 
 # Monte Carlo Implementation below ---------------------------------------------
-def monte_carlo(board: Board):
+def monte_carlo(board: Board) -> PlaceAction:
     '''
     https://www.youtube.com/watch?v=UXW2yZndl7U
     curr state = initial state
@@ -249,7 +249,8 @@ def monte_carlo(board: Board):
     '''
 
     # current state = initial state of baord
-    curr_state = TreeNode(board)
+    root = TreeNode(board)
+    curr_state = root
     
     sec_to_run = 5
     fin_time = datetime.datetime.now() + datetime.timedelta(sec_to_run)
@@ -258,6 +259,8 @@ def monte_carlo(board: Board):
         # keep within time limit
         if datetime.datetime.now() >= fin_time:
             break
+
+        # find leaf node
         while not curr_state.is_leaf():
             # calculate UCB1 value of all children LATER, don't worry about it now
             # max_UCB1 = max(child.UCB1() for child in curr_state.children)
@@ -265,13 +268,27 @@ def monte_carlo(board: Board):
             # just pick random child for now
             curr_state = random.choice([child for child in curr_state.children])
         if curr_state._times_visited == 0:
-            rollout(curr_state) 
+            # the node has NOT been visited before in previous rollouts 
+            curr_state.wins = rollout(curr_state) 
+            curr_state.backpropagation()
         else:
-            # the node has been visited before i.e. in a rollout
-            children = generate_moves()
-        pass
+            # the node has been visited before i.e. in previous rollouts
+            actions = generate_moves(curr_state.board, curr_state.board._turn_color.opponent)
+            for action in actions:
+                # make each action into a new TreeNode
+                child = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
+                child.apply_action(action)
 
+                child_node = TreeNode(child)
+                curr_state.add_child(child)
+                print(child_node.parent)        # for testing purposes
 
+            rand_child: TreeNode = random.choice(curr_state.children)
+            rand_child.wins = rollout(rand_child)
+            rand_child.backpropagation()
+            
+    # return the direct child of roott with the most wins 
+    return max(root.children, key=lambda x: x.wins)
 
 
 def rollout(state: Board) -> int:
@@ -283,6 +300,7 @@ def rollout(state: Board) -> int:
         state = simulate(action, state) i.e. apply action, update state & look again
         # remember to flip player colours 
     '''
+
     pass
 
 
