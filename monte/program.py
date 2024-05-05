@@ -305,7 +305,7 @@ def monte_carlo(board: Board, self_colour: PlayerColor) -> PlaceAction:
     counter = 0
     # generate initial state i.e. root node + all its children
     root = TreeNode(board)
-    actions = board.generate_moves()
+    actions = board.generate_all_moves()
     for action in actions:
         # make each action into a new TreeNode
         child = Board(board.red_cells.copy(), board.blue_cells.copy(), 
@@ -342,7 +342,7 @@ def monte_carlo(board: Board, self_colour: PlayerColor) -> PlaceAction:
             # print("counter at if curr_state._times_visited == 0: ", counter)
         else:
             # the node has been visited before i.e. in previous rollouts
-            actions = curr_state.board.generate_moves()
+            actions = curr_state.board.generate_all_moves()
             for action in actions:
                 # make each action into a new TreeNode
                 child = Board(curr_state.board.red_cells.copy(), curr_state.board.blue_cells.copy(), 
@@ -379,7 +379,7 @@ def rollout(board: Board, self_colour: PlayerColor) -> int:
     while not temp_board.game_over:
         # print("rollout while entered")
         # print("turncount = ", temp_board.turn_count, " turncolor = ", temp_board._turn_color)
-        actions = temp_board.generate_moves()
+        actions = temp_board.generate_all_moves()
         # print(temp_board.render())
         # print(temp_board.turn_count)
         # print(temp_board._turn_color)
