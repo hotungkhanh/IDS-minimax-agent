@@ -71,126 +71,6 @@ class Agent:
         # to update your agent's internal game state representation.
         print(f"Testing: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
 
-    
-# def generate_moves(board: Board, color: PlayerColor) -> PlaceAction:
-#     '''
-#     Returns a list of boards with new valid moves that can be made 
-#     '''
-#     moves = set()          # needs to be a list of states here 
-#     # no piece of player colour on board
-#     # FOR TESTING PURPOSES: remove randomness of first step
-
-#     if color == PlayerColor.RED:
-#         my_cells = board.red_cells
-#     else:
-#         my_cells = board.blue_cells
-
-#     # if len(my_cells) == 0:
-#     #     # if len(board.red_cells) == 0 and len(board.blue_cells) == 0:            
-#     #     #     action = PlaceAction(
-#     #     #             Coord(3, 3), 
-#     #     #             Coord(3, 4), 
-#     #     #             Coord(4, 3), 
-#     #     #             Coord(4, 4)
-#     #     #         )
-
-#     #     #     # place piece on board
-#     #     #     # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
-#     #     #     # new_board.apply_action(action)
-#     #     #     moves.add(action)
-#     #     #     return moves
-        
-#     #     empty_coords = [
-#     #         Coord(r, c)
-#     #         for r in range(BOARD_N)
-#     #         for c in range(BOARD_N)
-#     #         if ((Coord(r, c) not in board.red_cells) and (Coord(r, c) not in board.blue_cells))
-#     #     ]
-#     #     for cell in empty_coords:
-#     #         piece_combinations = board.generate_piece_combinations(cell)
-
-#     #         # code for random piece 
-#     #         for piece in piece_combinations:
-#     #             c1, c2, c3, c4 = piece
-#     #             action = PlaceAction(c1, c2, c3, c4)
-
-#     #             # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
-#     #             # new_board.apply_action(action)
-#     #             moves.add(action)
-
-#     #     return moves
-
-#     if board.turn_count == 0:            
-#         action = PlaceAction(
-#                 Coord(3, 3), 
-#                 Coord(3, 4), 
-#                 Coord(4, 3), 
-#                 Coord(4, 4)
-#             )
-
-#         # place piece on board
-#         # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
-#         # new_board.apply_action(action)
-#         moves.add(action)
-#         return moves
-    
-#     elif board.turn_count == 1:
-#         if board._turn_color == PlayerColor.RED:
-#             opponent_cells = board.blue_cells
-#         else:
-#             opponent_cells = board.red_cells
-        
-#         empty_coords = [
-#             Coord(r, c)
-#             for r in range(BOARD_N)
-#             for c in range(BOARD_N)
-#             if ((Coord(r, c) not in board.red_cells) and (Coord(r, c) not in board.blue_cells))
-#         ]
-
-        
-#         stack = []
-#         for r in range(BOARD_N):
-#             for c in range(BOARD_N):
-#                 current_coord = Coord(r,c)
-#                 stack.append((current_coord, [current_coord]))
-
-#         while stack:
-#             current_coord, current_piece = stack.pop()
-#             if len(current_piece) == 4:
-#                 c1, c2, c3, c4 = current_piece
-#                 action = PlaceAction(c1, c2, c3, c4)
-#                 moves.add(action)
-#             else:
-#                 for adjacent_coord in board.adjacent(current_coord):
-#                     # check if adj coord is empty and not already in curr piece
-#                     if (adjacent_coord not in opponent_cells):
-#                         stack.append((adjacent_coord, current_piece + 
-#                                         [adjacent_coord]))
-#                         for coord in current_piece:
-#                             stack.append((coord, current_piece + [adjacent_coord]))
-
-#         return moves
-
-    
-#     # board has 1+ piece of player colour
-#     # FOR TESTING PURPOSES: reduce randomness
-#     else:
-#         for cell in my_cells:
-#             # if cell does not have empty neighbours
-#             #   continue
-
-#             piece_combinations = board.generate_piece_combinations(cell)
-
-#             # code for all pieces
-#             for piece in piece_combinations:
-#                 c1, c2, c3, c4 = piece
-#                 action = PlaceAction(c1, c2, c3, c4)
-
-#                 # place piece on board
-#                 # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
-#                 # new_board.apply_action(action)
-#                 moves.add(action)
-#         return moves
 
 def empty_neighbours(board: Board, coord: Coord) -> list[Coord]:
     neighbours = [coord.down(), coord.up(), coord.left(), coord.right()]
@@ -316,7 +196,7 @@ def monte_carlo(board: Board, self_colour: PlayerColor) -> PlaceAction:
         root.add_child(child_node)
 
 
-    sec_to_run = 10
+    sec_to_run = 5
     fin_time = datetime.now() + timedelta(seconds=sec_to_run)
     while True:
         # keep within time limit
@@ -332,7 +212,7 @@ def monte_carlo(board: Board, self_colour: PlayerColor) -> PlaceAction:
             # just pick random child for now
 
             curr_state = random.choice([child for child in curr_state.children])
-            print(curr_state.board.render())
+            # print(curr_state.board.render())
 
         if curr_state._times_visited == 0:
             # the node has NOT been visited before in previous rollouts 
@@ -379,12 +259,11 @@ def rollout(board: Board, self_colour: PlayerColor) -> int:
     while not temp_board.game_over:
         # print("rollout while entered")
         # print("turncount = ", temp_board.turn_count, " turncolor = ", temp_board._turn_color)
-        actions = temp_board.generate_all_moves()
         # print(temp_board.render())
         # print(temp_board.turn_count)
         # print(temp_board._turn_color)
 
-        action = random.choice(list(actions))
+        action = temp_board.generate_rand_move()
         temp_board.apply_action(action)
     
     winner = temp_board.winner_color
