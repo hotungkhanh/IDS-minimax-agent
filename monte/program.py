@@ -9,6 +9,8 @@ from .tree import TreeNode
 import random, math, copy
 from datetime import datetime, timedelta
 
+import cProfile
+
 GAME_WON = 1
 GAME_NOT_WON = 0
 
@@ -106,6 +108,7 @@ def monte_carlo(board: Board, self_colour: PlayerColor) -> PlaceAction:
     # generate initial state i.e. root node + all its children
     root = TreeNode(board)
     actions = board.generate_all_moves()
+    # cProfile.Profile.runctx("actions = board.generate_all_moves()", globals(), locals())
     for action in actions:
         # make each action into a new TreeNode
         child = Board(board.red_cells.copy(), board.blue_cells.copy(), 
