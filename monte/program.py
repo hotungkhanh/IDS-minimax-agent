@@ -81,86 +81,6 @@ def empty_neighbours(board: Board, coord: Coord) -> list[Coord]:
     
     return output
 
-def minimax(board: Board, depth: int, color: PlayerColor) -> tuple[int, Board]:
-    ''' 
-    recursive pseudocode:
-
-    if depth == 0 or game over in state then:
-        return static eval of state
-
-    if maximisingPlayer then:
-        maxEval = -infinity
-        for each child of state:
-            eval = minimax(child, depth - 1, false)
-            maxEval = max(maxEval, eval)
-        return maxEval
-    else:
-        minEval = +infinity
-        for each child of state:
-            eval = minimax(child, depth - 1, true)
-            minEval = min(minEval, eval)
-        return minEval
-    '''  
-
-    if depth == 0 or board.game_over:
-        return (eval(board), None)
-    if color == PlayerColor.RED:
-        best_child = None
-        maxEval = -(math.inf)
-        children = generate_moves(board, color)
-        for child in children:
-            val = minimax(child, depth - 1, PlayerColor.BLUE)
-            if val[0] > maxEval:
-                maxEval = val[0]
-                best_child = child
-        return (maxEval, best_child)
-    else:
-        best_child = None
-        minEval = math.inf
-        children = generate_moves(board, color)
-        for child in children:
-            val = minimax(child, depth - 1, PlayerColor.RED)
-            if val[0] < minEval:
-                minEval = val[0]
-                best_child = child
-        return (minEval, best_child)
-    
-def minimax_ab(board: Board, depth: int, alpha, beta, color: PlayerColor) -> tuple[int, Board]:
-
-    if depth == 0 or board.game_over:
-        return (eval(board), None)
-    if color == PlayerColor.RED:
-        best_child = None
-        maxEval = -(math.inf)
-        children = generate_moves(board, color)
-        for child in children:
-            val = minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
-            if val[0] > maxEval:
-                maxEval = val[0]
-                best_child = child
-            alpha = max(alpha, val[0])
-            if beta <= alpha:
-                break
-        return (maxEval, best_child)
-    else:
-        best_child = None
-        minEval = math.inf
-        children = generate_moves(board, color)
-        for child in children:
-            val = minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
-            if val[0] < minEval:
-                minEval = val[0]
-                best_child = child
-            beta = min(minEval, val[0])
-            if beta <= alpha:
-                break
-        return (minEval, best_child)
-
-def eval(board: Board):
-    blue_count = len(board.blue_cells)
-    red_count = len(board.red_cells)
-    return red_count - blue_count
-
 # Monte Carlo Implementation below ---------------------------------------------
 def monte_carlo(board: Board, self_colour: PlayerColor) -> PlaceAction:
     '''
@@ -194,35 +114,36 @@ def monte_carlo(board: Board, self_colour: PlayerColor) -> PlaceAction:
 
         child_node = TreeNode(child)
         root.add_child(child_node)
-
+    # correctly adding children & their parent (root)
 
     sec_to_run = 5
     fin_time = datetime.now() + timedelta(seconds=sec_to_run)
-    while True:
-        # keep within time limit
-        if datetime.now() >= fin_time:
-            break
-
+    while datetime.now() < fin_time:
         # find leaf node
-        curr_state = root
+        curr_state: TreeNode = root
         while not curr_state.is_leaf():
-            # calculate UCB1 value of all children LATER, don't worry about it now
-            # max_UCB1 = max(child.UCB1() for child in curr_state.children)
-
-            # just pick random child for now
-
-            curr_state = random.choice([child for child in curr_state.children])
+            # calculate UCB1 value of all children
+            curr_state = max(curr_state.children, key=lambda x: x.UCB1())
+            # print(type(curr_state))
             # print(curr_state.board.render())
 
-        if curr_state._times_visited == 0:
+            # just pick random child for now
+            # curr_state = random.choice([child for child in curr_state.children])
+            # print(curr_state.board.render())
+        if curr_state.times_visited == 0:
             # the node has NOT been visited before in previous rollouts 
             curr_state.wins = rollout(curr_state.board, self_colour) 
+            curr_state.times_visited += 1
             curr_state.backpropagation()
+            # print("times visited:", curr_state.times_visited)
             counter += 1
             # print("counter at if curr_state._times_visited == 0: ", counter)
         else:
             # the node has been visited before i.e. in previous rollouts
             actions = curr_state.board.generate_all_moves()
+            if len(actions) == 0:
+                # debugging here: runs if curr state is a terminal state?
+                continue
             for action in actions:
                 # make each action into a new TreeNode
                 child = Board(curr_state.board.red_cells.copy(), curr_state.board.blue_cells.copy(), 
@@ -232,16 +153,20 @@ def monte_carlo(board: Board, self_colour: PlayerColor) -> PlaceAction:
                 child_node = TreeNode(child)
                 curr_state.add_child(child_node)
                 # print(child_node.parent)        # for testing purposes
-
-            rand_child: TreeNode = random.choice(curr_state.children)
-            rand_child.wins = rollout(rand_child.board, self_colour)
-            rand_child.backpropagation()
-            counter += 1
-            print("counter at else :", counter)
+            try:
+                rand_child: TreeNode = random.choice(curr_state.children)
+                rand_child.wins = rollout(rand_child.board, self_colour)
+                rand_child.times_visited += 1
+                rand_child.backpropagation()
+                counter += 1
+            except:
+                print(curr_state.board.render())
+                print("children: ", curr_state.children)
+            # print("counter at else :", counter)
             
     # return the direct child of root with the most wins 
     final_node: TreeNode = max(root.children, key=lambda x: x.wins)
-    print("counter at final_node:", counter)
+    print("rollout counter at final_node:", counter)
     return final_node.board.last_piece
 
 
