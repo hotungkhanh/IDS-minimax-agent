@@ -64,7 +64,6 @@ class Board:
             for cell in action.coords:
                 self.blue_cells.add(cell)
 
-        # TODO: perform line removal if required (new function)
         self.last_piece = action
         self.line_removal()
         

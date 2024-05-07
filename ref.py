@@ -26,19 +26,32 @@ def play():
     prof = cProfile.Profile()
     prof.enable()
     
-    while game_board.turn_count < MAX_TURNS - 140:
+    while game_board.turn_count < MAX_TURNS:
         print()
         print(game_board._turn_color, "playing turn", game_board.turn_count + 1)
 
-        action = players[game_board._turn_color].action()
+        action: PlaceAction = players[game_board._turn_color].action()
+        turn_colour: PlayerColor = game_board._turn_color
+        print("variable turn_colour:", turn_colour)
+        print("RED and BLUE board before applying action")
+        # print(agent1.board.render())
+        # print(agent2.board.render())
 
         try:
             game_board.apply_action(action)
+            print("game board turn colour:", game_board._turn_color)
             print(game_board.render())
-            agent1.update(game_board._turn_color, action)
-            agent2.update(game_board._turn_color, action)
+            print("RED and BLUE board after applying action")
+            agent1.board.apply_action(action)
+            print(agent1.board.render())
+            agent2.board.apply_action(action)
+            print(agent2.board.render())
         except:
             print("something bad happened :( OR game is over)")
+            print("player 1 board:")
+            print(agent1.board.render())
+            print("player 2 board:")
+            print(agent2.board.render())
             break
 
     prof.disable()
