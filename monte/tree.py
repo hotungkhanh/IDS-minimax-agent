@@ -1,6 +1,6 @@
 from referee.game.constants import *
 from .board import Board
-from math import log, sqrt
+import math
 
 UCB1_C = 1      # constant for balancing exploration & exploitation in UCB1
 
@@ -67,17 +67,17 @@ class TreeNode:
         '''
         try:
             ucb1 = ((self.wins/self.times_visited) + 
-                    UCB1_C*sqrt(log(self.parent.times_visited)/self.times_visited))
+                    UCB1_C*math.sqrt(math.log(self.parent.times_visited)/self.times_visited))
         except ZeroDivisionError:
-            return 0
-            
+            return math.inf
+        # print("wins, visited, ucb1:", self.wins, self.times_visited, ucb1)
         return ucb1
 
     def backpropagation(self):
         '''
         After rollout, back propagate the values up to root
         '''
-        # self._times_visited += 1
+        self._times_visited += 1
         curr_node = self
         while not curr_node.is_root():
             curr_node.parent._times_visited += 1

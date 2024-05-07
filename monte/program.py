@@ -122,26 +122,30 @@ def monte_carlo(board: Board, self_colour: PlayerColor) -> PlaceAction:
     sec_to_run = 5
     fin_time = datetime.now() + timedelta(seconds=sec_to_run)
     while datetime.now() < fin_time:
-        # find leaf node
+        print("NEW ITERATION -------------------------------------------------")
         curr_state: TreeNode = root
+        # find leaf node
         while not curr_state.is_leaf():
             # calculate UCB1 value of all children
-            curr_state = max(curr_state.children, key=lambda x: x.UCB1())
-            # print(type(curr_state))
+            max_ucb1 = max([child.UCB1() for child in curr_state.children])
+            print(max_ucb1)
+            curr_state = random.choice([child for child in curr_state.children if child.UCB1() == max_ucb1])
+            # curr_state = max(curr_state.children, key=lambda x: x.UCB1())
+            # print("curr state board:")
             # print(curr_state.board.render())
 
             # just pick random child for now
             # curr_state = random.choice([child for child in curr_state.children])
-            # print(curr_state.board.render())
+        # print("curr state is now a leaf --------------------------------------")
         if curr_state.times_visited == 0:
+            print("curr state has never been visited before, times visited = 0")
             # the node has NOT been visited before in previous rollouts 
             curr_state.wins = rollout(curr_state.board, self_colour) 
-            curr_state.times_visited += 1
             curr_state.backpropagation()
-            # print("times visited:", curr_state.times_visited)
             counter += 1
             # print("counter at if curr_state._times_visited == 0: ", counter)
         else:
+            print("curr state has times visited > 0")
             # the node has been visited before i.e. in previous rollouts
             actions = curr_state.board.generate_all_moves()
             if len(actions) == 0:
@@ -159,8 +163,9 @@ def monte_carlo(board: Board, self_colour: PlayerColor) -> PlaceAction:
             try:
                 rand_child: TreeNode = random.choice(curr_state.children)
                 rand_child.wins = rollout(rand_child.board, self_colour)
-                rand_child.times_visited += 1
                 rand_child.backpropagation()
+                # print(rand_child.board.render())
+                # print("times visited in else:", curr_state.times_visited)
                 counter += 1
             except:
                 print(curr_state.board.render())
