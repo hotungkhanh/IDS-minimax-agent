@@ -42,9 +42,9 @@ def play():
             print("game board turn colour:", game_board._turn_color)
             print(game_board.render())
             print("RED and BLUE board after applying action")
-            agent1.board.apply_action(action)
+            agent1.update(action)
             print(agent1.board.render())
-            agent2.board.apply_action(action)
+            agent2.update(action)
             print(agent2.board.render())
         except:
             print("something bad happened :( OR game is over)")
