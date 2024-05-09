@@ -36,8 +36,8 @@ class Agent:
         """
         # print("board in action()")
         # print(self.board.render(True, True))
-        print("done")
-        eval, child = minimax_ab(self.board, 2, -(math.inf), math.inf, True)
+
+        eval, child = minimax_ab(self.board, 2, -(math.inf), math.inf, self._color)
         # action should never be None
         action = child.last_piece    
 
@@ -80,7 +80,8 @@ def empty_neighbours(board: Board, coord: Coord) -> list[Coord]:
 def minimax_ab(board: Board, depth: int, alpha, beta, colour: PlayerColor) -> tuple[int, Board]:
     # print("in minimax")
     if depth == 0 or board.game_over:
-        # print('base case reached')
+        print(board.render())
+        print("eval =", eval(board))
         return (eval(board), None)
     
     if colour == PlayerColor.RED:
@@ -119,17 +120,15 @@ def minimax_ab(board: Board, depth: int, alpha, beta, colour: PlayerColor) -> tu
 
 
 def eval(board: Board):
+    if board.winner_color == PlayerColor.RED:
+        return math.inf
+    if board.winner_color == PlayerColor.BLUE:
+        return -math.inf
+
     # print("evaling")
     blue_count = len(board.blue_cells)
     red_count = len(board.red_cells)
-    # if board._turn_color == PlayerColor.RED:
-    #     my_cells = board.red_cells
-    #     opponent_cells = board.blue_cells
-    # else:
-    #     my_cells = board.blue_cells
-    #     opponent_cells = board.red_cells
 
-    # line_with_many_cells = 0
     red_score = 0
     blue_score = 0
     for r in range(BOARD_N):

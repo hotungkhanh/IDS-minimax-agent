@@ -35,7 +35,7 @@ class Board:
         self.blue_cells = blue_cells
 
         self.last_piece = piece
-        self._turn_color: PlayerColor = initial_player
+        self.turn_color: PlayerColor = initial_player
 
         self.turn_count = turn_count
 
@@ -47,7 +47,7 @@ class Board:
 
     @property
     def hashable_value(self):
-        return (frozenset(self.red_cells), frozenset(self.blue_cells))
+        return (frozenset(self.red_cells), frozenset(self.blue_cells), self.turn_color)
 
     def apply_action(self, action: Action):
         # used to return BoardMutation
@@ -57,7 +57,7 @@ class Board:
         """
         
         # add action to board 
-        if self._turn_color == PlayerColor.RED:
+        if self.turn_color == PlayerColor.RED:
             for cell in action.coords:
                 self.red_cells.add(cell)
         else:
@@ -67,7 +67,7 @@ class Board:
         self.last_piece = action
         self.line_removal()
         
-        self._turn_color = self._turn_color.opponent
+        self.turn_color = self.turn_color.opponent
 
         self.turn_count += 1
 
@@ -202,7 +202,7 @@ class Board:
         '''
         children = set()
 
-        if self._turn_color == PlayerColor.RED:
+        if self.turn_color == PlayerColor.RED:
             my_cells = self.red_cells
             opponent_cells = self.blue_cells
         else:
@@ -216,7 +216,7 @@ class Board:
                 piece_coords = set(create_piece(piece_type, Coord(0,0)).coords)
 
                 action = (PlaceAction(*piece_coords))
-                child = Board(self.red_cells.copy(), self.blue_cells.copy(), self._turn_color, action, self.turn_count)
+                child = Board(self.red_cells.copy(), self.blue_cells.copy(), self.turn_color, action, self.turn_count)
                 child.apply_action(action)
                 children.add(child)
 
@@ -248,7 +248,7 @@ class Board:
                 piece_found = True
 
                 action = (PlaceAction(*new_piece))
-                child = Board(self.red_cells.copy(), self.blue_cells.copy(), self._turn_color, action, self.turn_count)
+                child = Board(self.red_cells.copy(), self.blue_cells.copy(), self.turn_color, action, self.turn_count)
                 child.apply_action(action)
                 children.add(child)
 
@@ -293,7 +293,7 @@ class Board:
                     c1, c2, c3, c4 = piece
                     action = PlaceAction(c1, c2, c3, c4)
 
-                    child = Board(self.red_cells.copy(), self.blue_cells.copy(), self._turn_color, action, self.turn_count)
+                    child = Board(self.red_cells.copy(), self.blue_cells.copy(), self.turn_color, action, self.turn_count)
                     child.apply_action(action)
                     children.add(child)
             return children
@@ -350,7 +350,7 @@ class Board:
         if self.turn_count in (0,1):
             return False
         
-        if self._turn_color == PlayerColor.RED:
+        if self.turn_color == PlayerColor.RED:
             my_cells = self.red_cells
         else:
             my_cells = self.blue_cells
@@ -386,7 +386,7 @@ class Board:
 
         else:
             # Current player cannot place any more pieces. Opponent wins.
-            return self._turn_color.opponent
+            return self.turn_color.opponent
 
     @property
     def turn_limit_reached(self) -> bool:
