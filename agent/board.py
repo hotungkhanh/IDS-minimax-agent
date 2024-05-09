@@ -11,6 +11,7 @@ from referee.game.actions import Action, PlaceAction
 from referee.game.exceptions import IllegalActionException
 from referee.game.constants import *
 from referee.game.pieces import *
+from copy import copy
 
 import random
 
@@ -40,14 +41,17 @@ class Board:
         self.turn_count = turn_count
 
     def __eq__(self, other: 'Board'):
-        return self.hashable_value == other.hashable_value
+        return self.__hash__() == other.__hash__()
 
     def __hash__(self):
-        return hash(self.hashable_value)
+        return hash((frozenset(self.red_cells), frozenset(self.blue_cells), self.turn_color))
 
-    @property
-    def hashable_value(self):
-        return (frozenset(self.red_cells), frozenset(self.blue_cells), self.turn_color)
+    def __copy__(self) -> 'Board':
+        return Board(self.red_cells.copy(), self.blue_cells.copy(), self.turn_color, self.last_piece, self.turn_count)
+    
+    # @property
+    # def hashable_value(self):
+    #     return (frozenset(self.red_cells), frozenset(self.blue_cells), self.turn_color)
 
     def apply_action(self, action: Action):
         # used to return BoardMutation
