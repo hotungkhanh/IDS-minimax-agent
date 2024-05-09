@@ -251,7 +251,7 @@ class Board:
                 child = Board(self.red_cells.copy(), self.blue_cells.copy(), self._turn_color, action, self.turn_count)
                 child.apply_action(action)
                 children.add(child)
-                
+
             # children should only have 1 child in it - reduces unnecessary computation time at start
             return children
 
@@ -276,7 +276,7 @@ class Board:
             #                 for coord in current_piece:
             #                     stack.append((coord, current_piece + [adjacent_coord]))
 
-            return children
+            # return children
 
         
         # board has 1+ piece of player colour
