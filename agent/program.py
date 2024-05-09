@@ -4,7 +4,6 @@
 from referee.game import PlayerColor, Action, PlaceAction, coord
 from referee.game.pieces import *
 from .part_a.utils import render_board
-from .helpers import test
 from .board import Board
 from referee.game.exceptions import IllegalActionException
 import random, math, copy
@@ -79,8 +78,9 @@ def empty_neighbours(board: Board, coord: Coord) -> list[Coord]:
     return output
 
 def minimax_ab(board: Board, depth: int, alpha, beta, maximising: bool) -> tuple[int, Board]:
-
+    # print("in minimax")
     if depth == 0 or board.game_over:
+        # print('base case reached')
         return (eval(board), None)
     
     if maximising:
