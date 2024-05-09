@@ -8,6 +8,8 @@ from .board import Board
 from referee.game.exceptions import IllegalActionException
 import random, math, copy
 
+dictcount = 0
+
 class Agent:
     """
     This class is the "entry point" for your agent, providing an interface to
@@ -28,6 +30,7 @@ class Agent:
         
         # initialise internal rep of board
         self.board: Board = Board()
+        self.children_dict: dict[int, set[Board]] = {}
 
     def action(self, **referee: dict) -> Action:
         """
@@ -37,9 +40,19 @@ class Agent:
         # print("board in action()")
         # print(self.board.render(True, True))
 
-        eval, child = minimax_ab(self.board, 1, -(math.inf), math.inf, self._color)
-        # action should never be None
-        action = child.last_piece    
+        if self.board.turn_count == 0:
+            action = PlaceAction(
+                    Coord(3, 3), 
+                    Coord(3, 4), 
+                    Coord(4, 3), 
+                    Coord(4, 4)
+                )
+        else:
+            eval, child = self.minimax_ab(self.board, 3, -(math.inf), math.inf, self._color)
+            # action should never be None
+            action = child.last_piece
+            print("dict size =", len(self.children_dict))   
+            print("dict count =", dictcount)
 
         match self._color:
             case PlayerColor.RED:
@@ -67,58 +80,81 @@ class Agent:
         # to update your agent's internal game state representation.
         print(f"Testing: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
 
+    def minimax_ab(self, board: Board, depth: int, alpha, beta, colour: PlayerColor) -> tuple[int, Board]:
+        # print("in minimax")
+        if depth == 0 or board.game_over:
+            # print(board.render())
+            # print("^^turn colour =", board.turn_color)
+            # print("^^eval =", eval(board))
+            # print(" ")
+            return (eval(board), None)
+        
+        if colour == PlayerColor.RED:
+            best_child = None
+            maxEval = -(math.inf)
 
-def empty_neighbours(board: Board, coord: Coord) -> list[Coord]:
-    neighbours = [coord.down(), coord.up(), coord.left(), coord.right()]
-    output = []
-    for neighbour in neighbours:
-        if (neighbour not in board.blue_cells) and (neighbour not in board.red_cells):
-            output.append(neighbour)
-    
-    return output
+            print(board.render())
+            print("hash(board) =", hash(board))
 
-def minimax_ab(board: Board, depth: int, alpha, beta, colour: PlayerColor) -> tuple[int, Board]:
-    # print("in minimax")
-    if depth == 0 or board.game_over:
-        # print(board.render())
-        # print("^^turn colour =", board.turn_color)
-        # print("^^eval =", eval(board))
-        # print(" ")
-        return (eval(board), None)
-    
-    if colour == PlayerColor.RED:
-        best_child = None
-        maxEval = -(math.inf)
+            # check if board has been generated in previous turns 
+            if hash(board) in self.children_dict:
+                print("children = self.children_dict[board]")
+                children = self.children_dict[hash(board)]
+                dictcount += 1
 
-        children = board.generate_all_children()
-        # print("all children generated")
-        for child in children:
-            val = minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
-            # print("here:", val)
-            if val[0] >= maxEval:
-                maxEval = val[0]
-                best_child = child
-            alpha = max(alpha, val[0])
-            if beta <= alpha:
-                break
+                for child in children:
+                    print("child:")
+                    print(child.render())
+                    break
+            else:
+                print("children = board.generate_all_children()")
+                children = board.generate_all_children()
+                
+                self.children_dict[hash(board)] = children
 
-        return (maxEval, best_child)
-    
-    else:
-        best_child = None
-        minEval = math.inf
-        children = board.generate_all_children()
+            for child in children:
+                val = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
+                # print("here:", val)
+                if val[0] >= maxEval:
+                    maxEval = val[0]
+                    best_child = child
+                alpha = max(alpha, val[0])
+                if beta <= alpha:
+                    break
 
-        for child in children:
-            val = minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
-            if val[0] <= minEval:
-                minEval = val[0]
-                best_child = child
-            beta = min(beta, val[0])
-            if beta <= alpha:
-                break
+            return (maxEval, best_child)
+        
+        else:
+            best_child = None
+            minEval = math.inf
 
-        return (minEval, best_child)
+            print(board.render())
+            print("hash(board) =", hash(board))
+            if hash(board) in self.children_dict:
+                print("children = self.children_dict[board]")
+                children = self.children_dict[hash(board)]
+                dictcount += 1
+
+                for child in children:
+                    print("child:")
+                    print(child.render())
+                    break
+            else:
+                print("children = board.generate_all_children()")
+                children = board.generate_all_children()
+                
+                self.children_dict[hash(board)] = children
+
+            for child in children:
+                val = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
+                if val[0] <= minEval:
+                    minEval = val[0]
+                    best_child = child
+                beta = min(beta, val[0])
+                if beta <= alpha:
+                    break
+
+            return (minEval, best_child)
 
 
 def eval(board: Board):
