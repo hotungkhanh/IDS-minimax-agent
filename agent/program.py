@@ -77,20 +77,20 @@ def empty_neighbours(board: Board, coord: Coord) -> list[Coord]:
     
     return output
 
-def minimax_ab(board: Board, depth: int, alpha, beta, maximising: bool) -> tuple[int, Board]:
+def minimax_ab(board: Board, depth: int, alpha, beta, colour: PlayerColor) -> tuple[int, Board]:
     # print("in minimax")
     if depth == 0 or board.game_over:
         # print('base case reached')
         return (eval(board), None)
     
-    if maximising:
+    if colour == PlayerColor.RED:
         best_child = None
         maxEval = -(math.inf)
 
         children = board.generate_all_children()
         # print("all children generated")
         for child in children:
-            val = minimax_ab(child, depth - 1, alpha, beta, False)
+            val = minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
             # print("here:", val)
             if val[0] > maxEval:
                 maxEval = val[0]
@@ -107,7 +107,7 @@ def minimax_ab(board: Board, depth: int, alpha, beta, maximising: bool) -> tuple
         children = board.generate_all_children()
 
         for child in children:
-            val = minimax_ab(child, depth - 1, alpha, beta, True)
+            val = minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
             if val[0] < minEval:
                 minEval = val[0]
                 best_child = child
