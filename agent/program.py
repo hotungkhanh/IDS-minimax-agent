@@ -37,7 +37,7 @@ class Agent:
         """
         # print("board in action()")
         # print(self.board.render(True, True))
-        # print("done")
+        print("done")
         eval, child = minimax_ab(self.board, 2, -(math.inf), math.inf, True)
         # action should never be None
         action = child.last_piece    
@@ -86,16 +86,19 @@ def minimax_ab(board: Board, depth: int, alpha, beta, maximising: bool) -> tuple
     if maximising:
         best_child = None
         maxEval = -(math.inf)
-        children = board.generate_all_children()
 
+        children = board.generate_all_children()
+        # print("all children generated")
         for child in children:
             val = minimax_ab(child, depth - 1, alpha, beta, False)
+            # print("here:", val)
             if val[0] > maxEval:
                 maxEval = val[0]
                 best_child = child
             alpha = max(alpha, val[0])
             if beta <= alpha:
                 break
+
         return (maxEval, best_child)
     
     else:
@@ -111,26 +114,38 @@ def minimax_ab(board: Board, depth: int, alpha, beta, maximising: bool) -> tuple
             beta = min(beta, val[0])
             if beta <= alpha:
                 break
+
         return (minEval, best_child)
 
 
 def eval(board: Board):
-    if board._turn_color == PlayerColor.RED:
-        my_cells = board.red_cells
-        opponent_cells = board.blue_cells
-    else:
-        my_cells = board.blue_cells
-        opponent_cells = board.red_cells
+    # print("evaling")
+    blue_count = len(board.blue_cells)
+    red_count = len(board.red_cells)
+    # if board._turn_color == PlayerColor.RED:
+    #     my_cells = board.red_cells
+    #     opponent_cells = board.blue_cells
+    # else:
+    #     my_cells = board.blue_cells
+    #     opponent_cells = board.red_cells
 
-    line_with_many_cells = 0
+    # line_with_many_cells = 0
+    red_score = 0
+    blue_score = 0
     for r in range(BOARD_N):
-        num = len([cell for cell in my_cells if cell.r == r])
-        if num >= 6:
-            line_with_many_cells += 1
+        red = len([cell for cell in board.red_cells if cell.r == r])
+        blue = len([cell for cell in board.blue_cells if cell.r == r])
+        if red >= 6:
+            red_score += 1
+        if blue >= 6:
+            blue_score += 1
     
     for c in range(BOARD_N):
-        num = len([cell for cell in my_cells if cell.c == c])
-        if num >= 6:
-            line_with_many_cells += 1
+        red = len([cell for cell in board.red_cells if cell.c == c])
+        blue = len([cell for cell in board.blue_cells if cell.c == c])
+        if red >= 6:
+            red_score += 1
+        if blue >= 6:
+            blue_score += 1
 
-    return len(my_cells) - len(opponent_cells) - line_with_many_cells
+    return red_count - blue_count + red_score - blue_score
