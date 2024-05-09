@@ -120,12 +120,14 @@ class Board:
             # otherwise if the row is filled
             # print("Before: ")
             # print(self.render())
-            for candidate in blue_candidate:
-                to_remove.add(candidate)
-                # self.blue_cells.remove(candidate)
-            for candidate in red_candidate:
-                to_remove.add(candidate)
-                # self.red_cells.remove(candidate)
+            to_remove.update(blue_candidate)
+            to_remove.update(red_candidate)
+            # for candidate in blue_candidate:
+            #     to_remove.add(candidate)
+            #     self.blue_cells.remove(candidate)
+            # for candidate in red_candidate:
+            #     to_remove.add(candidate)
+            #     self.red_cells.remove(candidate)
             # print("After:")
             # print(self.render())
 
@@ -143,10 +145,12 @@ class Board:
             # print("Before: ")
             # print(self.render())
             # otherwise if the col is filled
-            for candidate in blue_candidate:
-                to_remove.add(candidate)
-            for candidate in red_candidate:
-                to_remove.add(candidate)
+            to_remove.update(blue_candidate)
+            to_remove.update(red_candidate)
+            # for candidate in blue_candidate:
+            #     to_remove.add(candidate)
+            # for candidate in red_candidate:
+            #     to_remove.add(candidate)
             # print("After:")
             # print(self.render())
         
@@ -200,9 +204,13 @@ class Board:
 
         if self._turn_color == PlayerColor.RED:
             my_cells = self.red_cells
+            opponent_cells = self.blue_cells
         else:
             my_cells = self.blue_cells
+            opponent_cells = self.red_cells
 
+        # for the very first move, placing any piece anywhere has same effect
+        # due to toroidal board
         if self.turn_count == 0:            
             for piece_type in PieceType:
                 piece_coords = set(create_piece(piece_type, Coord(0,0)).coords)
@@ -214,12 +222,14 @@ class Board:
 
             return children
         
+        # for the second move, 
         elif self.turn_count == 1:
-            if self._turn_color == PlayerColor.RED:
-                opponent_cells = self.blue_cells
-            else:
-                opponent_cells = self.red_cells
-            
+            # SEE CHANGES TO FIRST IF STATEMENT BLOCK --------
+            # if self._turn_color == PlayerColor.RED:
+            #     opponent_cells = self.blue_cells
+            # else:
+            #     opponent_cells = self.red_cells
+
             empty_coords = [
                 Coord(r, c)
                 for r in range(BOARD_N)
@@ -227,26 +237,44 @@ class Board:
                 if (Coord(r, c) not in opponent_cells)
             ]
 
-            stack = []
-            for current_coord in empty_coords:
-                stack.append((current_coord, [current_coord]))
+            piece_found = False
+            while not piece_found:
+                random_coord: Coord = random.choice(empty_coords)
+                random_piece_type: PieceType = random.choice(list(PieceType))
+                new_piece = set(create_piece(random_piece_type, random_coord).coords)
+                for coord in new_piece:
+                    if coord not in empty_coords:
+                        continue
+                piece_found = True
 
-            while stack:
-                current_coord, current_piece = stack.pop()
-                if len(current_piece) == 4:
-                    c1, c2, c3, c4 = current_piece
-                    action = PlaceAction(c1, c2, c3, c4)
-                    child = Board(self.red_cells.copy(), self.blue_cells.copy(), self._turn_color, action, self.turn_count)
-                    child.apply_action(action)
-                    children.add(child)
-                else:
-                    for adjacent_coord in self.adjacent(current_coord):
-                        # check if adj coord is empty and not already in curr piece
-                        if (adjacent_coord not in opponent_cells):
-                            stack.append((adjacent_coord, current_piece + 
-                                            [adjacent_coord]))
-                            for coord in current_piece:
-                                stack.append((coord, current_piece + [adjacent_coord]))
+                action = (PlaceAction(*new_piece))
+                child = Board(self.red_cells.copy(), self.blue_cells.copy(), self._turn_color, action, self.turn_count)
+                child.apply_action(action)
+                children.add(child)
+                
+            # children should only have 1 child in it - reduces unnecessary computation time at start
+            return children
+
+            # stack = []
+            # for current_coord in empty_coords:
+            #     stack.append((current_coord, [current_coord]))
+
+            # while stack:
+            #     current_coord, current_piece = stack.pop()
+            #     if len(current_piece) == 4:
+            #         c1, c2, c3, c4 = current_piece
+            #         action = PlaceAction(c1, c2, c3, c4)
+            #         child = Board(self.red_cells.copy(), self.blue_cells.copy(), self._turn_color, action, self.turn_count)
+            #         child.apply_action(action)
+            #         children.add(child)
+            #     else:
+            #         for adjacent_coord in self.adjacent(current_coord):
+            #             # check if adj coord is empty and not already in curr piece
+            #             if (adjacent_coord not in opponent_cells):
+            #                 stack.append((adjacent_coord, current_piece + 
+            #                                 [adjacent_coord]))
+            #                 for coord in current_piece:
+            #                     stack.append((coord, current_piece + [adjacent_coord]))
 
             return children
 
@@ -270,6 +298,7 @@ class Board:
                     children.add(child)
             return children
         
+    # def adjacent_empty():
 
 
     def render(self, use_color: bool=False, use_unicode: bool=False) -> str:
