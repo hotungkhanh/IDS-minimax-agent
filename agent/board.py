@@ -77,19 +77,6 @@ class Board:
 
         return
 
-    # def check_legal_move(self, action: Action) -> bool:
-    #     '''
-    #     Checks if a move can be legally placed on board
-    #     Does not mofify board 
-    #     Throws an IllegalActionException if the action is invalid.
-    #     '''
-    #     for coord in action.coords:
-    #         if len(self.empty_neighbours(coord)) == 0:
-
-    #     return True
-    #     # TODO
-
-
     def line_removal(self):
         '''
         Checks if any rows or columns should be removed on the board
@@ -122,18 +109,8 @@ class Board:
             # print("row filled:", r)
             
             # otherwise if the row is filled
-            # print("Before: ")
-            # print(self.render())
             to_remove.update(blue_candidate)
             to_remove.update(red_candidate)
-            # for candidate in blue_candidate:
-            #     to_remove.add(candidate)
-            #     self.blue_cells.remove(candidate)
-            # for candidate in red_candidate:
-            #     to_remove.add(candidate)
-            #     self.red_cells.remove(candidate)
-            # print("After:")
-            # print(self.render())
 
         # check and remove columns
         for c in check_col:
@@ -145,19 +122,10 @@ class Board:
             if (len(blue_candidate) + len(red_candidate)) != BOARD_N:
                 continue
 
-            # print("col filled:", c)
-            # print("Before: ")
-            # print(self.render())
             # otherwise if the col is filled
             to_remove.update(blue_candidate)
             to_remove.update(red_candidate)
-            # for candidate in blue_candidate:
-            #     to_remove.add(candidate)
-            # for candidate in red_candidate:
-            #     to_remove.add(candidate)
-            # print("After:")
-            # print(self.render())
-        
+
         for item in to_remove:
             self.blue_cells.discard(item)
             self.red_cells.discard(item)
@@ -228,11 +196,6 @@ class Board:
         
         # for the second move, 
         elif self.turn_count == 1:
-            # SEE CHANGES TO FIRST IF STATEMENT BLOCK --------
-            # if self._turn_color == PlayerColor.RED:
-            #     opponent_cells = self.blue_cells
-            # else:
-            #     opponent_cells = self.red_cells
 
             empty_coords = [
                 Coord(r, c)
@@ -259,30 +222,6 @@ class Board:
             # children should only have 1 child in it - reduces unnecessary computation time at start
             return children
 
-            # stack = []
-            # for current_coord in empty_coords:
-            #     stack.append((current_coord, [current_coord]))
-
-            # while stack:
-            #     current_coord, current_piece = stack.pop()
-            #     if len(current_piece) == 4:
-            #         c1, c2, c3, c4 = current_piece
-            #         action = PlaceAction(c1, c2, c3, c4)
-            #         child = Board(self.red_cells.copy(), self.blue_cells.copy(), self._turn_color, action, self.turn_count)
-            #         child.apply_action(action)
-            #         children.add(child)
-            #     else:
-            #         for adjacent_coord in self.adjacent(current_coord):
-            #             # check if adj coord is empty and not already in curr piece
-            #             if (adjacent_coord not in opponent_cells):
-            #                 stack.append((adjacent_coord, current_piece + 
-            #                                 [adjacent_coord]))
-            #                 for coord in current_piece:
-            #                     stack.append((coord, current_piece + [adjacent_coord]))
-
-            # return children
-
-        
         # board has 1+ piece of player colour
         # FOR TESTING PURPOSES: reduce randomness
         else:
