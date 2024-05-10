@@ -8,6 +8,8 @@ from .board import Board
 from referee.game.exceptions import IllegalActionException
 import random, math, copy
 
+CUT_OFF = 20
+
 dictcount = 0
 
 class Agent:
@@ -30,7 +32,7 @@ class Agent:
         
         # initialise internal rep of board
         self.board: Board = Board()
-        # self.children_dict: dict[int, set[Board]] = {}
+        self.children_dict: dict[int, set[Board]] = {}
         self.boards_dict: dict[int, float] = {}
 
     def action(self, **referee: dict) -> Action:
@@ -48,12 +50,17 @@ class Agent:
                     Coord(4, 3), 
                     Coord(4, 4)
                 )
-        else:
+        elif self.board.turn_count < CUT_OFF:
+            
             eval, child = self.minimax_ab(self.board, 2, -(math.inf), math.inf, self._color)
             # action should never be None
             action = child.last_piece
             # print("dict size =", len(self.children_dict))   
             # print("dict count =", dictcount)
+        else:
+            eval, child = self.minimax_ab(self.board, 3, -(math.inf), math.inf, self._color)
+            # action should never be None
+            action = child.last_piece
 
         match self._color:
             case PlayerColor.RED:
@@ -75,8 +82,8 @@ class Agent:
         c1, c2, c3, c4 = place_action.coords
 
         self.board.apply_action(place_action)
-        print("internal board:")
-        print(self.board.render())
+        # print("internal board:")
+        # print(self.board.render())
 
         # Here we are just printing out the PlaceAction coordinates for
         # demonstration purposes. You should replace this with your own logic
@@ -102,22 +109,22 @@ class Agent:
             # print("hash(board) =", hash(board))
 
             # check if board has been generated in previous turns 
-            # if hash(board) in self.children_dict:
-            #     print("children = self.children_dict[board]")
-            #     children = self.children_dict[hash(board)]
-            #     dictcount += 1
+            if hash(board) in self.children_dict:
+                print("children = self.children_dict[board]")
+                children = self.children_dict[hash(board)]
+                # dictcount += 1
 
-            #     for child in children:
-            #         print("child:")
-            #         print(child.render())
-            #         break
-            # else:
-            #     print("children = board.generate_all_children()")
-            #     children = board.generate_all_children()
+                for child in children:
+                    print("child:")
+                    print(child.render())
+                    break
+            else:
+                # print("children = board.generate_all_children()")
+                children = board.generate_all_children()
                 
-            #     self.children_dict[hash(board)] = children
+                self.children_dict[hash(board)] = children
             
-            children = board.generate_all_children()
+            # children = board.generate_all_children()
             ordered_children = []
             for child in children:
                 if hash(child) in self.boards_dict.keys():
@@ -149,21 +156,22 @@ class Agent:
 
             # print(board.render())
             # print("hash(board) =", hash(board))
-            # if hash(board) in self.children_dict:
-            #     print("children = self.children_dict[board]")
-            #     children = self.children_dict[hash(board)]
-            #     dictcount += 1
+            if hash(board) in self.children_dict:
+                print("children = self.children_dict[board]")
+                children = self.children_dict[hash(board)]
+                # dictcount += 1
 
-            #     for child in children:
-            #         print("child:")
-            #         print(child.render())
-            #         break
-            # else:
-            #     print("children = board.generate_all_children()")
-            #     children = board.generate_all_children()
+                for child in children:
+                    print("child:")
+                    print(child.render())
+                    break
+            else:
+                # print("children = board.generate_all_children()")
+                children = board.generate_all_children()
                 
-            #     self.children_dict[hash(board)] = children
-            children = board.generate_all_children()
+                self.children_dict[hash(board)] = children
+
+            # children = board.generate_all_children()
             ordered_children = []
             for child in children:
                 if hash(child) in self.boards_dict.keys():
