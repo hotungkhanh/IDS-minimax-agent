@@ -101,36 +101,35 @@ class Board:
         # check and remove rows
         for r in check_row:
             # find entries in that row across the 2 player sets
-            blue_candidate = list(cell for cell in self.blue_cells if cell.r == r)
-            red_candidate = list(cell for cell in self.red_cells if cell.r == r)
+            # blue_candidate = list(cell for cell in self.blue_cells if cell.r == r)
+            # red_candidate = list(cell for cell in self.red_cells if cell.r == r)
+            blue_candidate = sum(1 for cell in self.blue_cells if cell.r == r)
+            red_candidate = sum(1 for cell in self.red_cells if cell.r == r)
 
             # if the row is not filled 
-            if (len(blue_candidate) + len(red_candidate)) != BOARD_N:
+            if blue_candidate + red_candidate != BOARD_N:
                 continue
             
             # print("row filled:", r)
             
             # otherwise if the row is filled
-            to_remove.update(blue_candidate)
-            to_remove.update(red_candidate)
+            to_remove.update([Coord(r, x) for x in range(BOARD_N)])
 
         # check and remove columns
         for c in check_col:
             # find entries in that col across the 2 player sets
-            blue_candidate = list(cell for cell in self.blue_cells if cell.c == c)
-            red_candidate = list(cell for cell in self.red_cells if cell.c == c)
+            blue_candidate = sum(1 for cell in self.blue_cells if cell.c == c)
+            red_candidate = sum(1 for cell in self.red_cells if cell.c == c)
 
             # if the col is not filled 
-            if (len(blue_candidate) + len(red_candidate)) != BOARD_N:
+            if blue_candidate + red_candidate != BOARD_N:
                 continue
 
             # otherwise if the col is filled
-            to_remove.update(blue_candidate)
-            to_remove.update(red_candidate)
+            to_remove.update([Coord(x, c) for x in range(BOARD_N)])
 
-        for item in to_remove:
-            self.blue_cells.discard(item)
-            self.red_cells.discard(item)
+        self.blue_cells = self.blue_cells.difference(to_remove)
+        self.red_cells = self.red_cells.difference(to_remove)
 
     def adjacent(self, coord: Coord):
         """

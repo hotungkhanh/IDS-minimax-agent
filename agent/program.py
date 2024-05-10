@@ -75,6 +75,8 @@ class Agent:
         c1, c2, c3, c4 = place_action.coords
 
         self.board.apply_action(place_action)
+        print("internal board:")
+        print(self.board.render())
 
         # Here we are just printing out the PlaceAction coordinates for
         # demonstration purposes. You should replace this with your own logic
