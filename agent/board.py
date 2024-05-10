@@ -169,9 +169,76 @@ class Board:
 
         return piece_combinations
     
-    def generate_all_children(self) -> set['Board']:
+    def generate_all_moves(self) -> set[PlaceAction]:
         '''
         Returns a set of valid moves that can be made 
+        '''
+        moves = set()
+
+        if self.turn_color == PlayerColor.RED:
+            my_cells = self.red_cells
+            opponent_cells = self.blue_cells
+        else:
+            my_cells = self.blue_cells
+            opponent_cells = self.red_cells
+
+        if self.turn_count == 0:            
+            for piece_type in PieceType:
+                piece_coords = set(create_piece(piece_type, Coord(0,0)).coords)
+
+                action = (PlaceAction(*piece_coords))
+                moves.add(action)
+
+            return moves
+        
+        elif self.turn_count == 1:
+            empty_coords = [
+                Coord(r, c)
+                for r in range(BOARD_N)
+                for c in range(BOARD_N)
+                if (Coord(r, c) not in opponent_cells)
+            ]
+
+            piece_found = False
+            while not piece_found:
+                random_coord: Coord = random.choice(empty_coords)
+                random_piece_type: PieceType = random.choice(list(PieceType))
+                new_piece = set(create_piece(random_piece_type, random_coord).coords)
+                for coord in new_piece:
+                    if coord not in empty_coords:
+                        continue
+                piece_found = True
+
+                action = (PlaceAction(*new_piece))
+
+                moves.add(action)
+
+            return moves
+
+        
+        # board has 1+ piece of player colour
+        # FOR TESTING PURPOSES: reduce randomness
+        else:
+            for cell in my_cells:
+                # if cell does not have empty neighbours
+                #   continue
+
+                piece_combinations = self.generate_piece_combinations(cell)
+
+                # code for all pieces
+                for piece in piece_combinations:
+                    c1, c2, c3, c4 = piece
+                    action = PlaceAction(c1, c2, c3, c4)
+
+                    # place piece on board
+                    # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
+                    # new_board.apply_action(action)
+                    moves.add(action)
+            return moves
+    
+    def generate_all_children(self) -> set['Board']:
+        '''
+        Returns a set of children applied with valid moves
         '''
         children = set()
 
