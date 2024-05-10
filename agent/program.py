@@ -202,19 +202,19 @@ def eval(board: Board):
     red_score = 0
     blue_score = 0
     for r in range(BOARD_N):
-        red = len([cell for cell in board.red_cells if cell.r == r])
-        blue = len([cell for cell in board.blue_cells if cell.r == r])
+        red = sum(1 for cell in board.red_cells if cell.r == r)
+        blue = sum(1 for cell in board.blue_cells if cell.r == r)
         if red >= 6:
             red_score += 1
         if blue >= 6:
             blue_score += 1
     
     for c in range(BOARD_N):
-        red = len([cell for cell in board.red_cells if cell.c == c])
-        blue = len([cell for cell in board.blue_cells if cell.c == c])
+        red = sum(1 for cell in board.red_cells if cell.c == c)
+        blue = sum(1 for cell in board.blue_cells if cell.c == c)
         if red >= 6:
             red_score += 1
         if blue >= 6:
             blue_score += 1
 
-    return red_count - blue_count + red_score - blue_score
+    return red_count - blue_count - red_score + blue_score
