@@ -11,7 +11,6 @@ from referee.game.actions import Action, PlaceAction
 from referee.game.exceptions import IllegalActionException
 from referee.game.constants import *
 from referee.game.pieces import *
-from copy import copy
 
 import random
 
@@ -192,11 +191,15 @@ class Board:
             return moves
         
         elif self.turn_count == 1:
+            opponent_adj = []
+            for oppo_cell in opponent_cells:
+                opponent_adj += self.adjacent(oppo_cell)
+
             empty_coords = [
                 Coord(r, c)
                 for r in range(BOARD_N)
                 for c in range(BOARD_N)
-                if (Coord(r, c) not in opponent_cells)
+                if (Coord(r, c) not in opponent_cells) and (Coord(r, c) not in opponent_adj)
             ]
 
             piece_found = False
@@ -204,14 +207,15 @@ class Board:
                 random_coord: Coord = random.choice(empty_coords)
                 random_piece_type: PieceType = random.choice(list(PieceType))
                 new_piece = set(create_piece(random_piece_type, random_coord).coords)
-                for coord in new_piece:
-                    if coord not in empty_coords:
-                        continue
-                piece_found = True
+                
+                illegals = sum(1 for c in new_piece if c not in empty_coords)
+                if illegals > 0:
+                    continue
+                else:
+                    piece_found = True
 
-                action = (PlaceAction(*new_piece))
-
-                moves.add(action)
+            action = (PlaceAction(*new_piece))
+            moves.add(action)
 
             return moves
 
@@ -219,11 +223,11 @@ class Board:
         # board has 1+ piece of player colour
         # FOR TESTING PURPOSES: reduce randomness
         else:
-            for cell in my_cells:
+            for oppo_cell in my_cells:
                 # if cell does not have empty neighbours
                 #   continue
 
-                piece_combinations = self.generate_piece_combinations(cell)
+                piece_combinations = self.generate_piece_combinations(oppo_cell)
 
                 # code for all pieces
                 for piece in piece_combinations:

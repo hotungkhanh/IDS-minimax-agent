@@ -51,12 +51,12 @@ class Agent:
             eval, child = self.minimax_ab(self.board, 1, -(math.inf), math.inf, self._color)
             action = child.last_piece
 
-        # elif self.board.turn_count < CUT_OFF:
-        #     eval, child = self.minimax_ab(self.board, 2, -(math.inf), math.inf, self._color)
-        #     action = child.last_piece
+        elif self.board.turn_count < CUT_OFF:
+            eval, child = self.minimax_ab(self.board, 2, -(math.inf), math.inf, self._color)
+            action = child.last_piece
 
         else:
-            eval, child = self.minimax_ab(self.board, 2, -(math.inf), math.inf, self._color)
+            eval, child = self.minimax_ab(self.board, 3, -(math.inf), math.inf, self._color)
             action = child.last_piece
 
         match self._color:
@@ -205,22 +205,22 @@ def eval(board: Board):
     blue_count = len(board.blue_cells)
     red_count = len(board.red_cells)
 
-    red_score = 0
-    blue_score = 0
+    bad_red_lines = 0
+    bad_blue_lines = 0
     for r in range(BOARD_N):
         red = sum(1 for cell in board.red_cells if cell.r == r)
         blue = sum(1 for cell in board.blue_cells if cell.r == r)
         if red >= 6:
-            red_score += 1
+            bad_red_lines += 1
         if blue >= 6:
-            blue_score += 1
+            bad_blue_lines += 1
     
     for c in range(BOARD_N):
         red = sum(1 for cell in board.red_cells if cell.c == c)
         blue = sum(1 for cell in board.blue_cells if cell.c == c)
         if red >= 6:
-            red_score += 1
+            bad_red_lines += 1
         if blue >= 6:
-            blue_score += 1
+            bad_blue_lines += 1
 
-    return red_count - blue_count - red_score + blue_score
+    return red_count - blue_count - bad_red_lines + bad_blue_lines
