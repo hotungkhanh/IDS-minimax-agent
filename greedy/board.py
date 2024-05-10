@@ -40,14 +40,19 @@ class Board:
         self.turn_count = turn_count
 
     def __eq__(self, other: 'Board'):
-        return self.hashable_value == other.hashable_value
+        return self.__hash__() == other.__hash__()
 
     def __hash__(self):
-        return hash(self.hashable_value)
+        return hash((frozenset(self.red_cells), frozenset(self.blue_cells), self.turn_color))
 
-    @property
-    def hashable_value(self):
-        return (frozenset(self.red_cells), frozenset(self.blue_cells), self.turn_color)
+    def __copy__(self) -> 'Board':
+        return Board(self.red_cells.copy(), self.blue_cells.copy(), self.turn_color, self.last_piece, self.turn_count)
+    
+    def __lt__(self, other: 'Board'):
+        return self.__hash__() < other.__hash__()
+    # @property
+    # def hashable_value(self):
+    #     return (frozenset(self.red_cells), frozenset(self.blue_cells), self.turn_color)
 
     def apply_action(self, action: Action):
         # used to return BoardMutation
@@ -73,19 +78,6 @@ class Board:
 
         return
 
-    # def check_legal_move(self, action: Action) -> bool:
-    #     '''
-    #     Checks if a move can be legally placed on board
-    #     Does not mofify board 
-    #     Throws an IllegalActionException if the action is invalid.
-    #     '''
-    #     for coord in action.coords:
-    #         if len(self.empty_neighbours(coord)) == 0:
-
-    #     return True
-    #     # TODO
-
-
     def line_removal(self):
         '''
         Checks if any rows or columns should be removed on the board
@@ -108,55 +100,35 @@ class Board:
         # check and remove rows
         for r in check_row:
             # find entries in that row across the 2 player sets
-            blue_candidate = list(cell for cell in self.blue_cells if cell.r == r)
-            red_candidate = list(cell for cell in self.red_cells if cell.r == r)
+            # blue_candidate = list(cell for cell in self.blue_cells if cell.r == r)
+            # red_candidate = list(cell for cell in self.red_cells if cell.r == r)
+            blue_candidate = sum(1 for cell in self.blue_cells if cell.r == r)
+            red_candidate = sum(1 for cell in self.red_cells if cell.r == r)
 
             # if the row is not filled 
-            if (len(blue_candidate) + len(red_candidate)) != BOARD_N:
+            if blue_candidate + red_candidate != BOARD_N:
                 continue
             
             # print("row filled:", r)
             
             # otherwise if the row is filled
-            # print("Before: ")
-            # print(self.render())
-            to_remove.update(blue_candidate)
-            to_remove.update(red_candidate)
-            # for candidate in blue_candidate:
-            #     to_remove.add(candidate)
-            #     self.blue_cells.remove(candidate)
-            # for candidate in red_candidate:
-            #     to_remove.add(candidate)
-            #     self.red_cells.remove(candidate)
-            # print("After:")
-            # print(self.render())
+            to_remove.update([Coord(r, x) for x in range(BOARD_N)])
 
         # check and remove columns
         for c in check_col:
             # find entries in that col across the 2 player sets
-            blue_candidate = list(cell for cell in self.blue_cells if cell.c == c)
-            red_candidate = list(cell for cell in self.red_cells if cell.c == c)
+            blue_candidate = sum(1 for cell in self.blue_cells if cell.c == c)
+            red_candidate = sum(1 for cell in self.red_cells if cell.c == c)
 
             # if the col is not filled 
-            if (len(blue_candidate) + len(red_candidate)) != BOARD_N:
+            if blue_candidate + red_candidate != BOARD_N:
                 continue
 
-            # print("col filled:", c)
-            # print("Before: ")
-            # print(self.render())
             # otherwise if the col is filled
-            to_remove.update(blue_candidate)
-            to_remove.update(red_candidate)
-            # for candidate in blue_candidate:
-            #     to_remove.add(candidate)
-            # for candidate in red_candidate:
-            #     to_remove.add(candidate)
-            # print("After:")
-            # print(self.render())
-        
-        for item in to_remove:
-            self.blue_cells.discard(item)
-            self.red_cells.discard(item)
+            to_remove.update([Coord(x, c) for x in range(BOARD_N)])
+
+        self.blue_cells = self.blue_cells.difference(to_remove)
+        self.red_cells = self.red_cells.difference(to_remove)
 
     def adjacent(self, coord: Coord):
         """
@@ -196,9 +168,81 @@ class Board:
 
         return piece_combinations
     
-    def generate_all_children(self) -> set['Board']:
+    def generate_all_moves(self) -> set[PlaceAction]:
         '''
         Returns a set of valid moves that can be made 
+        '''
+        moves = set()
+
+        if self.turn_color == PlayerColor.RED:
+            my_cells = self.red_cells
+            opponent_cells = self.blue_cells
+        else:
+            my_cells = self.blue_cells
+            opponent_cells = self.red_cells
+
+        if self.turn_count == 0:            
+            for piece_type in PieceType:
+                piece_coords = set(create_piece(piece_type, Coord(0,0)).coords)
+
+                action = (PlaceAction(*piece_coords))
+                moves.add(action)
+
+            return moves
+        
+        elif self.turn_count == 1:
+            opponent_adj = []
+            for oppo_cell in opponent_cells:
+                opponent_adj += self.adjacent(oppo_cell)
+
+            empty_coords = [
+                Coord(r, c)
+                for r in range(BOARD_N)
+                for c in range(BOARD_N)
+                if (Coord(r, c) not in opponent_cells) and (Coord(r, c) not in opponent_adj)
+            ]
+
+            piece_found = False
+            while not piece_found:
+                random_coord: Coord = random.choice(empty_coords)
+                random_piece_type: PieceType = random.choice(list(PieceType))
+                new_piece = set(create_piece(random_piece_type, random_coord).coords)
+                
+                illegals = sum(1 for c in new_piece if c not in empty_coords)
+                if illegals > 0:
+                    continue
+                else:
+                    piece_found = True
+
+            action = (PlaceAction(*new_piece))
+            moves.add(action)
+
+            return moves
+
+        
+        # board has 1+ piece of player colour
+        # FOR TESTING PURPOSES: reduce randomness
+        else:
+            for oppo_cell in my_cells:
+                # if cell does not have empty neighbours
+                #   continue
+
+                piece_combinations = self.generate_piece_combinations(oppo_cell)
+
+                # code for all pieces
+                for piece in piece_combinations:
+                    c1, c2, c3, c4 = piece
+                    action = PlaceAction(c1, c2, c3, c4)
+
+                    # place piece on board
+                    # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
+                    # new_board.apply_action(action)
+                    moves.add(action)
+            return moves
+    
+    def generate_all_children(self) -> set['Board']:
+        '''
+        Returns a set of children applied with valid moves
         '''
         children = set()
 
@@ -224,11 +268,6 @@ class Board:
         
         # for the second move, 
         elif self.turn_count == 1:
-            # SEE CHANGES TO FIRST IF STATEMENT BLOCK --------
-            # if self._turn_color == PlayerColor.RED:
-            #     opponent_cells = self.blue_cells
-            # else:
-            #     opponent_cells = self.red_cells
 
             empty_coords = [
                 Coord(r, c)
@@ -255,30 +294,6 @@ class Board:
             # children should only have 1 child in it - reduces unnecessary computation time at start
             return children
 
-            # stack = []
-            # for current_coord in empty_coords:
-            #     stack.append((current_coord, [current_coord]))
-
-            # while stack:
-            #     current_coord, current_piece = stack.pop()
-            #     if len(current_piece) == 4:
-            #         c1, c2, c3, c4 = current_piece
-            #         action = PlaceAction(c1, c2, c3, c4)
-            #         child = Board(self.red_cells.copy(), self.blue_cells.copy(), self._turn_color, action, self.turn_count)
-            #         child.apply_action(action)
-            #         children.add(child)
-            #     else:
-            #         for adjacent_coord in self.adjacent(current_coord):
-            #             # check if adj coord is empty and not already in curr piece
-            #             if (adjacent_coord not in opponent_cells):
-            #                 stack.append((adjacent_coord, current_piece + 
-            #                                 [adjacent_coord]))
-            #                 for coord in current_piece:
-            #                     stack.append((coord, current_piece + [adjacent_coord]))
-
-            # return children
-
-        
         # board has 1+ piece of player colour
         # FOR TESTING PURPOSES: reduce randomness
         else:

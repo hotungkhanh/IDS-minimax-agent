@@ -7,6 +7,9 @@ from .part_a.utils import render_board
 from .board import Board
 from referee.game.exceptions import IllegalActionException
 import random, math, copy
+import time
+
+CUT_OFF = 30
 
 class Agent:
     """
@@ -28,18 +31,26 @@ class Agent:
         
         # initialise internal rep of board
         self.board: Board = Board()
+        self.children_dict: dict[int, set[Board]] = {}
+        self.boards_dict: dict[int, float] = {}
 
     def action(self, **referee: dict) -> Action:
         """
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
-        # print("board in action()")
-        # print(self.board.render(True, True))
 
-        eval, child = minimax_ab(self.board, 1, -(math.inf), math.inf, self._color)
-        # action should never be None
-        action = child.last_piece    
+        if self.board.turn_count == 0:
+            action = PlaceAction(
+                    Coord(3, 3), 
+                    Coord(3, 4), 
+                    Coord(4, 3), 
+                    Coord(4, 4)
+                )
+
+        else:
+            eval, child = self.minimax_ab(self.board, 1, -(math.inf), math.inf, self._color)
+            action = child.last_piece
 
         match self._color:
             case PlayerColor.RED:
@@ -62,63 +73,119 @@ class Agent:
 
         self.board.apply_action(place_action)
 
-        # Here we are just printing out the PlaceAction coordinates for
-        # demonstration purposes. You should replace this with your own logic
-        # to update your agent's internal game state representation.
         print(f"Testing: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
 
+    def minimax_ab(self, board: Board, depth: int, alpha, beta, colour: PlayerColor) -> tuple[int, Board]:
 
-def empty_neighbours(board: Board, coord: Coord) -> list[Coord]:
-    neighbours = [coord.down(), coord.up(), coord.left(), coord.right()]
-    output = []
-    for neighbour in neighbours:
-        if (neighbour not in board.blue_cells) and (neighbour not in board.red_cells):
-            output.append(neighbour)
-    
-    return output
+        if depth == 0 or board.game_over:
+            return (eval(board), None)
+        
+        if colour == PlayerColor.RED:
+            best_child = None
+            maxEval = -(math.inf)
 
-def minimax_ab(board: Board, depth: int, alpha, beta, colour: PlayerColor) -> tuple[int, Board]:
-    # print("in minimax")
-    if depth == 0 or board.game_over:
-        # print(board.render())
-        # print("^^turn colour =", board.turn_color)
-        # print("^^eval =", eval(board))
-        # print(" ")
-        return (eval(board), None)
-    
-    if colour == PlayerColor.RED:
-        best_child = None
-        maxEval = -(math.inf)
+            # print(board.render())
+            # print("hash(board) =", hash(board))
 
-        children = board.generate_all_children()
-        # print("all children generated")
-        for child in children:
-            val = minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
-            # print("here:", val)
-            if val[0] >= maxEval:
-                maxEval = val[0]
-                best_child = child
-            alpha = max(alpha, val[0])
-            if beta <= alpha:
-                break
+            # TODO: make into helper function
+            # check if board has been generated in previous turns 
+            # if hash(board) in self.children_dict:
+            #     print("children = self.children_dict[board]")
+            #     children = self.children_dict[hash(board)]
+            #     # dictcount += 1
 
-        return (maxEval, best_child)
-    
-    else:
-        best_child = None
-        minEval = math.inf
-        children = board.generate_all_children()
+            #     for child in children:
+            #         print("child:")
+            #         print(child.render())
+            #         break
+            # else:
+            #     # print("children = board.generate_all_children()")
+            #     children = board.generate_all_children()
+                
+            #     self.children_dict[hash(board)] = children
+            
+            # TODO: make into helper function
 
-        for child in children:
-            val = minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
-            if val[0] <= minEval:
-                minEval = val[0]
-                best_child = child
-            beta = min(beta, val[0])
-            if beta <= alpha:
-                break
+            valid_moves = board.generate_all_moves()
 
-        return (minEval, best_child)
+            # ordered_children = []
+            # for child in children:
+            #     if hash(child) in self.boards_dict:
+            #         # print("board is in board_dict")
+            #         ordered_children.append((self.boards_dict[hash(child)], child))
+            #     else:
+            #         # print("shouldn't happen for depth = 2")
+            #         ordered_children.append((0, child))
+            # # sort children based on their eval from PREVIOUS turn's eval of them
+            # ordered_children.sort(key=lambda x: x[0], reverse=True)
+
+            # for prev_eval, child in ordered_children:
+            for move in valid_moves:
+
+                child = board.__copy__()
+                child.apply_action(move)
+
+                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
+
+                if val >= maxEval:
+                    maxEval = val
+                    best_child = child
+                alpha = max(alpha, val)
+                if beta <= alpha:
+                    break
+
+            return (maxEval, best_child)
+        
+        else:
+            best_child = None
+            minEval = math.inf
+
+            # print(board.render())
+            # print("hash(board) =", hash(board))
+            # if hash(board) in self.children_dict:
+            #     print("children = self.children_dict[board]")
+            #     children = self.children_dict[hash(board)]
+            #     # dictcount += 1
+
+            #     for child in children:
+            #         print("child:")
+            #         print(child.render())
+            #         break
+            # else:
+            #     # print("children = board.generate_all_children()")
+            #     children = board.generate_all_children()
+                
+            #     self.children_dict[hash(board)] = children
+
+            valid_moves = board.generate_all_moves()
+
+
+            # ordered_children = []
+            # for child in children:
+            #     if hash(child) in self.boards_dict.keys():
+            #         # print("board is in board dict")
+            #         ordered_children.append((self.boards_dict[hash(child)], child))
+            #     else:
+            #         ordered_children.append((0, child))
+            # # sort children based on their eval from PREVIOUS turn's eval of them
+            # ordered_children.sort(key=lambda x: x[0])
+
+            # for prev_eval, child in ordered_children:
+            for move in valid_moves:
+
+                child = board.__copy__()
+                child.apply_action(move)
+
+                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
+
+                if val <= minEval:
+                    minEval = val
+                    best_child = child
+                beta = min(beta, val)
+                if beta <= alpha:
+                    break
+
+            return (minEval, best_child)
 
 
 def eval(board: Board):
@@ -131,22 +198,22 @@ def eval(board: Board):
     blue_count = len(board.blue_cells)
     red_count = len(board.red_cells)
 
-    red_score = 0
-    blue_score = 0
+    bad_red_lines = 0
+    bad_blue_lines = 0
     for r in range(BOARD_N):
-        red = len([cell for cell in board.red_cells if cell.r == r])
-        blue = len([cell for cell in board.blue_cells if cell.r == r])
+        red = sum(1 for cell in board.red_cells if cell.r == r)
+        blue = sum(1 for cell in board.blue_cells if cell.r == r)
         if red >= 6:
-            red_score += 1
+            bad_red_lines += 1
         if blue >= 6:
-            blue_score += 1
+            bad_blue_lines += 1
     
     for c in range(BOARD_N):
-        red = len([cell for cell in board.red_cells if cell.c == c])
-        blue = len([cell for cell in board.blue_cells if cell.c == c])
+        red = sum(1 for cell in board.red_cells if cell.c == c)
+        blue = sum(1 for cell in board.blue_cells if cell.c == c)
         if red >= 6:
-            red_score += 1
+            bad_red_lines += 1
         if blue >= 6:
-            blue_score += 1
+            bad_blue_lines += 1
 
-    return red_count - blue_count + red_score - blue_score
+    return red_count - blue_count - bad_red_lines + bad_blue_lines
