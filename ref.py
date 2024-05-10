@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import time
 
 # contestants
-from greedy.program import Agent as minimax
+from agent.program import Agent as minimax
 from monte.program import Agent as monte
 from randy.program import Agent as randy
 

@@ -49,6 +49,8 @@ class Board:
     def __copy__(self) -> 'Board':
         return Board(self.red_cells.copy(), self.blue_cells.copy(), self.turn_color, self.last_piece, self.turn_count)
     
+    def __lt__(self, other: 'Board'):
+        return self.__hash__() < other.__hash__()
     # @property
     # def hashable_value(self):
     #     return (frozenset(self.red_cells), frozenset(self.blue_cells), self.turn_color)
