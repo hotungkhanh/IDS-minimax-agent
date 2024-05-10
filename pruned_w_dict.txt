@@ -1,0 +1,334 @@
+*******************************************************************************
+Welcome to Tetress referee version 2024.0.0.
+
+Conduct a game of Tetress between 2 Agent classes.
+
+Run `python -m referee --help` for additional usage information.
+*******************************************************************************
+* referee : all messages printed by referee/wrapper modules begin with *
+* referee : (any other lines of output must be from your Agent class).
+* referee : 
+* referee : wrapping player 1 [agent:Agent] as RED...
+* referee : wrapping player 2 [randy:Agent] as BLUE...
+* referee : let the game begin!
+* referee : player RED is initialising
+* referee : player BLUE is initialising
+* referee : RED to play (turn 1) ...
+* referee : RED plays action PLACE(3-3, 3-4, 4-3, 4-4)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . r r . . . . . . 
+* referee :                       . . . r r . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : BLUE to play (turn 2) ...
+* referee : BLUE plays action PLACE(1-1, 1-2, 0-3, 1-3)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . b . . . . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . r r . . . . . . 
+* referee :                       . . . r r . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : RED to play (turn 3) ...
+* referee : RED plays action PLACE(2-0, 3-0, 3-1, 3-2)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . b . . . . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       r . . . . . . . . . . 
+* referee :                       r r r r r . . . . . . 
+* referee :                       . . . r r . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : BLUE to play (turn 4) ...
+* referee : BLUE plays action PLACE(9-2, 9-3, 10-2, 10-3)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . b . . . . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       r . . . . . . . . . . 
+* referee :                       r r r r r . . . . . . 
+* referee :                       . . . r r . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . b b . . . . . . . 
+* referee :                       . . b b . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : RED to play (turn 5) ...
+* referee : RED plays action PLACE(4-0, 4-1, 5-0, 6-0)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . b . . . . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       r . . . . . . . . . . 
+* referee :                       r r r r r . . . . . . 
+* referee :                       r r . r r . . . . . . 
+* referee :                       r . . . . . . . . . . 
+* referee :                       r . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . b b . . . . . . . 
+* referee :                       . . b b . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : BLUE to play (turn 6) ...
+* referee : BLUE plays action PLACE(0-0, 0-1, 9-1, 10-1)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . b . . . . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       r . . . . . . . . . . 
+* referee :                       r r r r r . . . . . . 
+* referee :                       r r . r r . . . . . . 
+* referee :                       r . . . . . . . . . . 
+* referee :                       r . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : RED to play (turn 7) ...
+* referee : RED plays action PLACE(5-3, 6-3, 6-4, 7-4)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . b . . . . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       r . . . . . . . . . . 
+* referee :                       r r r r r . . . . . . 
+* referee :                       r r . r r . . . . . . 
+* referee :                       r . . r . . . . . . . 
+* referee :                       r . . r r . . . . . . 
+* referee :                       . . . . r . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : BLUE to play (turn 8) ...
+* referee : BLUE plays action PLACE(0-4, 0-5, 0-6, 10-4)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . b b b b . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       r . . . . . . . . . . 
+* referee :                       r r r r r . . . . . . 
+* referee :                       r r . r r . . . . . . 
+* referee :                       r . . r . . . . . . . 
+* referee :                       r . . r r . . . . . . 
+* referee :                       . . . . r . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       . b b b b . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : RED to play (turn 9) ...
+* referee : RED plays action PLACE(4-6, 5-6, 6-5, 6-6)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . b b b b . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       r . . . . . . . . . . 
+* referee :                       r r r r r . . . . . . 
+* referee :                       r r . r r . r . . . . 
+* referee :                       r . . r . . r . . . . 
+* referee :                       r . . r r r r . . . . 
+* referee :                       . . . . r . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       . b b b b . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : BLUE to play (turn 10) ...
+* referee : BLUE plays action PLACE(0-10, 1-0, 1-10, 2-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . b b b b . . . b 
+* referee :                       b b b b . . . . . . b 
+* referee :                       r . . . . . . . . . b 
+* referee :                       r r r r r . . . . . . 
+* referee :                       r r . r r . r . . . . 
+* referee :                       r . . r . . r . . . . 
+* referee :                       r . . r r r r . . . . 
+* referee :                       . . . . r . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       . b b b b . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : RED to play (turn 11) ...
+* referee : RED plays action PLACE(6-7, 7-6, 7-7, 8-6)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . b b b b . . . b 
+* referee :                       b b b b . . . . . . b 
+* referee :                       r . . . . . . . . . b 
+* referee :                       r r r r r . . . . . . 
+* referee :                       r r . r r . r . . . . 
+* referee :                       r . . r . . r . . . . 
+* referee :                       r . . r r r r r . . . 
+* referee :                       . . . . r . r r . . . 
+* referee :                       . . . . . . r . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       . b b b b . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : BLUE to play (turn 12) ...
+* referee : BLUE plays action PLACE(7-3, 8-2, 8-3, 8-4)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . b b b b . . . b 
+* referee :                       b b b b . . . . . . b 
+* referee :                       r . . . . . . . . . b 
+* referee :                       r r r r r . . . . . . 
+* referee :                       r r . r r . r . . . . 
+* referee :                       r . . r . . r . . . . 
+* referee :                       r . . r r r r r . . . 
+* referee :                       . . . b r . r r . . . 
+* referee :                       . . b b b . r . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       . b b b b . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : RED to play (turn 13) ...
+* referee : RED plays action PLACE(5-2, 6-1, 6-2, 7-2)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . b b b b . . . b 
+* referee :                       b b b b . . . . . . b 
+* referee :                       r . . . . . . . . . b 
+* referee :                       r r r r r . . . . . . 
+* referee :                       r r . r r . r . . . . 
+* referee :                       r . r r . . r . . . . 
+* referee :                       r r r r r r r r . . . 
+* referee :                       . . r b r . r r . . . 
+* referee :                       . . b b b . r . . . . 
+* referee :                       . b b b . . . . . . . 
+* referee :                       . b b b b . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : BLUE to play (turn 14) ...
+* referee : BLUE plays action PLACE(9-4, 9-5, 9-6, 10-6)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . b b b b . . . b 
+* referee :                       b b b b . . . . . . b 
+* referee :                       r . . . . . . . . . b 
+* referee :                       r r r r r . . . . . . 
+* referee :                       r r . r r . r . . . . 
+* referee :                       r . r r . . r . . . . 
+* referee :                       r r r r r r r r . . . 
+* referee :                       . . r b r . r r . . . 
+* referee :                       . . b b b . r . . . . 
+* referee :                       . b b b b b b . . . . 
+* referee :                       . b b b b . b . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : RED to play (turn 15) ...
+* referee : RED plays action PLACE(4-10, 5-10, 6-10, 7-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . b b b b . . . b 
+* referee :                       b b b b . . . . . . b 
+* referee :                       r . . . . . . . . . b 
+* referee :                       r r r r r . . . . . . 
+* referee :                       r r . r r . r . . . r 
+* referee :                       r . r r . . r . . . r 
+* referee :                       r r r r r r r r . . r 
+* referee :                       . . r b r . r r . . r 
+* referee :                       . . b b b . r . . . . 
+* referee :                       . b b b b b b . . . . 
+* referee :                       . b b b b . b . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : BLUE to play (turn 16) ...
+* referee : BLUE plays action PLACE(2-7, 2-8, 2-9, 3-9)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . b b b b . . . b 
+* referee :                       b b b b . . . . . . b 
+* referee :                       r . . . . . . b b b b 
+* referee :                       r r r r r . . . . b . 
+* referee :                       r r . r r . r . . . r 
+* referee :                       r . r r . . r . . . r 
+* referee :                       r r r r r r r r . . r 
+* referee :                       . . r b r . r r . . r 
+* referee :                       . . b b b . r . . . . 
+* referee :                       . b b b b b b . . . . 
+* referee :                       . b b b b . b . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : RED to play (turn 17) ...
+* referee : RED plays action PLACE(8-10, 9-0, 9-10, 10-0)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . b b b b . . . b 
+* referee :                       b b b b . . . . . . b 
+* referee :                       r . . . . . . b b b b 
+* referee :                       r r r r r . . . . b . 
+* referee :                       r r . r r . r . . . r 
+* referee :                       r . r r . . r . . . r 
+* referee :                       r r r r r r r r . . r 
+* referee :                       . . r b r . r r . . r 
+* referee :                       . . b b b . r . . . r 
+* referee :                       r b b b b b b . . . r 

@@ -7,8 +7,11 @@ from .part_a.utils import render_board
 from .board import Board
 from referee.game.exceptions import IllegalActionException
 import random, math, copy
+import time
 
 CUT_OFF = 20
+
+pruned_count = 0
 
 class Agent:
     """
@@ -38,6 +41,8 @@ class Agent:
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
+        global pruned_count
+        # start_time = time.time()
         # print("board in action()")
         # print(self.board.render(True, True))
 
@@ -51,18 +56,27 @@ class Agent:
                     Coord(4, 3), 
                     Coord(4, 4)
                 )
+        elif self.board.turn_count < 10:
+            eval, child = self.minimax_ab(self.board, 1, -(math.inf), math.inf, self._color)
+            action = child.last_piece
+
         elif self.board.turn_count < CUT_OFF:
             
             eval, child = self.minimax_ab(self.board, 2, -(math.inf), math.inf, self._color)
-            # action should never be None
             action = child.last_piece
+            # action should never be None
             # print("dict size =", len(self.children_dict))   
             # print("dict count =", dictcount)
         else:
             eval, child = self.minimax_ab(self.board, 3, -(math.inf), math.inf, self._color)
-            # action should never be None
             action = child.last_piece
+            # action should never be None
             # print("dict count =", dictcount)
+        # print()
+        # print("pruned count:", pruned_count, '-------------------------------')
+        # print("time taken this turn:", time.time() - start_time, '--------------------------------')
+        # print()
+        
 
         match self._color:
             case PlayerColor.RED:
@@ -94,6 +108,8 @@ class Agent:
 
     def minimax_ab(self, board: Board, depth: int, alpha, beta, colour: PlayerColor) -> tuple[int, Board]:
         # print("in minimax")
+        global pruned_count
+        
         if depth == 0 or board.game_over:
             # print(board.render())
             # print("^^turn colour =", board.turn_color)
@@ -112,36 +128,36 @@ class Agent:
 
             # TODO: make into helper function
             # check if board has been generated in previous turns 
-            if hash(board) in self.children_dict:
-                print("children = self.children_dict[board]")
-                children = self.children_dict[hash(board)]
-                # dictcount += 1
+            # if hash(board) in self.children_dict:
+            #     print("children = self.children_dict[board]")
+            #     children = self.children_dict[hash(board)]
+            #     # dictcount += 1
 
-                for child in children:
-                    print("child:")
-                    print(child.render())
-                    break
-            else:
-                # print("children = board.generate_all_children()")
-                children = board.generate_all_children()
+            #     for child in children:
+            #         print("child:")
+            #         print(child.render())
+            #         break
+            # else:
+            #     # print("children = board.generate_all_children()")
+            #     children = board.generate_all_children()
                 
-                self.children_dict[hash(board)] = children
+            #     self.children_dict[hash(board)] = children
             
             # TODO: make into helper function
-            # children = board.generate_all_children()
+            children = board.generate_all_children()
             ordered_children = []
             for child in children:
                 if hash(child) in self.boards_dict:
-                    print("board is in board_dict")
+                    # print("board is in board_dict")
                     ordered_children.append((self.boards_dict[hash(child)], child))
                 else:
                     # print("shouldn't happen for depth = 2")
                     ordered_children.append((0, child))
             # sort children based on their eval from PREVIOUS turn's eval of them
-            ordered_children.sort(key=lambda x: x[0])
-            # print(ordered_children)
-            
+            ordered_children.sort(key=lambda x: x[0], reverse=True)
+
             for prev_eval, child in ordered_children:
+            # for child in children:
                 val, board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
                 self.boards_dict[hash(child)] = val
                 # print("here:", val)
@@ -150,6 +166,7 @@ class Agent:
                     best_child = child
                 alpha = max(alpha, val)
                 if beta <= alpha:
+                    pruned_count += 1
                     break
 
             return (maxEval, best_child)
@@ -160,34 +177,34 @@ class Agent:
 
             # print(board.render())
             # print("hash(board) =", hash(board))
-            if hash(board) in self.children_dict:
-                print("children = self.children_dict[board]")
-                children = self.children_dict[hash(board)]
-                # dictcount += 1
+            # if hash(board) in self.children_dict:
+            #     print("children = self.children_dict[board]")
+            #     children = self.children_dict[hash(board)]
+            #     # dictcount += 1
 
-                for child in children:
-                    print("child:")
-                    print(child.render())
-                    break
-            else:
-                # print("children = board.generate_all_children()")
-                children = board.generate_all_children()
+            #     for child in children:
+            #         print("child:")
+            #         print(child.render())
+            #         break
+            # else:
+            #     # print("children = board.generate_all_children()")
+            #     children = board.generate_all_children()
                 
-                self.children_dict[hash(board)] = children
+            #     self.children_dict[hash(board)] = children
 
-            # children = board.generate_all_children()
+            children = board.generate_all_children()
             ordered_children = []
             for child in children:
                 if hash(child) in self.boards_dict.keys():
-                    print("board is in board dict")
+                    # print("board is in board dict")
                     ordered_children.append((self.boards_dict[hash(child)], child))
                 else:
                     ordered_children.append((0, child))
             # sort children based on their eval from PREVIOUS turn's eval of them
-            ordered_children.sort(key=lambda x: x[0], reverse=True)
-            # print(ordered_children)
+            ordered_children.sort(key=lambda x: x[0])
 
             for prev_eval, child in ordered_children:
+            # for child in children:
                 val, board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
                 self.boards_dict[hash(child)] = val
                 if val <= minEval:
@@ -195,6 +212,7 @@ class Agent:
                     best_child = child
                 beta = min(beta, val)
                 if beta <= alpha:
+                    pruned_count += 1
                     break
 
             return (minEval, best_child)
