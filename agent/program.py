@@ -145,19 +145,19 @@ class Agent:
             
             # TODO: make into helper function
             children = board.generate_all_children()
-            ordered_children = []
-            for child in children:
-                if hash(child) in self.boards_dict:
-                    # print("board is in board_dict")
-                    ordered_children.append((self.boards_dict[hash(child)], child))
-                else:
-                    # print("shouldn't happen for depth = 2")
-                    ordered_children.append((0, child))
-            # sort children based on their eval from PREVIOUS turn's eval of them
-            ordered_children.sort(key=lambda x: x[0], reverse=True)
-
-            for prev_eval, child in ordered_children:
+            # ordered_children = []
             # for child in children:
+            #     if hash(child) in self.boards_dict:
+            #         # print("board is in board_dict")
+            #         ordered_children.append((self.boards_dict[hash(child)], child))
+            #     else:
+            #         # print("shouldn't happen for depth = 2")
+            #         ordered_children.append((0, child))
+            # # sort children based on their eval from PREVIOUS turn's eval of them
+            # ordered_children.sort(key=lambda x: x[0], reverse=True)
+
+            # for prev_eval, child in ordered_children:
+            for child in children:
                 val, board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
                 self.boards_dict[hash(child)] = val
                 # print("here:", val)
@@ -193,18 +193,18 @@ class Agent:
             #     self.children_dict[hash(board)] = children
 
             children = board.generate_all_children()
-            ordered_children = []
-            for child in children:
-                if hash(child) in self.boards_dict.keys():
-                    # print("board is in board dict")
-                    ordered_children.append((self.boards_dict[hash(child)], child))
-                else:
-                    ordered_children.append((0, child))
-            # sort children based on their eval from PREVIOUS turn's eval of them
-            ordered_children.sort(key=lambda x: x[0])
-
-            for prev_eval, child in ordered_children:
+            # ordered_children = []
             # for child in children:
+            #     if hash(child) in self.boards_dict.keys():
+            #         # print("board is in board dict")
+            #         ordered_children.append((self.boards_dict[hash(child)], child))
+            #     else:
+            #         ordered_children.append((0, child))
+            # # sort children based on their eval from PREVIOUS turn's eval of them
+            # ordered_children.sort(key=lambda x: x[0])
+
+            # for prev_eval, child in ordered_children:
+            for child in children:
                 val, board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
                 self.boards_dict[hash(child)] = val
                 if val <= minEval:
