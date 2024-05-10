@@ -31,8 +31,7 @@ class Agent:
         
         # initialise internal rep of board
         self.board: Board = Board()
-        self.children_dict: dict[int, set[Board]] = {}
-        self.boards_dict: dict[int, float] = {}
+        self.valid_moves_dict: dict[int, set[PlaceAction]] = {}
 
     def action(self, **referee: dict) -> Action:
         """
@@ -40,23 +39,31 @@ class Agent:
         to take an action. It must always return an action object. 
         """
 
-        if self.board.turn_count == 0:
-            action = PlaceAction(
-                    Coord(3, 3), 
-                    Coord(3, 4), 
-                    Coord(4, 3), 
-                    Coord(4, 4)
-                )
-        elif self.board.turn_count < 10:
-            eval, child = self.minimax_ab(self.board, 1, -(math.inf), math.inf, self._color)
-            action = child.last_piece
+        if hash(self.board) not in self.valid_moves_dict:
+            self.valid_moves_dict[hash(self.board)] = self.board.generate_all_moves()
 
-        elif self.board.turn_count < CUT_OFF:
+        if self.board.turn_count == 0 or self.board.turn_count == 1:
+            action = random.choice(list(self.valid_moves_dict[hash(self.board)]))
+
+        elif len(self.valid_moves_dict[hash(self.board)]) < 5:
+            print("total no. of valid moves =",len(self.valid_moves_dict[hash(self.board)]))
+            print("depth = 4")
+            eval, child = self.minimax_ab(self.board, 4, -(math.inf), math.inf, self._color)
+            action = child.last_piece
+        elif len(self.valid_moves_dict[hash(self.board)]) < 80:
+            print("total no. of valid moves =",len(self.valid_moves_dict[hash(self.board)]))
+            print("depth = 3")
+            eval, child = self.minimax_ab(self.board, 3, -(math.inf), math.inf, self._color)
+            action = child.last_piece
+        elif len(self.valid_moves_dict[hash(self.board)]) < 200:
+            print("total no. of valid moves =",len(self.valid_moves_dict[hash(self.board)]))
+            print("depth = 2")
             eval, child = self.minimax_ab(self.board, 2, -(math.inf), math.inf, self._color)
             action = child.last_piece
-
         else:
-            eval, child = self.minimax_ab(self.board, 3, -(math.inf), math.inf, self._color)
+            print("total no. of valid moves =",len(self.valid_moves_dict[hash(self.board)]))
+            print("depth = 1")
+            eval, child = self.minimax_ab(self.board, 1, -(math.inf), math.inf, self._color)
             action = child.last_piece
 
         match self._color:
@@ -113,7 +120,12 @@ class Agent:
             
             # TODO: make into helper function
 
-            valid_moves = board.generate_all_moves()
+            if hash(board) not in self.valid_moves_dict:
+                self.valid_moves_dict[hash(board)] = board.generate_all_moves()
+                valid_moves = self.valid_moves_dict[hash(board)]
+            else:
+                valid_moves = board.generate_all_moves()
+                self.valid_moves_dict[hash(board)] = valid_moves
 
             # ordered_children = []
             # for child in children:
@@ -164,8 +176,12 @@ class Agent:
                 
             #     self.children_dict[hash(board)] = children
 
-            valid_moves = board.generate_all_moves()
-
+            if hash(board) not in self.valid_moves_dict:
+                self.valid_moves_dict[hash(board)] = board.generate_all_moves()
+                valid_moves = self.valid_moves_dict[hash(board)]
+            else:
+                valid_moves = board.generate_all_moves()
+                self.valid_moves_dict[hash(board)] = valid_moves
 
             # ordered_children = []
             # for child in children:
