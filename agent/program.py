@@ -30,7 +30,8 @@ class Agent:
         
         # initialise internal rep of board
         self.board: Board = Board()
-        self.children_dict: dict[int, set[Board]] = {}
+        # self.children_dict: dict[int, set[Board]] = {}
+        self.boards_dict: dict[int, float] = {}
 
     def action(self, **referee: dict) -> Action:
         """
@@ -48,11 +49,11 @@ class Agent:
                     Coord(4, 4)
                 )
         else:
-            eval, child = self.minimax_ab(self.board, 3, -(math.inf), math.inf, self._color)
+            eval, child = self.minimax_ab(self.board, 2, -(math.inf), math.inf, self._color)
             # action should never be None
             action = child.last_piece
-            print("dict size =", len(self.children_dict))   
-            print("dict count =", dictcount)
+            # print("dict size =", len(self.children_dict))   
+            # print("dict count =", dictcount)
 
         match self._color:
             case PlayerColor.RED:
@@ -87,38 +88,54 @@ class Agent:
             # print("^^turn colour =", board.turn_color)
             # print("^^eval =", eval(board))
             # print(" ")
-            return (eval(board), None)
+            self.boards_dict[hash(board)] = eval(board)
+            # print(self.boards_dict[hash(board)])
+            return (self.boards_dict[hash(board)], None)
         
         if colour == PlayerColor.RED:
             best_child = None
             maxEval = -(math.inf)
 
-            print(board.render())
-            print("hash(board) =", hash(board))
+            # print(board.render())
+            # print("hash(board) =", hash(board))
 
             # check if board has been generated in previous turns 
-            if hash(board) in self.children_dict:
-                print("children = self.children_dict[board]")
-                children = self.children_dict[hash(board)]
-                dictcount += 1
+            # if hash(board) in self.children_dict:
+            #     print("children = self.children_dict[board]")
+            #     children = self.children_dict[hash(board)]
+            #     dictcount += 1
 
-                for child in children:
-                    print("child:")
-                    print(child.render())
-                    break
-            else:
-                print("children = board.generate_all_children()")
-                children = board.generate_all_children()
+            #     for child in children:
+            #         print("child:")
+            #         print(child.render())
+            #         break
+            # else:
+            #     print("children = board.generate_all_children()")
+            #     children = board.generate_all_children()
                 
-                self.children_dict[hash(board)] = children
-
+            #     self.children_dict[hash(board)] = children
+            
+            children = board.generate_all_children()
+            ordered_children = []
             for child in children:
-                val = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
+                if hash(child) in self.boards_dict.keys():
+                    print("board is in board dict")
+                    ordered_children.append((self.boards_dict[hash(child)], child))
+                else:
+                    # print("shouldn't happen for depth = 2")
+                    ordered_children.append((0, child))
+            # sort children based on their eval from PREVIOUS turn's eval of them
+            ordered_children.sort(key=lambda x: x[0])
+            # print(ordered_children)
+
+            for prev_eval, child in ordered_children:
+                val, board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
+                self.boards_dict[hash(child)] = val
                 # print("here:", val)
-                if val[0] >= maxEval:
-                    maxEval = val[0]
+                if val >= maxEval:
+                    maxEval = val
                     best_child = child
-                alpha = max(alpha, val[0])
+                alpha = max(alpha, val)
                 if beta <= alpha:
                     break
 
@@ -128,29 +145,42 @@ class Agent:
             best_child = None
             minEval = math.inf
 
-            print(board.render())
-            print("hash(board) =", hash(board))
-            if hash(board) in self.children_dict:
-                print("children = self.children_dict[board]")
-                children = self.children_dict[hash(board)]
-                dictcount += 1
+            # print(board.render())
+            # print("hash(board) =", hash(board))
+            # if hash(board) in self.children_dict:
+            #     print("children = self.children_dict[board]")
+            #     children = self.children_dict[hash(board)]
+            #     dictcount += 1
 
-                for child in children:
-                    print("child:")
-                    print(child.render())
-                    break
-            else:
-                print("children = board.generate_all_children()")
-                children = board.generate_all_children()
+            #     for child in children:
+            #         print("child:")
+            #         print(child.render())
+            #         break
+            # else:
+            #     print("children = board.generate_all_children()")
+            #     children = board.generate_all_children()
                 
-                self.children_dict[hash(board)] = children
-
+            #     self.children_dict[hash(board)] = children
+            children = board.generate_all_children()
+            ordered_children = []
             for child in children:
-                val = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
-                if val[0] <= minEval:
-                    minEval = val[0]
+                if hash(child) in self.boards_dict.keys():
+                    print("board is in board dict")
+                    ordered_children.append((self.boards_dict[hash(child)], child))
+                else:
+                    # print("shouldn't happen for depth = 2")
+                    ordered_children.append((0, child))
+            # sort children based on their eval from PREVIOUS turn's eval of them
+            ordered_children.sort(key=lambda x: x[0])
+            # print(ordered_children)
+
+            for prev_eval, child in ordered_children:
+                val, board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
+                self.boards_dict[hash(child)] = val
+                if val <= minEval:
+                    minEval = val
                     best_child = child
-                beta = min(beta, val[0])
+                beta = min(beta, val)
                 if beta <= alpha:
                     break
 
