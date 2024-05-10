@@ -10,8 +10,6 @@ import random, math, copy
 
 CUT_OFF = 20
 
-dictcount = 0
-
 class Agent:
     """
     This class is the "entry point" for your agent, providing an interface to
@@ -43,6 +41,9 @@ class Agent:
         # print("board in action()")
         # print(self.board.render(True, True))
 
+        # global dictcount
+        # dictcount = 0
+
         if self.board.turn_count == 0:
             action = PlaceAction(
                     Coord(3, 3), 
@@ -61,6 +62,7 @@ class Agent:
             eval, child = self.minimax_ab(self.board, 3, -(math.inf), math.inf, self._color)
             # action should never be None
             action = child.last_piece
+            # print("dict count =", dictcount)
 
         match self._color:
             case PlayerColor.RED:
@@ -108,6 +110,7 @@ class Agent:
             # print(board.render())
             # print("hash(board) =", hash(board))
 
+            # TODO: make into helper function
             # check if board has been generated in previous turns 
             if hash(board) in self.children_dict:
                 print("children = self.children_dict[board]")
@@ -124,11 +127,12 @@ class Agent:
                 
                 self.children_dict[hash(board)] = children
             
+            # TODO: make into helper function
             # children = board.generate_all_children()
             ordered_children = []
             for child in children:
-                if hash(child) in self.boards_dict.keys():
-                    print("board is in board dict")
+                if hash(child) in self.boards_dict:
+                    print("board is in board_dict")
                     ordered_children.append((self.boards_dict[hash(child)], child))
                 else:
                     # print("shouldn't happen for depth = 2")
@@ -136,7 +140,7 @@ class Agent:
             # sort children based on their eval from PREVIOUS turn's eval of them
             ordered_children.sort(key=lambda x: x[0])
             # print(ordered_children)
-
+            
             for prev_eval, child in ordered_children:
                 val, board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
                 self.boards_dict[hash(child)] = val
@@ -178,10 +182,9 @@ class Agent:
                     print("board is in board dict")
                     ordered_children.append((self.boards_dict[hash(child)], child))
                 else:
-                    # print("shouldn't happen for depth = 2")
                     ordered_children.append((0, child))
             # sort children based on their eval from PREVIOUS turn's eval of them
-            ordered_children.sort(key=lambda x: x[0])
+            ordered_children.sort(key=lambda x: x[0], reverse=True)
             # print(ordered_children)
 
             for prev_eval, child in ordered_children:
