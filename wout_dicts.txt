@@ -1,0 +1,763 @@
+*******************************************************************************
+Welcome to Tetress referee version 2024.0.0.
+
+Conduct a game of Tetress between 2 Agent classes.
+
+Run `python -m referee --help` for additional usage information.
+*******************************************************************************
+* referee : all messages printed by referee/wrapper modules begin with *
+* referee : (any other lines of output must be from your Agent class).
+* referee : 
+* referee : wrapping player 1 [agent:Agent] as RED...
+* referee : wrapping player 2 [randy:Agent] as BLUE...
+* referee : let the game begin!
+* referee : player RED is initialising
+Testing: I am playing as RED
+* referee : player BLUE is initialising
+Testing: I am playing as BLUE
+* referee : RED to play (turn 1) ...
+
+pruned count: 0 -------------------------------
+time taken this turn: 8.058547973632812e-05 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(3-3, 3-4, 4-3, 4-4)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . r r . . . . . . 
+* referee :                       . . . r r . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 4-4, 3-3, 3-4, 4-3
+Testing: RED played PLACE action: 4-4, 3-3, 3-4, 4-3
+* referee : BLUE to play (turn 2) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(1-8, 1-9, 2-7, 2-8)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . b b . 
+* referee :                       . . . . . . . b b . . 
+* referee :                       . . . r r . . . . . . 
+* referee :                       . . . r r . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 1-8, 1-9, 2-7, 2-8
+Testing: BLUE played PLACE action: 1-8, 1-9, 2-7, 2-8
+* referee : RED to play (turn 3) ...
+
+pruned count: 0 -------------------------------
+time taken this turn: 0.9662809371948242 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(2-6, 3-5, 3-6, 4-5)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . b b . 
+* referee :                       . . . . . . r b b . . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . . r r r . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 4-5, 2-6, 3-5, 3-6
+Testing: RED played PLACE action: 4-5, 2-6, 3-5, 3-6
+* referee : BLUE to play (turn 4) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(1-10, 2-9, 2-10, 3-9)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . b b b 
+* referee :                       . . . . . . r b b b b 
+* referee :                       . . . r r r r . . b . 
+* referee :                       . . . r r r . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 2-9, 2-10, 3-9, 1-10
+Testing: BLUE played PLACE action: 2-9, 2-10, 3-9, 1-10
+* referee : RED to play (turn 5) ...
+
+pruned count: 0 -------------------------------
+time taken this turn: 0.49611997604370117 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(4-6, 5-6, 5-7, 6-7)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . b b b 
+* referee :                       . . . . . . r b b b b 
+* referee :                       . . . r r r r . . b . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . . . . . r r . . . 
+* referee :                       . . . . . . . r . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 6-7, 4-6, 5-6, 5-7
+Testing: RED played PLACE action: 6-7, 4-6, 5-6, 5-7
+* referee : BLUE to play (turn 6) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(1-0, 2-0, 2-1, 3-0)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b . . . . . . . b b b 
+* referee :                       b b . . . . r b b b b 
+* referee :                       b . . r r r r . . b . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . . . . . r r . . . 
+* referee :                       . . . . . . . r . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 1-0, 2-0, 2-1, 3-0
+Testing: BLUE played PLACE action: 1-0, 2-0, 2-1, 3-0
+* referee : RED to play (turn 7) ...
+
+pruned count: 0 -------------------------------
+time taken this turn: 1.3157517910003662 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(5-4, 5-5, 6-5, 7-5)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b . . . . . . . b b b 
+* referee :                       b b . . . . r b b b b 
+* referee :                       b . . r r r r . . b . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . . . r r r r . . . 
+* referee :                       . . . . . r . r . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 5-4, 5-5, 7-5, 6-5
+Testing: RED played PLACE action: 5-4, 5-5, 7-5, 6-5
+* referee : BLUE to play (turn 8) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(0-0, 10-0, 10-1, 10-2)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . . . . . . . . . 
+* referee :                       b . . . . . . . b b b 
+* referee :                       b b . . . . r b b b b 
+* referee :                       b . . r r r r . . b . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . . . r r r r . . . 
+* referee :                       . . . . . r . r . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b b b . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 10-0, 10-1, 10-2, 0-0
+Testing: BLUE played PLACE action: 10-0, 10-1, 10-2, 0-0
+* referee : RED to play (turn 9) ...
+
+pruned count: 0 -------------------------------
+time taken this turn: 1.2864112854003906 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(0-7, 1-6, 1-7, 10-7)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . . . . . r . . . 
+* referee :                       b . . . . . r r b b b 
+* referee :                       b b . . . . r b b b b 
+* referee :                       b . . r r r r . . b . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . . . r r r r . . . 
+* referee :                       . . . . . r . r . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b b b . . . . r . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 0-7, 1-6, 10-7, 1-7
+Testing: RED played PLACE action: 0-7, 1-6, 10-7, 1-7
+* referee : BLUE to play (turn 10) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(0-3, 1-3, 10-3, 10-4)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . . . 
+* referee :                       b . . b . . r r b b b 
+* referee :                       b b . . . . r b b b b 
+* referee :                       b . . r r r r . . b . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . . . r r r r . . . 
+* referee :                       . . . . . r . r . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b b b b b . . r . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 10-4, 0-3, 1-3, 10-3
+Testing: BLUE played PLACE action: 10-4, 0-3, 1-3, 10-3
+* referee : RED to play (turn 11) ...
+
+pruned count: 353 -------------------------------
+time taken this turn: 13.9798583984375 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(6-8, 6-9, 6-10, 7-9)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . . . 
+* referee :                       b . . b . . r r b b b 
+* referee :                       b b . . . . r b b b b 
+* referee :                       b . . r r r r . . b . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . . . r r r r . . . 
+* referee :                       . . . . . r . r r r r 
+* referee :                       . . . . . r . . . r . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b b b b b . . r . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 7-9, 6-8, 6-9, 6-10
+Testing: RED played PLACE action: 7-9, 6-8, 6-9, 6-10
+* referee : BLUE to play (turn 12) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(1-1, 1-2, 2-2, 3-2)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . . . 
+* referee :                       b b b b . . r r b b b 
+* referee :                       b b b . . . r b b b b 
+* referee :                       b . b r r r r . . b . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . . . r r r r . . . 
+* referee :                       . . . . . r . r r r r 
+* referee :                       . . . . . r . . . r . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b b b b b . . r . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 1-1, 1-2, 3-2, 2-2
+Testing: BLUE played PLACE action: 1-1, 1-2, 3-2, 2-2
+* referee : RED to play (turn 13) ...
+
+pruned count: 749 -------------------------------
+time taken this turn: 15.066099405288696 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(1-4, 1-5, 2-4, 2-5)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b b b . r r r b b b b 
+* referee :                       b . b r r r r . . b . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . . . r r r r . . . 
+* referee :                       . . . . . r . r r r r 
+* referee :                       . . . . . r . . . r . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b b b b b . . r . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 2-4, 2-5, 1-4, 1-5
+Testing: RED played PLACE action: 2-4, 2-5, 1-4, 1-5
+* referee : BLUE to play (turn 14) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(0-9, 1-9, 10-8, 10-9)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . b . 
+* referee :                       . . . . . . . . . b . 
+* referee :                       b b b . r r r b b b b 
+* referee :                       b . b r r r r . . b . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . . . r r r r . . . 
+* referee :                       . . . . . r . r r r r 
+* referee :                       . . . . . r . . . r . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b b b b b . . r b b . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 10-9, 0-9, 1-9, 10-8
+Testing: BLUE played PLACE action: 10-9, 0-9, 1-9, 10-8
+* referee : RED to play (turn 15) ...
+
+pruned count: 1123 -------------------------------
+time taken this turn: 16.89048480987549 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(5-1, 5-2, 5-3, 6-2)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . b . 
+* referee :                       . . . . . . . . . b . 
+* referee :                       b b b . r r r b b b b 
+* referee :                       b . b r r r r . . b . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . r r r r r r r . . . 
+* referee :                       . . r . . r . r r r r 
+* referee :                       . . . . . r . . . r . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b b b b b . . r b b . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 5-3, 6-2, 5-1, 5-2
+Testing: RED played PLACE action: 5-3, 6-2, 5-1, 5-2
+* referee : BLUE to play (turn 16) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(4-0, 4-10, 5-9, 5-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . b . 
+* referee :                       . . . . . . . . . b . 
+* referee :                       b b b . r r r b b b b 
+* referee :                       b . b r r r r . . b . 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . . r . . r . r r r r 
+* referee :                       . . . . . r . . . r . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b b b b b . . r b b . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 4-10, 5-10, 4-0, 5-9
+Testing: BLUE played PLACE action: 4-10, 5-10, 4-0, 5-9
+* referee : RED to play (turn 17) ...
+
+pruned count: 1428 -------------------------------
+time taken this turn: 10.747654914855957 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(7-7, 7-8, 8-8, 9-8)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . b . 
+* referee :                       . . . . . . . . . b . 
+* referee :                       b b b . r r r b b b b 
+* referee :                       b . b r r r r . . b . 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . . r . . r . r r r r 
+* referee :                       . . . . . r . r r r . 
+* referee :                       . . . . . . . . r . . 
+* referee :                       . . . . . . . . r . . 
+* referee :                       b b b b b . . r b b . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 8-8, 9-8, 7-7, 7-8
+Testing: RED played PLACE action: 8-8, 9-8, 7-7, 7-8
+* referee : BLUE to play (turn 18) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(8-0, 8-1, 9-1, 9-2)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . b . 
+* referee :                       . . . . . . . . . b . 
+* referee :                       b b b . r r r b b b b 
+* referee :                       b . b r r r r . . b . 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . . r . . r . r r r r 
+* referee :                       . . . . . r . r r r . 
+* referee :                       b b . . . . . . r . . 
+* referee :                       . b b . . . . . r . . 
+* referee :                       b b b b b . . r b b . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 9-1, 9-2, 8-0, 8-1
+Testing: BLUE played PLACE action: 9-1, 9-2, 8-0, 8-1
+* referee : RED to play (turn 19) ...
+
+pruned count: 1626 -------------------------------
+time taken this turn: 6.195035934448242 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(8-5, 8-6, 9-5, 10-5)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . b . 
+* referee :                       . . . . . . . . . b . 
+* referee :                       b b b . r r r b b b b 
+* referee :                       b . b r r r r . . b . 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . . r . . r . r r r r 
+* referee :                       . . . . . r . r r r . 
+* referee :                       b b . . . r r . r . . 
+* referee :                       . b b . . r . . r . . 
+* referee :                       b b b b b r . r b b . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 9-5, 10-5, 8-5, 8-6
+Testing: RED played PLACE action: 9-5, 10-5, 8-5, 8-6
+* referee : BLUE to play (turn 20) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(1-3, 1-4, 1-5, 2-3)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . b . 
+* referee :                       . . . b b b . . . b . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b . b r r r r . . b . 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . . r . . r . r r r r 
+* referee :                       . . . . . r . r r r . 
+* referee :                       b b . . . r r . r . . 
+* referee :                       . b b . . r . . r . . 
+* referee :                       b b b b b r . r b b . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 2-3, 1-3, 1-4, 1-5
+Testing: BLUE played PLACE action: 2-3, 1-3, 1-4, 1-5
+* referee : RED to play (turn 21) ...
+
+pruned count: 2293 -------------------------------
+time taken this turn: 38.53712606430054 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(6-1, 7-0, 7-1, 7-2)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . b . 
+* referee :                       . . . b b b . . . b . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b . b r r r r . . b . 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . r r . . r . r r r r 
+* referee :                       r r r . . r . r r r . 
+* referee :                       b b . . . r r . r . . 
+* referee :                       . b b . . r . . r . . 
+* referee :                       b b b b b r . r b b . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 6-1, 7-0, 7-1, 7-2
+Testing: RED played PLACE action: 6-1, 7-0, 7-1, 7-2
+* referee : BLUE to play (turn 22) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(1-0, 1-10, 2-10, 3-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . b . 
+* referee :                       b . . b b b . . . b b 
+* referee :                       . . . . . . . . . . b 
+* referee :                       b . b r r r r . . b b 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . r r . . r . r r r r 
+* referee :                       r r r . . r . r r r . 
+* referee :                       b b . . . r r . r . . 
+* referee :                       . b b . . r . . r . . 
+* referee :                       b b b b b r . r b b . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 1-0, 2-10, 3-10, 1-10
+Testing: BLUE played PLACE action: 1-0, 2-10, 3-10, 1-10
+* referee : RED to play (turn 23) ...
+
+pruned count: 2641 -------------------------------
+time taken this turn: 25.738168001174927 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(8-2, 8-3, 9-3, 9-4)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . . r . b . 
+* referee :                       b . . b b b . . . b b 
+* referee :                       . . . . . . . . . . b 
+* referee :                       b . b r r r r . . b b 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . r r . . r . r r r r 
+* referee :                       r r r . . r . r r r . 
+* referee :                       b b r r . r r . r . . 
+* referee :                       . b b r r r . . r . . 
+* referee :                       b b b b b r . r b b . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 8-2, 8-3, 9-3, 9-4
+Testing: RED played PLACE action: 8-2, 8-3, 9-3, 9-4
+* referee : BLUE to play (turn 24) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(0-6, 1-6, 9-6, 10-6)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . b r . b . 
+* referee :                       b . . b b b b . . b b 
+* referee :                       . . . . . . . . . . b 
+* referee :                       b . b r r r r . . b b 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . r r . . r . r r r r 
+* referee :                       r r r . . r . r r r . 
+* referee :                       b b r r . r r . r . . 
+* referee :                       . b b r r r b . r . . 
+* referee :                       b b b b b r b r b b . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 1-6, 9-6, 10-6, 0-6
+Testing: BLUE played PLACE action: 1-6, 9-6, 10-6, 0-6
+* referee : RED to play (turn 25) ...
+
+pruned count: 3311 -------------------------------
+time taken this turn: 19.112168312072754 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(8-9, 8-10, 9-10, 10-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . b r . b . 
+* referee :                       b . . b b b b . . b b 
+* referee :                       . . . . . . . . . . b 
+* referee :                       b . b r r r r . . b b 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . r r . . r . r r r r 
+* referee :                       r r r . . r . r r r . 
+* referee :                       b b r r . r r . r r r 
+* referee :                       . b b r r r b . r . r 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 9-10, 10-10, 8-9, 8-10
+Testing: RED played PLACE action: 9-10, 10-10, 8-9, 8-10
+* referee : BLUE to play (turn 26) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(2-1, 2-2, 2-3, 2-4)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . b r . b . 
+* referee :                       b . . b b b b . . b b 
+* referee :                       . b b b b . . . . . b 
+* referee :                       b . b r r r r . . b b 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . r r . . r . r r r r 
+* referee :                       r r r . . r . r r r . 
+* referee :                       b b r r . r r . r r r 
+* referee :                       . b b r r r b . r . r 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 2-3, 2-4, 2-1, 2-2
+Testing: BLUE played PLACE action: 2-3, 2-4, 2-1, 2-2
+* referee : RED to play (turn 27) ...
+
+pruned count: 3588 -------------------------------
+time taken this turn: 13.578630685806274 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(0-8, 10-6, 10-7, 10-8)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . b r r b . 
+* referee :                       b . . b b b b . . b b 
+* referee :                       . b b b b . . . . . b 
+* referee :                       b . b r r r r . . b b 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . r r . . r . r r r r 
+* referee :                       r r r . . r . r r r . 
+* referee :                       b b r r . r r . r r r 
+* referee :                       . b b r r r b . r . r 
+* referee :                       . . . . . . r r r . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 0-8, 10-6, 10-7, 10-8
+Testing: RED played PLACE action: 0-8, 10-6, 10-7, 10-8
+* referee : BLUE to play (turn 28) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(1-8, 2-6, 2-7, 2-8)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b . . b r r b . 
+* referee :                       b . . b b b b . b b b 
+* referee :                       . b b b b . b b b . b 
+* referee :                       b . b r r r r . . b b 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . r r . . r . r r r r 
+* referee :                       r r r . . r . r r r . 
+* referee :                       b b r r . r r . r r r 
+* referee :                       . b b r r r b . r . r 
+* referee :                       . . . . . . r r r . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 1-8, 2-6, 2-7, 2-8
+Testing: BLUE played PLACE action: 1-8, 2-6, 2-7, 2-8
+* referee : RED to play (turn 29) ...
+
+pruned count: 3766 -------------------------------
+time taken this turn: 4.3934948444366455 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(0-4, 10-2, 10-3, 10-4)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b r . b r r b . 
+* referee :                       b . . b b b b . b b b 
+* referee :                       . b b b b . b b b . b 
+* referee :                       b . b r r r r . . b b 
+* referee :                       b . . r r r r . . . b 
+* referee :                       . r r r r r r r . b b 
+* referee :                       . r r . . r . r r r r 
+* referee :                       r r r . . r . r r r . 
+* referee :                       b b r r . r r . r r r 
+* referee :                       . b b r r r b . r . r 
+* referee :                       . . r r r . r r r . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 10-4, 0-4, 10-2, 10-3
+Testing: RED played PLACE action: 10-4, 0-4, 10-2, 10-3
+* referee : BLUE to play (turn 30) ...
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(3-7, 4-7, 4-8, 5-8)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b . . b r . b r r b . 
+* referee :                       b . . b b b b . b b b 
+* referee :                       . b b b b . b b b . b 
+* referee :                       b . b r r r r b . b b 
+* referee :                       b . . r r r r b b . b 
+* referee :                       . r r r r r r r b b b 
+* referee :                       . r r . . r . r r r r 
+* referee :                       r r r . . r . r r r . 
+* referee :                       b b r r . r r . r r r 
+* referee :                       . b b r r r b . r . r 
+* referee :                       . . r r r . r r r . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 3-7, 4-7, 4-8, 5-8
+Testing: BLUE played PLACE action: 3-7, 4-7, 4-8, 5-8
+* referee : RED to play (turn 31) ...
+
+pruned count: 3795 -------------------------------
+time taken this turn: 0.44047975540161133 --------------------------------
+
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(0-1, 10-0, 10-1, 10-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b r . b r . b r r b . 
+* referee :                       b . . b b b b . b b b 
+* referee :                       . b b b b . b b b . b 
+* referee :                       b . b r r r r b . b b 
+* referee :                       b . . r r r r b b . b 
+* referee :                       . r r r r r r r b b b 
+* referee :                       . r r . . r . r r r r 
+* referee :                       r r r . . r . r r r . 
+* referee :                       b b r r . r r . r r r 
+* referee :                       . b b r r r b . r . r 
+* referee :                       r r r r r . r r r . r 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : game over, winner is RED
+* referee @ result: player 1 [agent:Agent]
