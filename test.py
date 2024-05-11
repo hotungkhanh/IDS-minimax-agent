@@ -37,7 +37,11 @@ board.turn_count = 30
 # putting turn count to be 0 or 1 here doesnt work because they have different generate_moves()
 print(board.render())
 
-print("minimax depth = 3")
-eval, child = mini.minimax_ab(board, 3, -math.inf, math.inf, PlayerColor.RED)
+valid_moves_dict: dict[int, set[PlaceAction]] = {}
+valid_moves_dict[hash(mini.board)] = mini.board.generate_all_moves()
+
+depth = 4
+print("minimax depth =", depth)
+eval, child = mini.minimax_ab(board, depth, -math.inf, math.inf, valid_moves_dict)
 print("minimax eval = ", eval)
 print(child.render())

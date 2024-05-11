@@ -5,7 +5,7 @@
 
 from dataclasses import dataclass
 
-from referee.game.coord import Coord, Direction
+from referee.game.coord import Coord
 from referee.game.player import PlayerColor
 from referee.game.actions import Action, PlaceAction
 from referee.game.exceptions import IllegalActionException
@@ -69,7 +69,6 @@ class Board:
         self.line_removal()
         
         self.turn_color = self.turn_color.opponent
-
         self.turn_count += 1
 
         return
@@ -78,7 +77,6 @@ class Board:
         '''
         Checks if any rows or columns should be removed on the board
 
-        Done, not tested
         '''
         to_remove = set()
         # use last_piece to determine which rows & cols to check for 
@@ -188,8 +186,8 @@ class Board:
         
         elif self.turn_count == 1:
             opponent_adj = []
-            for oppo_cell in opponent_cells:
-                opponent_adj += self.adjacent(oppo_cell)
+            for my_cell in opponent_cells:
+                opponent_adj += self.adjacent(my_cell)
 
             empty_coords = [
                 Coord(r, c)
@@ -216,23 +214,17 @@ class Board:
             return moves
 
         
-        # board has 1+ piece of player colour
-        # FOR TESTING PURPOSES: reduce randomness
+        # turn_count from 2 onwards
         else:
-            for oppo_cell in my_cells:
-                # if cell does not have empty neighbours
-                #   continue
+            for my_cell in my_cells:
 
-                piece_combinations = self.generate_piece_combinations(oppo_cell)
+                piece_combinations = self.generate_piece_combinations(my_cell)
 
                 # code for all pieces
                 for piece in piece_combinations:
                     c1, c2, c3, c4 = piece
                     action = PlaceAction(c1, c2, c3, c4)
 
-                    # place piece on board
-                    # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
-                    # new_board.apply_action(action)
                     moves.add(action)
             return moves
     
