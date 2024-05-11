@@ -5,7 +5,7 @@
 
 from dataclasses import dataclass
 
-from referee.game.coord import Coord, Direction
+from referee.game.coord import Coord
 from referee.game.player import PlayerColor
 from referee.game.actions import Action, PlaceAction
 from referee.game.exceptions import IllegalActionException
@@ -50,12 +50,8 @@ class Board:
     
     def __lt__(self, other: 'Board'):
         return self.__hash__() < other.__hash__()
-    # @property
-    # def hashable_value(self):
-    #     return (frozenset(self.red_cells), frozenset(self.blue_cells), self.turn_color)
 
     def apply_action(self, action: Action):
-        # used to return BoardMutation
         """
         Apply an action to a board, mutating the board state. 
         Action should be guaranteed to be legal
@@ -73,7 +69,6 @@ class Board:
         self.line_removal()
         
         self.turn_color = self.turn_color.opponent
-
         self.turn_count += 1
 
         return
@@ -82,7 +77,6 @@ class Board:
         '''
         Checks if any rows or columns should be removed on the board
 
-        Done, not tested
         '''
         to_remove = set()
         # use last_piece to determine which rows & cols to check for 
@@ -192,8 +186,8 @@ class Board:
         
         elif self.turn_count == 1:
             opponent_adj = []
-            for oppo_cell in opponent_cells:
-                opponent_adj += self.adjacent(oppo_cell)
+            for my_cell in opponent_cells:
+                opponent_adj += self.adjacent(my_cell)
 
             empty_coords = [
                 Coord(r, c)
@@ -208,8 +202,8 @@ class Board:
                 random_piece_type: PieceType = random.choice(list(PieceType))
                 new_piece = set(create_piece(random_piece_type, random_coord).coords)
                 
-                illegals = sum(1 for c in new_piece if c not in empty_coords)
-                if illegals > 0:
+                invalid_coords = sum(1 for c in new_piece if c not in empty_coords)
+                if invalid_coords > 0:
                     continue
                 else:
                     piece_found = True
@@ -220,102 +214,20 @@ class Board:
             return moves
 
         
-        # board has 1+ piece of player colour
-        # FOR TESTING PURPOSES: reduce randomness
+        # turn_count from 2 onwards
         else:
-            for oppo_cell in my_cells:
-                # if cell does not have empty neighbours
-                #   continue
+            for my_cell in my_cells:
 
-                piece_combinations = self.generate_piece_combinations(oppo_cell)
+                piece_combinations = self.generate_piece_combinations(my_cell)
 
                 # code for all pieces
                 for piece in piece_combinations:
                     c1, c2, c3, c4 = piece
                     action = PlaceAction(c1, c2, c3, c4)
 
-                    # place piece on board
-                    # new_board = Board(board.red_cells.copy(), board.blue_cells.copy(), board._turn_color, action, board.turn_count)
-                    # new_board.apply_action(action)
                     moves.add(action)
             return moves
     
-    def generate_all_children(self) -> set['Board']:
-        '''
-        Returns a set of children applied with valid moves
-        '''
-        children = set()
-
-        if self.turn_color == PlayerColor.RED:
-            my_cells = self.red_cells
-            opponent_cells = self.blue_cells
-        else:
-            my_cells = self.blue_cells
-            opponent_cells = self.red_cells
-
-        # for the very first move, placing any piece anywhere has same effect
-        # due to toroidal board
-        if self.turn_count == 0:            
-            for piece_type in PieceType:
-                piece_coords = set(create_piece(piece_type, Coord(0,0)).coords)
-
-                action = (PlaceAction(*piece_coords))
-                child = Board(self.red_cells.copy(), self.blue_cells.copy(), self.turn_color, action, self.turn_count)
-                child.apply_action(action)
-                children.add(child)
-
-            return children
-        
-        # for the second move, 
-        elif self.turn_count == 1:
-
-            empty_coords = [
-                Coord(r, c)
-                for r in range(BOARD_N)
-                for c in range(BOARD_N)
-                if (Coord(r, c) not in opponent_cells)
-            ]
-
-            piece_found = False
-            while not piece_found:
-                random_coord: Coord = random.choice(empty_coords)
-                random_piece_type: PieceType = random.choice(list(PieceType))
-                new_piece = set(create_piece(random_piece_type, random_coord).coords)
-                for coord in new_piece:
-                    if coord not in empty_coords:
-                        continue
-                piece_found = True
-
-                action = (PlaceAction(*new_piece))
-                child = Board(self.red_cells.copy(), self.blue_cells.copy(), self.turn_color, action, self.turn_count)
-                child.apply_action(action)
-                children.add(child)
-
-            # children should only have 1 child in it - reduces unnecessary computation time at start
-            return children
-
-        # board has 1+ piece of player colour
-        # FOR TESTING PURPOSES: reduce randomness
-        else:
-            for cell in my_cells:
-                # if cell does not have empty neighbours
-                #   continue
-
-                piece_combinations = self.generate_piece_combinations(cell)
-
-                # code for all pieces
-                for piece in piece_combinations:
-                    c1, c2, c3, c4 = piece
-                    action = PlaceAction(c1, c2, c3, c4)
-
-                    child = Board(self.red_cells.copy(), self.blue_cells.copy(), self.turn_color, action, self.turn_count)
-                    child.apply_action(action)
-                    children.add(child)
-            return children
-        
-    # def adjacent_empty():
-
-
     def render(self, use_color: bool=False, use_unicode: bool=False) -> str:
         """
         Returns a visualisation of the game board as a multiline string, with
@@ -362,7 +274,7 @@ class Board:
         if self.turn_limit_reached:
             return True
         
-        if self.turn_count in (0,1):
+        if self.turn_count in [0,1]:
             return False
         
         if self.turn_color == PlayerColor.RED:
