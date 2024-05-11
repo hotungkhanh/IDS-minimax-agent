@@ -46,28 +46,16 @@ class Agent:
             action = random.choice(list(self.valid_moves_dict[hash(self.board)]))
 
         elif len(self.valid_moves_dict[hash(self.board)]) < 5:
-            print("total no. of valid moves =",len(self.valid_moves_dict[hash(self.board)]))
-            print("depth = 4")
-            eval, child = self.minimax_ab(self.board, 4, -(math.inf), math.inf, self._color)
-            print("eval = ", eval)
+            eval, child = self.minimax_ab(self.board, 4, -(math.inf), math.inf)
             action = child.last_piece
         elif len(self.valid_moves_dict[hash(self.board)]) < 80:
-            print("total no. of valid moves =",len(self.valid_moves_dict[hash(self.board)]))
-            print("depth = 3")
-            eval, child = self.minimax_ab(self.board, 3, -(math.inf), math.inf, self._color)
-            print("eval = ", eval)
+            eval, child = self.minimax_ab(self.board, 3, -(math.inf), math.inf)
             action = child.last_piece
         elif len(self.valid_moves_dict[hash(self.board)]) < 200:
-            print("total no. of valid moves =",len(self.valid_moves_dict[hash(self.board)]))
-            print("depth = 2")
-            eval, child = self.minimax_ab(self.board, 2, -(math.inf), math.inf, self._color)
-            print("eval = ", eval)
+            eval, child = self.minimax_ab(self.board, 2, -(math.inf), math.inf)
             action = child.last_piece
         else:
-            print("total no. of valid moves =",len(self.valid_moves_dict[hash(self.board)]))
-            print("depth = 1")
-            eval, child = self.minimax_ab(self.board, 1, -(math.inf), math.inf, self._color)
-            print("eval = ", eval)
+            eval, child = self.minimax_ab(self.board, 1, -(math.inf), math.inf)
             action = child.last_piece
 
         match self._color:
@@ -93,18 +81,18 @@ class Agent:
 
         print(f"Testing: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
 
-    def minimax_ab(self, board: Board, depth: int, alpha, beta, colour: PlayerColor) -> tuple[int, Board]:
+    def minimax_ab(self, board: Board, depth: int, alpha, beta) -> tuple[int, Board]:
 
         if depth == 0 or board.game_over:
             return (eval(board), None)
         
-        if colour == PlayerColor.RED:
+        if board.turn_color == PlayerColor.RED:
             best_child = None
             maxEval = -(math.inf)
 
             if hash(board) not in self.valid_moves_dict:
-                self.valid_moves_dict[hash(board)] = board.generate_all_moves()
-                valid_moves = self.valid_moves_dict[hash(board)]
+                valid_moves = board.generate_all_moves()
+                self.valid_moves_dict[hash(board)] = valid_moves
             else:
                 valid_moves = self.valid_moves_dict[hash(board)]
 
@@ -113,7 +101,7 @@ class Agent:
                 child = board.__copy__()
                 child.apply_action(move)
 
-                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
+                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta)
 
                 if maxEval < val:
                     maxEval = val
@@ -123,14 +111,6 @@ class Agent:
                 if alpha >= beta:
                     break
 
-            # if depth > 0:
-            #     print("best (max) child at depth ", depth)
-            #     print("best child eval =", maxEval)
-            #     print("alpha =", alpha)
-            #     print("beta =", beta)
-            #     print(best_child.render())
-            #     print("")
-
             return (maxEval, best_child)
         
         else:
@@ -138,8 +118,8 @@ class Agent:
             minEval = math.inf
 
             if hash(board) not in self.valid_moves_dict:
-                self.valid_moves_dict[hash(board)] = board.generate_all_moves()
-                valid_moves = self.valid_moves_dict[hash(board)]
+                valid_moves = board.generate_all_moves()
+                self.valid_moves_dict[hash(board)] = valid_moves
             else:
                 valid_moves = self.valid_moves_dict[hash(board)]
 
@@ -148,7 +128,7 @@ class Agent:
                 child = board.__copy__()
                 child.apply_action(move)
 
-                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
+                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta)
 
                 if minEval > val:
                     minEval = val
@@ -157,14 +137,6 @@ class Agent:
                 beta = min(beta, minEval)
                 if beta <= alpha:
                     break
-
-            
-            # print("best (min) child at depth ", depth)
-            # print("best child eval =", minEval)
-            # print("alpha =", alpha)
-            # print("beta =", beta)
-            # print(best_child.render())
-            # print("")
 
             return (minEval, best_child)
 
@@ -175,7 +147,6 @@ def eval(board: Board):
     if board.winner_color == PlayerColor.BLUE:
         return -999
 
-    # print("evaling")
     blue_count = len(board.blue_cells)
     red_count = len(board.red_cells)
 
