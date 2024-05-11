@@ -1,0 +1,1587 @@
+Testing: I am playing as RED
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+. . . . . . . . . . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+minimax depth = 3
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+. . . r . r . r r r . 
+r b b b . r b b r r r 
+r . b b b r r b b r r 
+. . b b b r r . b . b 
+b b b b . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r b b b b b r r 
+. . . r . r . . r r r 
+r b b b . r b b r r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r r r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . b r r . b . b 
+b b b . b r . . b b b 
+. r . r b . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . r b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r b r . . . . . 
+r b b b b r b b . r r 
+r . b b b r r b b r r 
+. . b . b r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . r b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . . . . . . . . . . 
+b b . r . r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . r b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+b b . r . r . . . b b 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r b b b b b r r 
+. . . r b r . . r r r 
+r b b b . r b b r r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r b b b b b r r 
+. . . r b r . . . . . 
+r b b b b r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r r b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r b b b r r . r 
+. . r r b b b b b r r 
+. . . r b r . . r r r 
+r b b b . r b b r r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . r b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. b r r r b b b b r r 
+b b . r . r . . . . b 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r b b b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r r r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r b . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r r r . . . . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . b r r . b . b 
+b b b . b r . . b b b 
+. r . r b . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r b . b r r . r 
+. . r r b b b b b r r 
+. . . r b r . . . . . 
+r b b b b r b b . r r 
+r . b b . r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r r b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . r b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r . r . . . . . 
+r b b b b r b b . r r 
+r . b b b r r b b r r 
+. . b b b r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 10
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+. . . r . r . . b b b 
+r b b b . r b b b r r 
+r . b b r r r b b r r 
+. . b r r r r . b . b 
+b b b r . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . r b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+b . r r r b b b b r r 
+b b . r . r . . . . b 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . r b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r . r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . b r r . b . b 
+b b b . b r . . b b b 
+. r . r b b r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r r r . . . . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b b b r r . b . b 
+b b b . b r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b b b r r . r 
+. . r r . b b b b r r 
+. . . r . r . . r r r 
+r b b b . r b b r r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . b b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+. . . r r r . . . . . 
+r b b b r r b b . r r 
+r . b b r r r b b r r 
+. . b . r r r . b . b 
+b b b . . r . . b b b 
+. r . r b b r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+. . . r . r . b b b b 
+r b b b . r b b . r r 
+r . b b r r r b b r r 
+. . b r r r r . b . b 
+b b b r . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r b b b . r r b b 
+r r r b b b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r r r . . . . . 
+r b b b r r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . r b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+b b b r . r . . . . b 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r r r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b b b r . . b b b 
+. r . r b . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+. . . r . r b b b . . 
+r b b b . r b b b r r 
+r . b b r r r b b r r 
+. . b r r r r . b . b 
+b b b r . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. b r r r b b b b r r 
+b b b r r r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+b . . r . r . . b b b 
+r b b b . r b b . r r 
+r . b b r r r b b r r 
+. . b r r r r . b . b 
+b b b r . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r r r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b b b r r . b . b 
+b b b . b r . . b b b 
+. r . r b . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . r b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . . . . . . . . . . 
+. b b r . r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . r b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r . r . . . . . 
+r b b b b r b b . r r 
+r . b b b r r b b r r 
+. . b . b r r . b . b 
+b b b . b r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+. . . r . r . b b b . 
+r b b b . r b b b r r 
+r . b b r r r b b r r 
+. . b r r r r . b . b 
+b b b r . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+b . r r r b b b b r r 
+b b b r r r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r r r . . . . . 
+r b b b r r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r b . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r r r . . . . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . b r r . b . b 
+b b b b b r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r r r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b b . r r . b . b 
+b b b b b r . . b b b 
+. r . r b . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . r b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r . r b b b b . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r . b b b b r r 
+. . . r . r . . r r r 
+r b b b . r b b r r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . r b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r . r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b b b r . . b b b 
+. r . r b b r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . r b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r . r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . b r . . b b b 
+. r . r b b r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r b b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r . b b b b r r 
+. . . r . r . . r r r 
+r b b b . r b b r r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r r r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b b b r r . b . b 
+b b b b b r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b b b r r r r . 
+r r r r b b b r r . r 
+. . r r b b b b b r r 
+. . . r . r . . r r r 
+r b b b . r b b r r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . b b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r r r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . b r . . b b b 
+. r . r b . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b r b r r r r . 
+r r r r r . b r r . r 
+. . r r r b b b b r r 
+. . . r r r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . b r r . b . b 
+b b b b b r . . b b b 
+. r . r b . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  2
+best child eval = 9
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+. . . r . r . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . b r r . b . b 
+b b b b b r . . b b b 
+. r . r b . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  2
+best child eval = -inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+r r r r . . b b b . . 
+r b b b . r b b b r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 6
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b b b r r . r 
+. . . b b b . . . r r 
+r r . . . . . . r r . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = 6
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b b b r r . r 
+. . . b b b . . . . . 
+r r . . . . . . . . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 12
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+r . r r . b b b b r r 
+r . . b . b . . . r r 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . r r r . b . b 
+b b b r r r . . b b b 
+. r . r r . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+r . r r r b b b b r r 
+r r r r r . b b b r r 
+r b b b . r b b b r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 5
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . . . . . . . . . . 
+r r r r b b b b . r r 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = 5
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+r . r r r b b b b r r 
+r . . . b b b b . r r 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 11
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+r r . b . b . . . r r 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . r r r . b . b 
+b b b r r r . . b b b 
+. r . r r . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 10
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+r r . r . r b b b r r 
+. . . . . . . . . . . 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  2
+best child eval = -inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+r r . . b b b b . r r 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 7
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b b b r r . r 
+. . . b b b . . . r r 
+r . . . . . . . r r r 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = 7
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b b b r r . r 
+. . . b b b . . . . . 
+r . . . . . . . . . r 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 11
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. r r r . b b b b r r 
+r r . b . b . . . . r 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . r r r . b . b 
+b b b r r r . . b b b 
+. r . r r . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. r r r r b b b b r r 
+r r r r r r b b b . r 
+r b b b . r b b b r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = -inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. r r r r b b b b r r 
+r r . . b b b b . . r 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = -inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+b b b b . r r r r . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 8
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+b b b b . r r . r r r 
+. . . . . . . . . . . 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  2
+best child eval = 8
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+b b b b . . . . r r r 
+r b b b . r b b r r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 11
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+r . r r . b b b b r r 
+r r . b . b . . . . r 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . r r r . b . b 
+b b b r r r . . b b b 
+. r . r r . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+r . r r r b b b b r r 
+r r r r r r b b b . r 
+r b b b . r b b b r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = -inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+r . r r r b b b b r r 
+r r . . b b b b . . r 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+r . r r r b b b b r r 
+r r r r r . b b b r r 
+r b b b . r b b b r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = -inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+b r r r r . . . b b b 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 7
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+. . . . . . . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  2
+best child eval = 7
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+b b b b . . . r r r r 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 10
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+r r r b . b . . . . r 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . r r r . b . b 
+b b b r r r . . b b b 
+. r . r r . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+r r r r . r b b b . r 
+. . . . . . . . . . . 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  2
+best child eval = 9
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+r r r . . . b b b . r 
+r b b b . r b b b r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 7
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+. . . . . . . . . . . 
+r b b b . r b b r r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = 7
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+b b b b r r r r . . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = -inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+b b b b . . r r r . . 
+r b b b . r b b r r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 10
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. r r r . b b b b r r 
+r r r b . b . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . r r r . b . b 
+b b b r r r . . b b b 
+. r . r r . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 10
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. r r r . b b b b r r 
+r r r r . r b b b . . 
+. . . . . . . . . . . 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. r r r r b b b b r r 
+r r r . b b b b r r r 
+r b b b . r b b r r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 7
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. r r r . b b b b r r 
+r r r r . r b b b b . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  2
+best child eval = 7
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. r r r r b b b b r r 
+r r r . . . b b b b . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 12
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+r . . b . b . . r r r 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . r r r . b . b 
+b b b r r r . . b b b 
+. r . r r . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 5
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . . . . . . . . . . 
+r r r . b b b b r r r 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = 5
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+r . . . b b b b r r r 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 7
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b b b r r . r 
+. . . b b b . . . r r 
+. r r . . . . . r r . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = 7
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b b b r r . r 
+. . . b b b . . . . . 
+. r r . . . . . . . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 8
+r r r . . b . r r b b 
+r r r b r b r r r r . 
+r r r r r r b r r . r 
+. . r r r b b b b r r 
+. . r r . . . . . . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b b b r r . b . b 
+b b b b . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  2
+best child eval = 8
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+. . r r . . . . . . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b b b r r . b . b 
+b b b b . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 6
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . . . . . . . . . . 
+r r r r . . b b b r r 
+r b b b . r b b b r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = 6
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. r r r r b b b b r r 
+. r r r . . b b b . . 
+r b b b . r b b b r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r b b b b b r r 
+. . . b b r r . . . . 
+r b b b b r b b . r r 
+r . b b . r r b b r r 
+. . b . r r r . b . b 
+b b b r r r . . b b b 
+. r . r r . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  2
+best child eval = 9
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r b b b b b r r 
+. . . b b r r . . . . 
+r b b b b r b b . r r 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 8
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+. . r r . b b b b r r 
+b b b b . r r r r r . 
+. . . . . . . . . . . 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  2
+best child eval = 8
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+b b b b . . . r r r . 
+r b b b . r b b r r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 10
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+r . r r . b b b b r r 
+r r r b . b . . . . . 
+r b b b . r b b . r r 
+r . b b . r r b b r r 
+. . b . r r r . b . b 
+b b b r r r . . b b b 
+. r . r r . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  1
+best child eval = 9
+r r r . . b . r r b b 
+r r r b . b r r r r . 
+r r r r . . b r r . r 
+r . r r . b b b b r r 
+r r r r . r b b b . . 
+. . . . . . . . . . . 
+r . b b . r r b b r r 
+. . b . . r r . b . b 
+b b b . . r . . b b b 
+. r . r . . r b b b b 
+. r r r . b r r . b b 
+
+
+best child at depth  2
+best child eval = 9
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+r . r r r b b b b r r 
+r r r . . . b b b . . 
+r b b b . r b b b r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = -inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+b b b b . . r r r r . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. b r r r b b b b r r 
+b b b r r r r r r r . 
+r b b b . r b b r r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = 5
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . . . . . . . . . . 
+b r r r r r r . b b b 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = 5
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+b . . r r r r . b b b 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  1
+best child eval = inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+r . r r r b b b b r r 
+r . r r r r b b b r r 
+r b b b . r b b b r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  2
+best child eval = -inf
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+b . r r r r . . b b b 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+best child at depth  3
+best child eval = 9
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+r . r r r b b b b r r 
+r r r . . . . . . . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+
+minimax eval =  9
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+r . r r r b b b b r r 
+r r r . . . . . . . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
