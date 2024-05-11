@@ -107,8 +107,6 @@ class Agent:
                 valid_moves = self.valid_moves_dict[hash(board)]
             else:
                 valid_moves = self.valid_moves_dict[hash(board)]
-                print("accessing moves_dict")
-
 
             for move in valid_moves:
 
@@ -117,20 +115,21 @@ class Agent:
 
                 val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
 
-                if maxEval <= val:
+                if maxEval < val:
                     maxEval = val
                     best_child = child
+
                 alpha = max(alpha, maxEval)
                 if alpha >= beta:
                     break
 
-            if depth > 0:
-                print("best (max) child at depth ", depth)
-                print("best child eval =", maxEval)
-                print("alpha =", alpha)
-                print("beta =", beta)
-                print(best_child.render())
-                print("")
+            # if depth > 0:
+            #     print("best (max) child at depth ", depth)
+            #     print("best child eval =", maxEval)
+            #     print("alpha =", alpha)
+            #     print("beta =", beta)
+            #     print(best_child.render())
+            #     print("")
 
             return (maxEval, best_child)
         
@@ -151,20 +150,21 @@ class Agent:
 
                 val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
 
-                if minEval >= val:
+                if minEval > val:
                     minEval = val
                     best_child = child
+
                 beta = min(beta, minEval)
                 if beta <= alpha:
                     break
 
             
-            print("best (min) child at depth ", depth)
-            print("best child eval =", minEval)
-            print("alpha =", alpha)
-            print("beta =", beta)
-            print(best_child.render())
-            print("")
+            # print("best (min) child at depth ", depth)
+            # print("best child eval =", minEval)
+            # print("alpha =", alpha)
+            # print("beta =", beta)
+            # print(best_child.render())
+            # print("")
 
             return (minEval, best_child)
 
