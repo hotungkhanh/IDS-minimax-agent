@@ -1,14 +1,11 @@
 # COMP30024 Artificial Intelligence, Semester 1 2024
 # Project Part B: Game Playing Agent
 
-from referee.game import PlayerColor, Action, PlaceAction, coord
+from referee.game import PlayerColor, Action, PlaceAction
 from referee.game.pieces import *
 from .board import Board
 from referee.game.exceptions import IllegalActionException
-import random, math, copy
-import time
-
-CUT_OFF = 30
+import random, math
 
 class Agent:
     """
@@ -69,13 +66,13 @@ class Agent:
 
         print(f"Testing: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
 
-    def minimax_ab(self, board: Board, depth: int, alpha, beta, valid_moves_dict) -> tuple[int, Board]:
+    def minimax_ab(self, board: Board, depth: int, alpha, beta, valid_moves_dict) -> tuple[int, PlaceAction]:
 
         if depth == 0 or board.game_over:
             return (eval(board), None)
         
         if board.turn_color == PlayerColor.RED:
-            best_child = None
+            best_move = None
             maxEval = -(math.inf)
 
             if hash(board) not in valid_moves_dict:
@@ -89,20 +86,20 @@ class Agent:
                 child = board.__copy__()
                 child.apply_action(move)
 
-                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)
+                val, minimax_move = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)
 
                 if maxEval < val:
                     maxEval = val
-                    best_child = child
+                    best_move = move
 
                 alpha = max(alpha, maxEval)
                 if alpha >= beta:
                     break
 
-            return (maxEval, best_child)
+            return (maxEval, best_move)
         
         else:
-            best_child = None
+            best_move = None
             minEval = math.inf
 
             if hash(board) not in valid_moves_dict:
@@ -116,17 +113,17 @@ class Agent:
                 child = board.__copy__()
                 child.apply_action(move)
 
-                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)
+                val, minimax_move = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)
 
                 if minEval > val:
                     minEval = val
-                    best_child = child
+                    best_move = move
 
                 beta = min(beta, minEval)
                 if beta <= alpha:
                     break
 
-            return (minEval, best_child)
+            return (minEval, best_move)
 
     def determine_minimax_depth(self, valid_moves_dict):
         dict_len = len(valid_moves_dict[hash(self.board)])
@@ -138,8 +135,8 @@ class Agent:
             depth = 2
         else:
             depth = 1
-        eval, child = self.minimax_ab(self.board, depth, -(math.inf), math.inf, valid_moves_dict)
-        return child.last_piece
+        eval, move = self.minimax_ab(self.board, depth, -(math.inf), math.inf, valid_moves_dict)
+        return move
 
 
 

@@ -24,7 +24,6 @@ class Board:
         blue_cells: set[Coord] = set(),
         initial_player: PlayerColor = PlayerColor.RED,
         
-        piece: PlaceAction = None,
         turn_count = 0,
     ):
         """
@@ -34,7 +33,6 @@ class Board:
         self.red_cells = red_cells
         self.blue_cells = blue_cells
 
-        self.last_piece = piece
         self.turn_color: PlayerColor = initial_player
 
         self.turn_count = turn_count
@@ -46,7 +44,7 @@ class Board:
         return hash((frozenset(self.red_cells), frozenset(self.blue_cells), self.turn_color))
 
     def __copy__(self) -> 'Board':
-        return Board(self.red_cells.copy(), self.blue_cells.copy(), self.turn_color, self.last_piece, self.turn_count)
+        return Board(self.red_cells.copy(), self.blue_cells.copy(), self.turn_color, self.turn_count)
     
     def __lt__(self, other: 'Board'):
         return self.__hash__() < other.__hash__()
@@ -65,29 +63,27 @@ class Board:
             for cell in action.coords:
                 self.blue_cells.add(cell)
 
-        self.last_piece = action
-        self.line_removal()
+        self.line_removal(action)
         
         self.turn_color = self.turn_color.opponent
         self.turn_count += 1
 
         return
 
-    def line_removal(self):
+    def line_removal(self, action):
         '''
         Checks if any rows or columns should be removed on the board
 
         '''
         to_remove = set()
-        # use last_piece to determine which rows & cols to check for 
-        # line removal (reduces search space)
+
         check_row = set()
         check_col = set()
 
-        if self.last_piece == None:
+        if action == None:
             return
             
-        for cell in self.last_piece.coords:
+        for cell in action.coords:
             check_row.add(cell.r)
             check_col.add(cell.c)
 
