@@ -31,7 +31,6 @@ class Agent:
         
         # initialise internal rep of board
         self.board: Board = Board()
-        self.valid_moves_dict: dict[int, set[PlaceAction]] = {}
 
     def action(self, **referee: dict) -> Action:
         """
@@ -39,14 +38,14 @@ class Agent:
         to take an action. It must always return an action object. 
         """
 
-        if hash(self.board) not in self.valid_moves_dict:
-            self.valid_moves_dict[hash(self.board)] = self.board.generate_all_moves()
+        valid_moves_dict: dict[int, set[PlaceAction]] = {}
+        valid_moves_dict[hash(self.board)] = self.board.generate_all_moves()
 
         if self.board.turn_count in [0, 1]:
-            action = random.choice(list(self.valid_moves_dict[hash(self.board)]))
+            action = random.choice(list(valid_moves_dict[hash(self.board)]))
 
         else:
-            action = self.determine_minimax_depth()
+            action = self.determine_minimax_depth(valid_moves_dict)
 
         match self._color:
             case PlayerColor.RED:
@@ -71,7 +70,7 @@ class Agent:
 
         print(f"Testing: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
 
-    def minimax_ab(self, board: Board, depth: int, alpha, beta) -> tuple[int, Board]:
+    def minimax_ab(self, board: Board, depth: int, alpha, beta, valid_moves_dict) -> tuple[int, Board]:
 
         if depth == 0 or board.game_over:
             return (eval(board), None)
@@ -80,18 +79,18 @@ class Agent:
             best_child = None
             maxEval = -(math.inf)
 
-            if hash(board) not in self.valid_moves_dict:
+            if hash(board) not in valid_moves_dict:
                 valid_moves = board.generate_all_moves()
-                self.valid_moves_dict[hash(board)] = valid_moves
+                valid_moves_dict[hash(board)] = valid_moves
             else:
-                valid_moves = self.valid_moves_dict[hash(board)]
+                valid_moves = valid_moves_dict[hash(board)]
 
             for move in valid_moves:
 
                 child = board.__copy__()
                 child.apply_action(move)
 
-                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta)
+                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)
 
                 if maxEval < val:
                     maxEval = val
@@ -107,18 +106,18 @@ class Agent:
             best_child = None
             minEval = math.inf
 
-            if hash(board) not in self.valid_moves_dict:
+            if hash(board) not in valid_moves_dict:
                 valid_moves = board.generate_all_moves()
-                self.valid_moves_dict[hash(board)] = valid_moves
+                valid_moves_dict[hash(board)] = valid_moves
             else:
-                valid_moves = self.valid_moves_dict[hash(board)]
+                valid_moves = valid_moves_dict[hash(board)]
 
             for move in valid_moves:
 
                 child = board.__copy__()
                 child.apply_action(move)
 
-                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta)
+                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)
 
                 if minEval > val:
                     minEval = val
@@ -130,16 +129,17 @@ class Agent:
 
             return (minEval, best_child)
 
-    def determine_minimax_depth(self):
-        if len(self.valid_moves_dict[hash(self.board)]) < 5:
+    def determine_minimax_depth(self, valid_moves_dict):
+        dict_len = len(valid_moves_dict[hash(self.board)])
+        if dict_len < 5:
             depth = 4
-        elif len(self.valid_moves_dict[hash(self.board)]) < 80:
+        elif dict_len < 80:
             depth = 3
-        elif len(self.valid_moves_dict[hash(self.board)]) < 200:
+        elif dict_len < 200:
             depth = 2
         else:
             depth = 1
-        eval, child = self.minimax_ab(self.board, depth, -(math.inf), math.inf)
+        eval, child = self.minimax_ab(self.board, depth, -(math.inf), math.inf, valid_moves_dict)
         return child.last_piece
 
 
