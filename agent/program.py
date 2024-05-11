@@ -124,7 +124,7 @@ class Agent:
                 if beta <= alpha:
                     break
 
-            if depth > 1:
+            if depth > 0:
                 print("best child at depth ", depth)
                 print("best child eval =", maxEval)
                 print(best_child.render())
@@ -157,7 +157,7 @@ class Agent:
                 if beta <= alpha:
                     break
 
-            if depth > 1:
+            if depth > 0:
                 print("best child at depth ", depth)
                 print("best child eval =", minEval)
                 print(best_child.render())
