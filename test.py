@@ -34,6 +34,7 @@ for i in range(BOARD_N):
 
 board = Board(red, blue, PlayerColor.RED)
 board.turn_count = 30
+# putting turn count to be 0 or 1 here doesnt work because they have different generate_moves()
 print(board.render())
 
 print("minimax depth = 3")
