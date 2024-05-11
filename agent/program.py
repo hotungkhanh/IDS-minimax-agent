@@ -170,4 +170,4 @@ def eval(board: Board):
         if blue >= 6:
             bad_blue_lines += 1
 
-    return red_count - blue_count - 0.2*(bad_red_lines + bad_blue_lines)
+    return red_count - blue_count - 0.2*(bad_red_lines - bad_blue_lines)
