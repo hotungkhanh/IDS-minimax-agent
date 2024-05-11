@@ -42,21 +42,11 @@ class Agent:
         if hash(self.board) not in self.valid_moves_dict:
             self.valid_moves_dict[hash(self.board)] = self.board.generate_all_moves()
 
-        if self.board.turn_count == 0 or self.board.turn_count == 1:
+        if self.board.turn_count in [0, 1]:
             action = random.choice(list(self.valid_moves_dict[hash(self.board)]))
 
-        elif len(self.valid_moves_dict[hash(self.board)]) < 5:
-            eval, child = self.minimax_ab(self.board, 4, -(math.inf), math.inf)
-            action = child.last_piece
-        elif len(self.valid_moves_dict[hash(self.board)]) < 80:
-            eval, child = self.minimax_ab(self.board, 3, -(math.inf), math.inf)
-            action = child.last_piece
-        elif len(self.valid_moves_dict[hash(self.board)]) < 200:
-            eval, child = self.minimax_ab(self.board, 2, -(math.inf), math.inf)
-            action = child.last_piece
         else:
-            eval, child = self.minimax_ab(self.board, 1, -(math.inf), math.inf)
-            action = child.last_piece
+            action = self.determine_minimax_depth()
 
         match self._color:
             case PlayerColor.RED:
@@ -139,6 +129,19 @@ class Agent:
                     break
 
             return (minEval, best_child)
+
+    def determine_minimax_depth(self):
+        if len(self.valid_moves_dict[hash(self.board)]) < 5:
+            depth = 4
+        elif len(self.valid_moves_dict[hash(self.board)]) < 80:
+            depth = 3
+        elif len(self.valid_moves_dict[hash(self.board)]) < 200:
+            depth = 2
+        else:
+            depth = 1
+        eval, child = self.minimax_ab(self.board, depth, -(math.inf), math.inf)
+        return child.last_piece
+
 
 
 def eval(board: Board):
