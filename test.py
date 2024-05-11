@@ -42,6 +42,7 @@ valid_moves_dict[hash(mini.board)] = mini.board.generate_all_moves()
 
 depth = 4
 print("minimax depth =", depth)
-eval, child = mini.minimax_ab(board, depth, -math.inf, math.inf, valid_moves_dict)
+eval, action = mini.minimax_ab(board, depth, -math.inf, math.inf, valid_moves_dict)
+board.apply_action(action)
 print("minimax eval = ", eval)
-print(child.render())
+print(board.render())
