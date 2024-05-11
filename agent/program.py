@@ -127,9 +127,9 @@ class Agent:
 
     def determine_minimax_depth(self, valid_moves_dict):
         dict_len = len(valid_moves_dict[hash(self.board)])
-        if dict_len < 4:
+        if dict_len < 2:
             depth = 4
-        elif dict_len < 60:
+        elif dict_len < 70:
             depth = 3
         elif dict_len < 200:
             depth = 2
