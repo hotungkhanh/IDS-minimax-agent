@@ -49,21 +49,25 @@ class Agent:
             print("total no. of valid moves =",len(self.valid_moves_dict[hash(self.board)]))
             print("depth = 4")
             eval, child = self.minimax_ab(self.board, 4, -(math.inf), math.inf, self._color)
+            print("eval = ", eval)
             action = child.last_piece
         elif len(self.valid_moves_dict[hash(self.board)]) < 80:
             print("total no. of valid moves =",len(self.valid_moves_dict[hash(self.board)]))
             print("depth = 3")
             eval, child = self.minimax_ab(self.board, 3, -(math.inf), math.inf, self._color)
+            print("eval = ", eval)
             action = child.last_piece
         elif len(self.valid_moves_dict[hash(self.board)]) < 200:
             print("total no. of valid moves =",len(self.valid_moves_dict[hash(self.board)]))
             print("depth = 2")
             eval, child = self.minimax_ab(self.board, 2, -(math.inf), math.inf, self._color)
+            print("eval = ", eval)
             action = child.last_piece
         else:
             print("total no. of valid moves =",len(self.valid_moves_dict[hash(self.board)]))
             print("depth = 1")
             eval, child = self.minimax_ab(self.board, 1, -(math.inf), math.inf, self._color)
+            print("eval = ", eval)
             action = child.last_piece
 
         match self._color:
@@ -98,47 +102,14 @@ class Agent:
             best_child = None
             maxEval = -(math.inf)
 
-            # print(board.render())
-            # print("hash(board) =", hash(board))
-
-            # TODO: make into helper function
-            # check if board has been generated in previous turns 
-            # if hash(board) in self.children_dict:
-            #     print("children = self.children_dict[board]")
-            #     children = self.children_dict[hash(board)]
-            #     # dictcount += 1
-
-            #     for child in children:
-            #         print("child:")
-            #         print(child.render())
-            #         break
-            # else:
-            #     # print("children = board.generate_all_children()")
-            #     children = board.generate_all_children()
-                
-            #     self.children_dict[hash(board)] = children
-            
-            # TODO: make into helper function
-
             if hash(board) not in self.valid_moves_dict:
                 self.valid_moves_dict[hash(board)] = board.generate_all_moves()
                 valid_moves = self.valid_moves_dict[hash(board)]
             else:
-                valid_moves = board.generate_all_moves()
-                self.valid_moves_dict[hash(board)] = valid_moves
+                valid_moves = self.valid_moves_dict[hash(board)]
+                print("accessing moves_dict")
 
-            # ordered_children = []
-            # for child in children:
-            #     if hash(child) in self.boards_dict:
-            #         # print("board is in board_dict")
-            #         ordered_children.append((self.boards_dict[hash(child)], child))
-            #     else:
-            #         # print("shouldn't happen for depth = 2")
-            #         ordered_children.append((0, child))
-            # # sort children based on their eval from PREVIOUS turn's eval of them
-            # ordered_children.sort(key=lambda x: x[0], reverse=True)
 
-            # for prev_eval, child in ordered_children:
             for move in valid_moves:
 
                 child = board.__copy__()
@@ -153,47 +124,25 @@ class Agent:
                 if beta <= alpha:
                     break
 
+            if depth > 1:
+                print("best child at depth ", depth)
+                print("best child eval =", maxEval)
+                print(best_child.render())
+                print("")
+
             return (maxEval, best_child)
         
         else:
             best_child = None
             minEval = math.inf
 
-            # print(board.render())
-            # print("hash(board) =", hash(board))
-            # if hash(board) in self.children_dict:
-            #     print("children = self.children_dict[board]")
-            #     children = self.children_dict[hash(board)]
-            #     # dictcount += 1
-
-            #     for child in children:
-            #         print("child:")
-            #         print(child.render())
-            #         break
-            # else:
-            #     # print("children = board.generate_all_children()")
-            #     children = board.generate_all_children()
-                
-            #     self.children_dict[hash(board)] = children
-
             if hash(board) not in self.valid_moves_dict:
                 self.valid_moves_dict[hash(board)] = board.generate_all_moves()
                 valid_moves = self.valid_moves_dict[hash(board)]
             else:
-                valid_moves = board.generate_all_moves()
-                self.valid_moves_dict[hash(board)] = valid_moves
+                valid_moves = self.valid_moves_dict[hash(board)]
+                print("accessing moves_dict")
 
-            # ordered_children = []
-            # for child in children:
-            #     if hash(child) in self.boards_dict.keys():
-            #         # print("board is in board dict")
-            #         ordered_children.append((self.boards_dict[hash(child)], child))
-            #     else:
-            #         ordered_children.append((0, child))
-            # # sort children based on their eval from PREVIOUS turn's eval of them
-            # ordered_children.sort(key=lambda x: x[0])
-
-            # for prev_eval, child in ordered_children:
             for move in valid_moves:
 
                 child = board.__copy__()
@@ -207,6 +156,12 @@ class Agent:
                 beta = min(beta, val)
                 if beta <= alpha:
                     break
+
+            if depth > 1:
+                print("best child at depth ", depth)
+                print("best child eval =", minEval)
+                print(best_child.render())
+                print("")
 
             return (minEval, best_child)
 

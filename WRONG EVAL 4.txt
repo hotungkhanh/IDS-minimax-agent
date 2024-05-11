@@ -1,0 +1,1025 @@
+best child at depth  2
+best child eval = -1
+r . . b b r r r r r r 
+r r b b . r r . . . r 
+r . r b . . . . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b b r r 
+r r r . b b b b b b r 
+r r b b b . . b b . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b b b r r r r 
+r r b b . b r r r . r 
+r . r b . b . r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b . b r r r r 
+r r b b . . b . . . r 
+r . r b . . b b r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b r r r 
+. r b b b . b b r r r 
+r r r . b b b b r . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b b . r r r r 
+r r b b b b r . . . r 
+r . r b . r r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b b . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b b b r r r r 
+r r b b . . r r r . r 
+r . r b . . . r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b b b b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b r r r r r r 
+r r b b . r r . . . r 
+r . r b b b b . r r r 
+. . r b b b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b . . r r r r 
+r r b b b . . . . . r 
+r . r b b b . . r r r 
+. . r b b b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . r r 
+r r b b b . . b r r r 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b b b r r r r 
+r r b b . . b r r . r 
+r . r b . . r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b b . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b . b r r r r 
+r r b b b b b r r . r 
+r . r b . . r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b . . r r r r 
+r r b b . b r r r . r 
+r . r b b b b r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b r r r r r r 
+r r b b . r b . . . r 
+r . r b b b b . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b r . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b . b r r r r 
+r r b b . b b r r . r 
+r . r b . . r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . b b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b r r r r r r 
+r r b b . r r . . . r 
+r . r b . . . . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b b r r 
+r r r . b b b b b b r 
+r r b b b . . b . b . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b r r r r r r 
+r r b b . r r . . . r 
+r . r b . . . . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r b r b b b . . b r . 
+r b b . b . b b b r r 
+. b b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b r r r r r r 
+r r b b . r r . . . r 
+r . r b . . . . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r b . . b . b b b r r 
+b b b b b . b b . . r 
+b r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = 0
+r . . b b . . r r r r 
+r r b b . b . . . . r 
+r . r b . b b b r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b r r r 
+r r r . b b b b r . r 
+r r b b b . . b r r . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b . b r r r r 
+r r b b . . b . . . r 
+r . r b . . b . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . r r 
+r r b b b . b b r r r 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b b b r r r r 
+r r b b . . b r r . r 
+r . r b . . r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . b b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b . . r r r r 
+r r b b r r r r . . r 
+r . r b . . . . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b b . r 
+r r b b b . . b b b b 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b . . r r r r 
+r r b b r r r r . . r 
+r . r b . . . . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . b r 
+r r b b b . . b b b b 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b . . r r r r 
+r r b b r r r r . . r 
+r . r b . . . . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r b r b b b . . b r . 
+r b . . b . b b b r r 
+b b b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b r r r r r r 
+r r b b . r r . . . r 
+r . r b . . . . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b b b r 
+. r b b b . b b b r r 
+r r r . b b b b b . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b . . r r r r 
+r r b b . b . r r . r 
+r . r b b b r r r r r 
+. . r b b b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = 0
+r . . b b . . r r r r 
+r r b b . b b r r . r 
+r . r b b b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b . . r r r r 
+r r b b b b b . . . r 
+r . r b . . b . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b r r r 
+r r r . b b b b r . r 
+r r b b b . . b r r . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b b r r r r r 
+r r b b . b r r . . r 
+r . r b . . r . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b b b b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b r r r r r r 
+r r b b b r r . . . r 
+r . r b b b b . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = 0
+r . . b b r r r r r r 
+r r b b . r r b . . r 
+r . r b . b b b r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b b . r r r r 
+r r b b . b b . . . r 
+r . r b . . b . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b r r r 
+. r b b b . b b r r r 
+r r r . b b b b r . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b b . r r r r 
+r r b b b b r . . . r 
+r . r b b r r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b . b r r r r 
+r r b b . . b . . . r 
+r . r b . b b . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b r r r 
+. r b b b . b b r r r 
+r r r . b b b b r . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = 0
+r . . b b r r r r r r 
+r r b b . r r . . . r 
+r . r b . . . . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b b . r 
+. r b b b . b b b r r 
+r r r . b b b b b . r 
+r r b b b . . b b . . 
+
+
+best child at depth  2
+best child eval = 0
+r . . b b . . r r r r 
+r r b b . b b b . . r 
+r . r b . . b . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b r r r 
+. r b b b . b b r r r 
+r r r . b b b b r . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b r r r r r r 
+r r b b . r r . . . r 
+r . r b . . . . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b b b r 
+r r b b b . . b . b b 
+
+
+best child at depth  2
+best child eval = 0
+r . . b b . b r r r r 
+r r b b . b b r r . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = 0
+r . . b b b b r r r r 
+r r b b b b r . . . r 
+r . r b . r r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b b . r r r r 
+r r b b . b b r r . r 
+r . r b . . r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b b . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b r r r r r r 
+r r b b . r b b b . r 
+r . r b . . b . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b r . b . . . 
+
+
+best child at depth  2
+best child eval = -1
+r . . b b b . r r r r 
+r r b b b b . r r . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+best child at depth  3
+best child eval = -1
+r . . b b b . r r r r 
+r r b b b b . . . . r 
+r . r b . b . . r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . . r 
+r r b b b . . b . . . 
+
+
+eval =  -1
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(0-5, 1-4, 1-5, 2-5)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       r . . b b b . r r r r 
+* referee :                       r r b b b b . . . . r 
+* referee :                       r . r b . b . . r r r 
+* referee :                       . . r b . b b r r r . 
+* referee :                       r r r b . b . r r r r 
+* referee :                       r . r b b b . . b r . 
+* referee :                       r . . . b . b b b r r 
+* referee :                       . . b b b . b b . . r 
+* referee :                       . r b b b . b b . r r 
+* referee :                       r r r . b b b b . . r 
+* referee :                       r r b b b . . b . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 1-4, 2-5, 0-5, 1-5
+Testing: BLUE played PLACE action: 1-4, 2-5, 0-5, 1-5
+* referee : RED to play (turn 21) ...
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(0-6, 1-6, 2-6, 2-7)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       r . . b b b r r r r r 
+* referee :                       r r b b b b r . . . r 
+* referee :                       r . r b . b r r r r r 
+* referee :                       . . r b . b b r r r . 
+* referee :                       r r r b . b . r r r r 
+* referee :                       r . r b b b . . b r . 
+* referee :                       r . . . b . b b b r r 
+* referee :                       . . b b b . b b . . r 
+* referee :                       . r b b b . b b . r r 
+* referee :                       r r r . b b b b . . r 
+* referee :                       r r b b b . . b . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 1-6, 2-6, 2-7, 0-6
+Testing: RED played PLACE action: 1-6, 2-6, 2-7, 0-6
+* referee : BLUE to play (turn 22) ...
+total no. of valid moves = 16
+depth = 3
+accessing moves_dict
+best child at depth  2
+best child eval = 1
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r r r b b b . . b r . 
+r r . . b . b b b r r 
+r r b b b . b b b b r 
+. r b b b . b b b r r 
+r r r . b b b b b . r 
+r r b b b . . b . . . 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r r r r b . b b b r r 
+. r b b b . b b . . r 
+. r b b b . b b b r r 
+r r r . b b b b b b r 
+r r b b b . . b b . . 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r b r b b b . . b r . 
+r b . . b . b b b r r 
+b b b b b . b b . . r 
+. r b b b . b b r r r 
+r r r . b b b b r r r 
+r r b b b . . b r . . 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r b b b b . b b b r r 
+. b b b b . b b . . r 
+. r b b b . b b r r r 
+r r r . b b b b r r r 
+r r b b b . . b r . . 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r b b . b . b b b r r 
+b b b b b . b b . . r 
+. r b b b . b b r r r 
+r r r . b b b b r r r 
+r r b b b . . b r . . 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r r r r b . b b b r r 
+. r b b b . b b . . r 
+. r b b b . b b b r r 
+r r r . b b b b b b r 
+r r b b b . . b . b . 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r b r b b b . . b r . 
+r b b . b . b b b r r 
+. b b b b . b b . . r 
+. r b b b . b b r r r 
+r r r . b b b b r r r 
+r r b b b . . b r . . 
+
+
+best child at depth  2
+best child eval = 1
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r r . . b . b b b r r 
+r r b b b . b b . . r 
+r r b b b . b b . r r 
+r r r . b b b b . b r 
+r r b b b . . b b b b 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r r r r b . b b b r r 
+. r b b b . b b b . r 
+. r b b b . b b b r r 
+r r r . b b b b b . r 
+r r b b b . . b b . . 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r r r r b . b b b r r 
+. r b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b b b r 
+r r b b b . . b . b b 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r b . . b . b b b r r 
+b b b b b . b b . . r 
+b r b b b . b b r r r 
+r r r . b b b b r r r 
+r r b b b . . b r . . 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r r r r b . b b b r r 
+. r b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b b b r 
+r r b b b . . b b b . 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r r r r b . b b b r r 
+. r b b b . b b . . r 
+. r b b b . b b b r r 
+r r r . b b b b b . r 
+r r b b b . . b b b . 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r r r r b . b b b r r 
+. r b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b b . r 
+r r b b b . . b b b b 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r b r b b b . . b r . 
+r b b b b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b r r r 
+r r r . b b b b r r r 
+r r b b b . . b r . . 
+
+
+best child at depth  2
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r r r r b . b b b r r 
+. r b b b . b b b . r 
+. r b b b . b b b r r 
+r r r . b b b b b b r 
+r r b b b . . b . . . 
+
+
+best child at depth  3
+best child eval = 1
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r . r b b b . . b r . 
+r . . . b . b b b r r 
+. . b b b . b b . . r 
+. r b b b . b b . r r 
+r r r . b b b b . b r 
+r r b b b . . b b b b 
+
+
+eval =  1
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(9-9, 10-8, 10-9, 10-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       r . . b b b r r r r r 
+* referee :                       r r b b b b r . . . r 
+* referee :                       r . r b . b r r r r r 
+* referee :                       . . r b . b b r r r . 
+* referee :                       r r r b . b . r r r r 
+* referee :                       r . r b b b . . b r . 
+* referee :                       r . . . b . b b b r r 
+* referee :                       . . b b b . b b . . r 
+* referee :                       . r b b b . b b . r r 
+* referee :                       r r r . b b b b . b r 
+* referee :                       r r b b b . . b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 10-9, 10-10, 10-8, 9-9
+Testing: BLUE played PLACE action: 10-9, 10-10, 10-8, 9-9
+* referee : RED to play (turn 23) ...
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(5-1, 6-1, 7-0, 7-1)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       r . . b b b r r r r r 
+* referee :                       r r b b b b r . . . r 
+* referee :                       r . r b . b r r r r r 
+* referee :                       . . r b . b b r r r . 
+* referee :                       r r r b . b . r r r r 
+* referee :                       r r r b b b . . b r . 
+* referee :                       r r . . b . b b b r r 
+* referee :                       r r b b b . b b . . r 
+* referee :                       . r b b b . b b . r r 
+* referee :                       r r r . b b b b . b r 
+* referee :                       r r b b b . . b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: RED played PLACE action: 6-1, 7-0, 7-1, 5-1
+Testing: RED played PLACE action: 6-1, 7-0, 7-1, 5-1
+* referee : BLUE to play (turn 24) ...
+total no. of valid moves = 1
+depth = 4
+accessing moves_dict
+best child at depth  3
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r r r b . b r r r r r 
+r r r b . b b r r r r 
+r r r b . b . r r r r 
+r r r b b b . . b r . 
+r r . . b . b b b r r 
+r r b b b . b b b b r 
+. r b b b . b b b r r 
+r r r . b b b b b b r 
+r r b b b . . b b b b 
+
+
+best child at depth  4
+best child eval = inf
+r . . b b b r r r r r 
+r r b b b b r . . . r 
+r . r b . b r r r r r 
+. . r b . b b r r r . 
+r r r b . b . r r r r 
+r r r b b b . . b r . 
+r r . . b . b b b r r 
+r r b b b . b b b b r 
+. r b b b . b b b r r 
+r r r . b b b b b b r 
+r r b b b . . b b b b 
+
+
+eval =  inf
+Testing: BLUE is playing a PLACE action
+* referee : BLUE plays action PLACE(7-8, 7-9, 8-8, 9-8)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       r . . b b b r r r r r 
+* referee :                       r r b b b b r . . . r 
+* referee :                       r . r b . b r r r r r 
+* referee :                       . . r b . b b r r r . 
+* referee :                       r r r b . b . r r r r 
+* referee :                       r r r b b b . . b r . 
+* referee :                       r r . . b . b b b r r 
+* referee :                       r r b b b . b b b b r 
+* referee :                       . r b b b . b b b r r 
+* referee :                       r r r . b b b b b b r 
+* referee :                       r r b b b . . b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+Testing: BLUE played PLACE action: 7-9, 8-8, 9-8, 7-8
+Testing: BLUE played PLACE action: 7-9, 8-8, 9-8, 7-8
+* referee : RED to play (turn 25) ...
+Testing: RED is playing a PLACE action
+* referee : RED plays action PLACE(2-1, 3-0, 3-1, 3-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       r . . b b b r r r r r 
+* referee :                       r r b b b b r . . . r 
+* referee :                       r r r b . b r r r r r 
+* referee :                       r r r b . b b r r r r 
+* referee :                       r r r b . b . r r r r 
+* referee :                       r r r b b b . . b r . 
+* referee :                       r r . . b . b b b r r 
+* referee :                       r r b b b . b b b b r 
+* referee :                       . r b b b . b b b r r 
+* referee :                       r r r . b b b b b b r 
+* referee :                       r r b b b . . b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* referee : game over, winner is RED
+* referee @ result: player 1 [randy:Agent]
