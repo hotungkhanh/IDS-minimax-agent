@@ -3,7 +3,6 @@
 
 from referee.game import PlayerColor, Action, PlaceAction, coord
 from referee.game.pieces import *
-from .part_a.utils import render_board
 from .board import Board
 from referee.game.exceptions import IllegalActionException
 import random, math, copy
@@ -131,9 +130,9 @@ class Agent:
 
     def determine_minimax_depth(self, valid_moves_dict):
         dict_len = len(valid_moves_dict[hash(self.board)])
-        if dict_len < 5:
+        if dict_len < 4:
             depth = 4
-        elif dict_len < 80:
+        elif dict_len < 60:
             depth = 3
         elif dict_len < 200:
             depth = 2
@@ -171,4 +170,4 @@ def eval(board: Board):
         if blue >= 6:
             bad_blue_lines += 1
 
-    return red_count - blue_count - 0.1*(bad_red_lines + bad_blue_lines)
+    return red_count - blue_count - 0.2*(bad_red_lines + bad_blue_lines)

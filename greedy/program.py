@@ -3,7 +3,6 @@
 
 from referee.game import PlayerColor, Action, PlaceAction, coord
 from referee.game.pieces import *
-from .part_a.utils import render_board
 from .board import Board
 from referee.game.exceptions import IllegalActionException
 import random, math, copy
@@ -31,8 +30,6 @@ class Agent:
         
         # initialise internal rep of board
         self.board: Board = Board()
-        self.children_dict: dict[int, set[Board]] = {}
-        self.boards_dict: dict[int, float] = {}
 
     def action(self, **referee: dict) -> Action:
         """
@@ -40,17 +37,14 @@ class Agent:
         to take an action. It must always return an action object. 
         """
 
-        if self.board.turn_count == 0:
-            action = PlaceAction(
-                    Coord(3, 3), 
-                    Coord(3, 4), 
-                    Coord(4, 3), 
-                    Coord(4, 4)
-                )
+        valid_moves_dict: dict[int, set[PlaceAction]] = {}
+        valid_moves_dict[hash(self.board)] = self.board.generate_all_moves()
+
+        if self.board.turn_count in [0, 1]:
+            action = random.choice(list(valid_moves_dict[hash(self.board)]))
 
         else:
-            eval, child = self.minimax_ab(self.board, 1, -(math.inf), math.inf, self._color)
-            action = child.last_piece
+            action = self.determine_minimax_depth(valid_moves_dict)
 
         match self._color:
             case PlayerColor.RED:
@@ -75,63 +69,34 @@ class Agent:
 
         print(f"Testing: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
 
-    def minimax_ab(self, board: Board, depth: int, alpha, beta, colour: PlayerColor) -> tuple[int, Board]:
+    def minimax_ab(self, board: Board, depth: int, alpha, beta, valid_moves_dict) -> tuple[int, Board]:
 
         if depth == 0 or board.game_over:
             return (eval(board), None)
         
-        if colour == PlayerColor.RED:
+        if board.turn_color == PlayerColor.RED:
             best_child = None
             maxEval = -(math.inf)
 
-            # print(board.render())
-            # print("hash(board) =", hash(board))
+            if hash(board) not in valid_moves_dict:
+                valid_moves = board.generate_all_moves()
+                valid_moves_dict[hash(board)] = valid_moves
+            else:
+                valid_moves = valid_moves_dict[hash(board)]
 
-            # TODO: make into helper function
-            # check if board has been generated in previous turns 
-            # if hash(board) in self.children_dict:
-            #     print("children = self.children_dict[board]")
-            #     children = self.children_dict[hash(board)]
-            #     # dictcount += 1
-
-            #     for child in children:
-            #         print("child:")
-            #         print(child.render())
-            #         break
-            # else:
-            #     # print("children = board.generate_all_children()")
-            #     children = board.generate_all_children()
-                
-            #     self.children_dict[hash(board)] = children
-            
-            # TODO: make into helper function
-
-            valid_moves = board.generate_all_moves()
-
-            # ordered_children = []
-            # for child in children:
-            #     if hash(child) in self.boards_dict:
-            #         # print("board is in board_dict")
-            #         ordered_children.append((self.boards_dict[hash(child)], child))
-            #     else:
-            #         # print("shouldn't happen for depth = 2")
-            #         ordered_children.append((0, child))
-            # # sort children based on their eval from PREVIOUS turn's eval of them
-            # ordered_children.sort(key=lambda x: x[0], reverse=True)
-
-            # for prev_eval, child in ordered_children:
             for move in valid_moves:
 
                 child = board.__copy__()
                 child.apply_action(move)
 
-                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
+                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)
 
-                if val >= maxEval:
+                if maxEval < val:
                     maxEval = val
                     best_child = child
-                alpha = max(alpha, val)
-                if beta <= alpha:
+
+                alpha = max(alpha, maxEval)
+                if alpha >= beta:
                     break
 
             return (maxEval, best_child)
@@ -140,61 +105,42 @@ class Agent:
             best_child = None
             minEval = math.inf
 
-            # print(board.render())
-            # print("hash(board) =", hash(board))
-            # if hash(board) in self.children_dict:
-            #     print("children = self.children_dict[board]")
-            #     children = self.children_dict[hash(board)]
-            #     # dictcount += 1
+            if hash(board) not in valid_moves_dict:
+                valid_moves = board.generate_all_moves()
+                valid_moves_dict[hash(board)] = valid_moves
+            else:
+                valid_moves = valid_moves_dict[hash(board)]
 
-            #     for child in children:
-            #         print("child:")
-            #         print(child.render())
-            #         break
-            # else:
-            #     # print("children = board.generate_all_children()")
-            #     children = board.generate_all_children()
-                
-            #     self.children_dict[hash(board)] = children
-
-            valid_moves = board.generate_all_moves()
-
-
-            # ordered_children = []
-            # for child in children:
-            #     if hash(child) in self.boards_dict.keys():
-            #         # print("board is in board dict")
-            #         ordered_children.append((self.boards_dict[hash(child)], child))
-            #     else:
-            #         ordered_children.append((0, child))
-            # # sort children based on their eval from PREVIOUS turn's eval of them
-            # ordered_children.sort(key=lambda x: x[0])
-
-            # for prev_eval, child in ordered_children:
             for move in valid_moves:
 
                 child = board.__copy__()
                 child.apply_action(move)
 
-                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
+                val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)
 
-                if val <= minEval:
+                if minEval > val:
                     minEval = val
                     best_child = child
-                beta = min(beta, val)
+
+                beta = min(beta, minEval)
                 if beta <= alpha:
                     break
 
             return (minEval, best_child)
 
+    def determine_minimax_depth(self, valid_moves_dict):
+        depth = 1
+        eval, child = self.minimax_ab(self.board, depth, -(math.inf), math.inf, valid_moves_dict)
+        return child.last_piece
+
+
 
 def eval(board: Board):
     if board.winner_color == PlayerColor.RED:
-        return math.inf
+        return 999
     if board.winner_color == PlayerColor.BLUE:
-        return -math.inf
+        return -999
 
-    # print("evaling")
     blue_count = len(board.blue_cells)
     red_count = len(board.red_cells)
 
@@ -216,4 +162,4 @@ def eval(board: Board):
         if blue >= 6:
             bad_blue_lines += 1
 
-    return red_count - blue_count - bad_red_lines + bad_blue_lines
+    return red_count - blue_count - 0.2*(bad_red_lines + bad_blue_lines)
