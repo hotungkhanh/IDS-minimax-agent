@@ -117,16 +117,18 @@ class Agent:
 
                 val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.BLUE)
 
-                if val >= maxEval:
+                if maxEval <= val:
                     maxEval = val
                     best_child = child
-                alpha = max(alpha, val)
-                if beta <= alpha:
+                alpha = max(alpha, maxEval)
+                if alpha >= beta:
                     break
 
             if depth > 0:
-                print("best child at depth ", depth)
+                print("best (max) child at depth ", depth)
                 print("best child eval =", maxEval)
+                print("alpha =", alpha)
+                print("beta =", beta)
                 print(best_child.render())
                 print("")
 
@@ -141,7 +143,6 @@ class Agent:
                 valid_moves = self.valid_moves_dict[hash(board)]
             else:
                 valid_moves = self.valid_moves_dict[hash(board)]
-                print("accessing moves_dict")
 
             for move in valid_moves:
 
@@ -150,27 +151,29 @@ class Agent:
 
                 val, minimax_board = self.minimax_ab(child, depth - 1, alpha, beta, PlayerColor.RED)
 
-                if val <= minEval:
+                if minEval >= val:
                     minEval = val
                     best_child = child
-                beta = min(beta, val)
+                beta = min(beta, minEval)
                 if beta <= alpha:
                     break
 
-            if depth > 0:
-                print("best child at depth ", depth)
-                print("best child eval =", minEval)
-                print(best_child.render())
-                print("")
+            
+            print("best (min) child at depth ", depth)
+            print("best child eval =", minEval)
+            print("alpha =", alpha)
+            print("beta =", beta)
+            print(best_child.render())
+            print("")
 
             return (minEval, best_child)
 
 
 def eval(board: Board):
     if board.winner_color == PlayerColor.RED:
-        return math.inf
+        return 999
     if board.winner_color == PlayerColor.BLUE:
-        return -math.inf
+        return -999
 
     # print("evaling")
     blue_count = len(board.blue_cells)
