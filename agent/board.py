@@ -50,12 +50,8 @@ class Board:
     
     def __lt__(self, other: 'Board'):
         return self.__hash__() < other.__hash__()
-    # @property
-    # def hashable_value(self):
-    #     return (frozenset(self.red_cells), frozenset(self.blue_cells), self.turn_color)
 
     def apply_action(self, action: Action):
-        # used to return BoardMutation
         """
         Apply an action to a board, mutating the board state. 
         Action should be guaranteed to be legal
