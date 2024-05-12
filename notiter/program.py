@@ -5,7 +5,6 @@ from referee.game import PlayerColor, Action, PlaceAction
 from referee.game.pieces import BOARD_N
 from .board import Board
 import random, math
-from datetime import datetime, timedelta
 
 class Agent:
     """
@@ -41,8 +40,7 @@ class Agent:
             action = random.choice(list(valid_moves_dict[hash(self.board)]))
 
         else:
-            action = self.determine_minimax_time(valid_moves_dict)
-            # action = self.ids_minimax_ab(1, valid_moves_dict)
+            action = self.determine_minimax_depth(valid_moves_dict)
 
         match self._color:
             case PlayerColor.RED:
@@ -122,35 +120,18 @@ class Agent:
 
             return (minEval, best_move)
 
-    
-    def ids_minimax_ab(self, time: float, valid_moves_dict):
-        depth = 1
-        start_time = datetime.now()
-        fin_time = start_time + timedelta(seconds=time)
-        print("")
-        print("----------------------------------------------")
-        print("turn count: ", self.board.turn_count)
-        print("branching factor: ", len(valid_moves_dict[hash(self.board)]))
-        while datetime.now() < fin_time:
-            value, action = self.minimax_ab(self.board, depth, -(math.inf), math.inf, valid_moves_dict)
-            depth += 1
-        print("depth:", depth, "-----------------------------------------------")
-        print("time taken:", datetime.now() - start_time)
-        print("----------------------------------------------")
-        print("")
-        return action
-
-    def determine_minimax_time(self, valid_moves_dict):
+    def determine_minimax_depth(self, valid_moves_dict):
         dict_len = len(valid_moves_dict[hash(self.board)])
-
-        if dict_len > 200:
-            move = self.minimax_ab(self.board, 1, -(math.inf), math.inf, valid_moves_dict)[1]
+        if dict_len < 2:
+            depth = 4
+        elif dict_len < 80:
+            depth = 3
+        elif dict_len < 200:
+            depth = 2
         else:
-            time = 0.5
-            move = self.ids_minimax_ab(time, valid_moves_dict)
+            depth = 1
+        eval, move = self.minimax_ab(self.board, depth, -(math.inf), math.inf, valid_moves_dict)
         return move
-
-
 
 def eval(board: Board):
     if board.winner_color == PlayerColor.RED:
