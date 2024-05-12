@@ -1,14 +1,9 @@
 # COMP30024 Artificial Intelligence, Semester 1 2024
 # Project Part B: Game Playing Agent
 
-# Copied from referee Board class
-
-from dataclasses import dataclass
-
 from referee.game.coord import Coord
 from referee.game.player import PlayerColor
 from referee.game.actions import Action, PlaceAction
-from referee.game.exceptions import IllegalActionException
 from referee.game.constants import *
 from referee.game.pieces import *
 
