@@ -7,6 +7,11 @@ from .board import Board
 import random, math
 from datetime import datetime, timedelta
 
+# Eval for a winning state, ensuring it is bigger than any eval calculated by formula, but smaller than inf
+WINNING_SCORE = 999
+# Avoid placing this many cells on one line if possible
+BAD_LINE = 6
+
 class Agent:
     """
     This class is the "entry point" for your agent, providing an interface to
@@ -41,7 +46,7 @@ class Agent:
             action = random.choice(list(valid_moves_dict[hash(self.board)]))
 
         else:
-            action = self.determine_minimax_time(valid_moves_dict)
+            action = self.determine_move(valid_moves_dict)
             # action = self.ids_minimax_ab(1, valid_moves_dict)
 
         match self._color:
@@ -123,40 +128,40 @@ class Agent:
             return (minEval, best_move)
 
     
-    def ids_minimax_ab(self, time: float, valid_moves_dict):
+    def ids_minimax(self, time: float, valid_moves_dict):
         depth = 1
         start_time = datetime.now()
         fin_time = start_time + timedelta(seconds=time)
-        print("")
-        print("----------------------------------------------")
-        print("turn count: ", self.board.turn_count)
-        print("branching factor: ", len(valid_moves_dict[hash(self.board)]))
+        # print("")
+        # print("----------------------------------------------")
+        # print("turn count: ", self.board.turn_count)
+        # print("branching factor: ", len(valid_moves_dict[hash(self.board)]))
         while datetime.now() < fin_time:
             value, action = self.minimax_ab(self.board, depth, -(math.inf), math.inf, valid_moves_dict)
             depth += 1
-        print("depth:", depth, "-----------------------------------------------")
-        print("time taken:", datetime.now() - start_time)
-        print("----------------------------------------------")
-        print("")
+        # print("depth:", depth, "-----------------------------------------------")
+        # print("time taken:", datetime.now() - start_time)
+        # print("----------------------------------------------")
+        # print("")
         return action
 
-    def determine_minimax_time(self, valid_moves_dict):
+    def determine_move(self, valid_moves_dict):
         dict_len = len(valid_moves_dict[hash(self.board)])
 
         if dict_len > 200:
             move = self.minimax_ab(self.board, 1, -(math.inf), math.inf, valid_moves_dict)[1]
         else:
             time = 0.5
-            move = self.ids_minimax_ab(time, valid_moves_dict)
+            move = self.ids_minimax(time, valid_moves_dict)
         return move
 
 
 
 def eval(board: Board):
     if board.winner_color == PlayerColor.RED:
-        return 999
+        return WINNING_SCORE
     if board.winner_color == PlayerColor.BLUE:
-        return -999
+        return -WINNING_SCORE
 
     blue_count = len(board.blue_cells)
     red_count = len(board.red_cells)
@@ -166,17 +171,17 @@ def eval(board: Board):
     for r in range(BOARD_N):
         red = sum(1 for cell in board.red_cells if cell.r == r)
         blue = sum(1 for cell in board.blue_cells if cell.r == r)
-        if red >= 6:
+        if red >= BAD_LINE:
             bad_red_lines += 1
-        if blue >= 6:
+        if blue >= BAD_LINE:
             bad_blue_lines += 1
     
     for c in range(BOARD_N):
         red = sum(1 for cell in board.red_cells if cell.c == c)
         blue = sum(1 for cell in board.blue_cells if cell.c == c)
-        if red >= 6:
+        if red >= BAD_LINE:
             bad_red_lines += 1
-        if blue >= 6:
+        if blue >= BAD_LINE:
             bad_blue_lines += 1
 
     return red_count - blue_count - (bad_red_lines - bad_blue_lines)
