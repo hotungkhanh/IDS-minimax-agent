@@ -2,9 +2,8 @@
 # Project Part B: Game Playing Agent
 
 from referee.game import PlayerColor, Action, PlaceAction
-from referee.game.pieces import *
+from referee.game.pieces import BOARD_N
 from .board import Board
-from referee.game.exceptions import IllegalActionException
 import random, math
 
 class Agent:
@@ -55,7 +54,7 @@ class Agent:
     def update(self, color: PlayerColor, action: Action, **referee: dict):
         """
         This method is called by the referee after an agent has taken their
-        turn. You should use it to update the agent's internal game state. 
+        turn.
         """
         
         # There is only one action type, PlaceAction
@@ -82,11 +81,9 @@ class Agent:
                 valid_moves = valid_moves_dict[hash(board)]
 
             for move in valid_moves:
-
                 child = board.__copy__()
                 child.apply_action(move)
-
-                val, minimax_move = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)
+                val = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)[0]
 
                 if maxEval < val:
                     maxEval = val
@@ -109,11 +106,9 @@ class Agent:
                 valid_moves = valid_moves_dict[hash(board)]
 
             for move in valid_moves:
-
                 child = board.__copy__()
                 child.apply_action(move)
-
-                val, minimax_move = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)
+                val = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)[0]
 
                 if minEval > val:
                     minEval = val
@@ -129,7 +124,7 @@ class Agent:
         dict_len = len(valid_moves_dict[hash(self.board)])
         if dict_len < 2:
             depth = 4
-        elif dict_len < 70:
+        elif dict_len < 80:
             depth = 3
         elif dict_len < 200:
             depth = 2
@@ -167,4 +162,4 @@ def eval(board: Board):
         if blue >= 6:
             bad_blue_lines += 1
 
-    return red_count - blue_count - 0.2*(bad_red_lines - bad_blue_lines)
+    return red_count - blue_count - (bad_red_lines - bad_blue_lines)
