@@ -32,8 +32,8 @@ for i in range(BOARD_N):
         elif a[i][j] == 'b':
             blue.add(Coord(i, j))
 
-board = Board(red, blue, PlayerColor.RED)
-board.turn_count = 30
+board = Board(red, blue, PlayerColor.BLUE)
+board.turn_count = 147
 # putting turn count to be 0 or 1 here doesnt work because they have different generate_moves()
 print(board.render())
 
