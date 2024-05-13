@@ -158,11 +158,12 @@ class Board:
         return piece_combinations
 
     def generate_all_moves(self) -> set[PlaceAction]:
-        '''
+        """
         Generate all possible moves for the current board.
 
         Returns a set of PlaceAction representing valid moves that can be made.
-        '''
+        """
+        
         moves = set()
 
         if self.turn_color == PlayerColor.RED:
@@ -322,5 +323,5 @@ class Board:
         """
         True iff the maximum number of turns has been reached.
         """
-        
+
         return self.turn_count >= MAX_TURNS
