@@ -78,7 +78,7 @@ class Board:
         Checks if any rows or columns should be removed on the board
         with the line-removal mechanic
         """
-        
+
         to_remove = set()
 
         check_row = set()
@@ -163,7 +163,7 @@ class Board:
 
         Returns a set of PlaceAction representing valid moves that can be made.
         """
-        
+
         moves = set()
 
         if self.turn_color == PlayerColor.RED:
