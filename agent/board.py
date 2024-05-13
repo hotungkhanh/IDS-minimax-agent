@@ -11,15 +11,16 @@ import random
 
 PIECE_N = 4
 
+
 class Board:
 
     def __init__(
-        self, 
+        self,
         red_cells: set[Coord] = set(),
         blue_cells: set[Coord] = set(),
         initial_player: PlayerColor = PlayerColor.RED,
-        
-        turn_count = 0,
+
+        turn_count=0,
     ):
         """
         Create a new board. It is optionally possible to specify an initial
@@ -28,8 +29,11 @@ class Board:
         self.red_cells = red_cells
         self.blue_cells = blue_cells
 
+        # Colour of the player that will play next
         self.turn_color: PlayerColor = initial_player
 
+        # Number of turns that have been played,
+        # which is 1 less than the turn number
         self.turn_count = turn_count
 
     def __eq__(self, other: 'Board'):
@@ -40,7 +44,7 @@ class Board:
 
     def __copy__(self) -> 'Board':
         return Board(self.red_cells.copy(), self.blue_cells.copy(), self.turn_color, self.turn_count)
-    
+
     def __lt__(self, other: 'Board'):
         return self.__hash__() < other.__hash__()
 
@@ -49,8 +53,8 @@ class Board:
         Apply an action to a board, mutating the board state. 
         Action should be guaranteed to be legal
         """
-        
-        # add action to board 
+
+        # add action to board
         if self.turn_color == PlayerColor.RED:
             for cell in action.coords:
                 self.red_cells.add(cell)
@@ -59,7 +63,7 @@ class Board:
                 self.blue_cells.add(cell)
 
         self.line_removal(action)
-        
+
         self.turn_color = self.turn_color.opponent
         self.turn_count += 1
 
@@ -77,35 +81,31 @@ class Board:
 
         if action == None:
             return
-            
+
         for cell in action.coords:
             check_row.add(cell.r)
             check_col.add(cell.c)
 
         # check and remove rows
         for r in check_row:
-            # find entries in that row across the 2 player sets
-            # blue_candidate = list(cell for cell in self.blue_cells if cell.r == r)
-            # red_candidate = list(cell for cell in self.red_cells if cell.r == r)
+            # find entries in the row across the 2 player sets
             blue_candidate = sum(1 for cell in self.blue_cells if cell.r == r)
             red_candidate = sum(1 for cell in self.red_cells if cell.r == r)
 
-            # if the row is not filled 
+            # if the row is not filled
             if blue_candidate + red_candidate != BOARD_N:
                 continue
-            
-            # print("row filled:", r)
-            
+
             # otherwise if the row is filled
             to_remove.update([Coord(r, x) for x in range(BOARD_N)])
 
         # check and remove columns
         for c in check_col:
-            # find entries in that col across the 2 player sets
+            # find entries in the col across the 2 player sets
             blue_candidate = sum(1 for cell in self.blue_cells if cell.c == c)
             red_candidate = sum(1 for cell in self.red_cells if cell.c == c)
 
-            # if the col is not filled 
+            # if the col is not filled
             if blue_candidate + red_candidate != BOARD_N:
                 continue
 
@@ -117,14 +117,8 @@ class Board:
 
     def adjacent(self, coord: Coord):
         """
-        Computes all 4 possible adjacent coordinates
-
-        Parameters:
-            `coord`: a `Coord` instance that represents the coordinate that we want
-            to find adjacent coordinates for
-
-        Returns:
-            An array of adjacent coordinates on the board
+        Computes the 4 possible adjacent Coords from the given Coord
+        Returns a list of coordinates.
         """
 
         return [coord.down(), coord.up(), coord.left(), coord.right()]
@@ -145,14 +139,15 @@ class Board:
                 for adjacent_coord in self.adjacent(current_coord):
                     # check if adj coord is empty and not already in curr piece
                     if ((adjacent_coord not in self.red_cells) and (adjacent_coord not in self.blue_cells) and
-                        (adjacent_coord not in current_piece)):
-                        stack.append((adjacent_coord, current_piece + 
-                                        [adjacent_coord]))
+                            (adjacent_coord not in current_piece)):
+                        stack.append((adjacent_coord, current_piece +
+                                      [adjacent_coord]))
                         for coord in current_piece:
-                            stack.append((coord, current_piece + [adjacent_coord]))
+                            stack.append(
+                                (coord, current_piece + [adjacent_coord]))
 
         return piece_combinations
-    
+
     def generate_all_moves(self) -> set[PlaceAction]:
         '''
         Returns a set of valid moves that can be made 
@@ -166,15 +161,18 @@ class Board:
             my_cells = self.blue_cells
             opponent_cells = self.red_cells
 
-        if self.turn_count == 0:            
+        # First red move
+        if self.turn_count == 0:
             for piece_type in PieceType:
-                piece_coords = set(create_piece(piece_type, Coord(0,0)).coords)
+                piece_coords = set(create_piece(
+                    piece_type, Coord(0, 0)).coords)
 
                 action = (PlaceAction(*piece_coords))
                 moves.add(action)
 
             return moves
-        
+
+        # First blue move
         elif self.turn_count == 1:
             opponent_adj = []
             for my_cell in opponent_cells:
@@ -191,9 +189,11 @@ class Board:
             while not piece_found:
                 random_coord: Coord = random.choice(empty_coords)
                 random_piece_type: PieceType = random.choice(list(PieceType))
-                new_piece = set(create_piece(random_piece_type, random_coord).coords)
-                
-                invalid_coords = sum(1 for c in new_piece if c not in empty_coords)
+                new_piece = set(create_piece(
+                    random_piece_type, random_coord).coords)
+
+                invalid_coords = sum(
+                    1 for c in new_piece if c not in empty_coords)
                 if invalid_coords > 0:
                     continue
                 else:
@@ -204,22 +204,19 @@ class Board:
 
             return moves
 
-        
-        # turn_count from 2 onwards
+        # Turn 3 onwards
         else:
             for my_cell in my_cells:
-
                 piece_combinations = self.generate_piece_combinations(my_cell)
 
-                # code for all pieces
                 for piece in piece_combinations:
                     c1, c2, c3, c4 = piece
                     action = PlaceAction(c1, c2, c3, c4)
 
                     moves.add(action)
             return moves
-    
-    def render(self, use_color: bool=False, use_unicode: bool=False) -> str:
+
+    def render(self, use_color: bool = False, use_unicode: bool = False) -> str:
         """
         Returns a visualisation of the game board as a multiline string, with
         optional ANSI color codes and Unicode characters (if applicable).
@@ -255,19 +252,19 @@ class Board:
                 output += " "
             output += "\n"
         return output
-    
+
     @property
     def game_over(self) -> bool:
         """
         True iff the game is over.
         """
-        
+
         if self.turn_limit_reached:
             return True
-        
-        if self.turn_count in [0,1]:
+
+        if self.turn_count in [0, 1]:
             return False
-        
+
         if self.turn_color == PlayerColor.RED:
             my_cells = self.red_cells
         else:
@@ -275,13 +272,13 @@ class Board:
 
         for cell in my_cells:
             piece_combinations = self.generate_piece_combinations(cell)
-            
+
             if len(piece_combinations) > 0:
                 return False
 
         # Tried all possible moves and none were legal.
         return True
-    
+
     @property
     def winner_color(self) -> PlayerColor | None:
         """
@@ -289,17 +286,17 @@ class Board:
         """
         if not self.game_over:
             return None
-        
+
         if self.turn_limit_reached:
             # In this case the player with the most tokens wins, or if equal,
             # the game ends in a draw.
-            red_count  = len(self.red_cells)
+            red_count = len(self.red_cells)
             blue_count = len(self.blue_cells)
-            balance    = red_count - blue_count
+            balance = red_count - blue_count
 
             if balance == 0:
                 return None
-            
+
             return PlayerColor.RED if balance > 0 else PlayerColor.BLUE
 
         else:
