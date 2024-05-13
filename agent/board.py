@@ -13,6 +13,10 @@ PIECE_N = 4
 
 
 class Board:
+    """
+    A class representing a game board i.e. game state. 
+
+    """
 
     def __init__(
         self,
@@ -70,10 +74,11 @@ class Board:
         return
 
     def line_removal(self, action):
-        '''
+        """
         Checks if any rows or columns should be removed on the board
-
-        '''
+        with the line-removal mechanic
+        """
+        
         to_remove = set()
 
         check_row = set()
@@ -118,14 +123,18 @@ class Board:
     def adjacent(self, coord: Coord):
         """
         Computes the 4 possible adjacent Coords from the given Coord
+
         Returns a list of coordinates.
         """
 
         return [coord.down(), coord.up(), coord.left(), coord.right()]
 
-    def generate_piece_combinations(self, touched_coord) -> list:
+    def generate_piece_combinations(self, touched_coord) -> set[list[Coord]]:
         """
         Generate all possible piece combinations touching a given coordinate.
+
+        Returns a set of a list of coordinates, each list represents the
+        coordinates in a PlaceAction.
         """
 
         piece_combinations = set()
@@ -150,7 +159,9 @@ class Board:
 
     def generate_all_moves(self) -> set[PlaceAction]:
         '''
-        Returns a set of valid moves that can be made 
+        Generate all possible moves for the current board.
+
+        Returns a set of PlaceAction representing valid moves that can be made.
         '''
         moves = set()
 
@@ -218,6 +229,8 @@ class Board:
 
     def render(self, use_color: bool = False, use_unicode: bool = False) -> str:
         """
+        Desgined to pretty-print a board.
+
         Returns a visualisation of the game board as a multiline string, with
         optional ANSI color codes and Unicode characters (if applicable).
         """
@@ -284,6 +297,7 @@ class Board:
         """
         The player (color) who won the game, or None if no player has won.
         """
+
         if not self.game_over:
             return None
 
@@ -308,4 +322,5 @@ class Board:
         """
         True iff the maximum number of turns has been reached.
         """
+        
         return self.turn_count >= MAX_TURNS
