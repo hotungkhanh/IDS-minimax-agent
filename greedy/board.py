@@ -126,14 +126,9 @@ class Board:
 
     def adjacent(self, coord: Coord):
         """
-        Computes all 4 possible adjacent coordinates
+        Computes the 4 possible adjacent Coords from the given Coord
 
-        Parameters:
-            `coord`: a `Coord` instance that represents the coordinate that we want
-            to find adjacent coordinates for
-
-        Returns:
-            An array of adjacent coordinates on the board
+        Returns a list of coordinates.
         """
 
         return [coord.down(), coord.up(), coord.left(), coord.right()]
@@ -141,6 +136,9 @@ class Board:
     def generate_piece_combinations(self, touched_coord) -> list:
         """
         Generate all possible piece combinations touching a given coordinate.
+
+        Returns a set of a list of coordinates, each list represents the
+        coordinates in a PlaceAction.
         """
 
         piece_combinations = set()
@@ -163,9 +161,12 @@ class Board:
         return piece_combinations
     
     def generate_all_moves(self) -> set[PlaceAction]:
-        '''
-        Returns a set of valid moves that can be made 
-        '''
+        """
+        Generate all possible moves for the current board.
+
+        Returns a set of PlaceAction representing valid moves that can be made.
+        """
+
         moves = set()
 
         if self.turn_color == PlayerColor.RED:
@@ -230,6 +231,8 @@ class Board:
     
     def render(self, use_color: bool=False, use_unicode: bool=False) -> str:
         """
+        Desgined to pretty-print a board.
+
         Returns a visualisation of the game board as a multiline string, with
         optional ANSI color codes and Unicode characters (if applicable).
         """
@@ -296,6 +299,7 @@ class Board:
         """
         The player (color) who won the game, or None if no player has won.
         """
+
         if not self.game_over:
             return None
         
@@ -320,4 +324,5 @@ class Board:
         """
         True iff the maximum number of turns has been reached.
         """
+
         return self.turn_count >= MAX_TURNS

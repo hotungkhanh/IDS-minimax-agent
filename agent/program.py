@@ -19,7 +19,7 @@ BAD_LINE = 6
 # call minimax at depth of only 1.
 LARGE_BRANCH_FACTOR = 200
 
-# The time limit given to decide a move using IDS minimax
+# The time limit given to decide a move using ID minimax
 DECIDING_TIME = 0.5
 
 
@@ -58,7 +58,6 @@ class Agent:
 
         else:
             action = self.determine_move(valid_moves_dict)
-            # action = self.ids_minimax_ab(1, valid_moves_dict)
 
         match self._color:
             case PlayerColor.RED:
@@ -88,6 +87,8 @@ class Agent:
         Minimax algorithm with alpha-beta pruning on the given Board.
         
         Returns the best move to play accordingly with its eval.
+
+        Code adapted from: https://www.youtube.com/watch?v=l-hh51ncgDI&t=2s
         """
 
         if depth == 0 or board.game_over:
@@ -173,7 +174,7 @@ class Agent:
                 self.board, 1, -(math.inf), math.inf, valid_moves_dict)[1]
         else:
             time = DECIDING_TIME
-            move = self.ids_minimax(time, valid_moves_dict)
+            move = self.id_minimax(time, valid_moves_dict)
         return move
 
 
