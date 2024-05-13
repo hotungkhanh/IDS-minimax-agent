@@ -85,7 +85,7 @@ class Agent:
     def minimax_ab(self, board: Board, depth: int, alpha, beta, valid_moves_dict) -> tuple[int, PlaceAction]:
         """
         Minimax algorithm with alpha-beta pruning on the given Board.
-        
+
         Returns the best move to play accordingly with its eval.
 
         Code adapted from: https://www.youtube.com/watch?v=l-hh51ncgDI&t=2s
