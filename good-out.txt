@@ -1,0 +1,77 @@
+Testing: I am playing as RED
+['rrr.bb.rrbb', 'rrrbbbrrrr.', 'rrrrb.brr.r', '..rrrbbbbrr', '...........', 'rbbb.rbb.rr', 'r.bbbrrbbrr', '..b.rrr.b.b', 'bbb.rr..bbb', '.r.rr.rbbbb', '.rrrbbrr.bb']
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+. . . . . . . . . . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+depth: 3 -------------------------------------------
+depth: 2 -------------------------------------------
+depth: 1 -------------------------------------------
+depth: 0 -------------------------------------------
+depth: 0 -------------------------------------------
+GAME OVER eval: inf
+board:
+ r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+r r r r . . b b b . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+eval: inf
+board is none
+eval: inf
+board:
+ r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+r r r r . . b b b . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+eval: inf
+board:
+ r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+. . . . . . b b b . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
+inf
+Board:
+r r r . b b . r r b b 
+r r r b b b r r r r . 
+r r r r b . b r r . r 
+. . r r r b b b b r r 
+. . . . . . . . . . . 
+r b b b . r b b . r r 
+r . b b b r r b b r r 
+. . b . r r r . b . b 
+b b b . r r . . b b b 
+. r . r r . r b b b b 
+. r r r b b r r . b b 
+
