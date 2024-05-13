@@ -1,7 +1,9 @@
 from referee.game import PlayerColor, Action, PlaceAction, coord
 from monte.board import Board
 from monte.tree import TreeNode
-import random, math, copy
+import random
+import math
+import copy
 from datetime import datetime, timedelta
 import time
 
@@ -10,11 +12,14 @@ from agent.program import Agent as minimax
 from monte.program import Agent as monte
 from randy.program import Agent as randy
 
-import cProfile, pstats, io
+import cProfile
+import pstats
+import io
 from pstats import SortKey
 
 MAX_TURNS = 150
 BOARD_N = 11
+
 
 def play():
     start_time = time.time()
@@ -28,16 +33,16 @@ def play():
 
     prof = cProfile.Profile()
     prof.enable()
-    
+
     while game_board.turn_count < MAX_TURNS:
         print()
-        print(game_board._turn_color, "playing turn", game_board.turn_count + 1)
+        print(game_board.turn_color, "playing turn", game_board.turn_count + 1)
 
         try:
-            action: Action = players[game_board._turn_color].action()
+            action: Action = players[game_board.turn_color].action()
 
             game_board.apply_action(action)
-            print("game board turn colour:", game_board._turn_color)
+            print("game board turn colour:", game_board.turn_color)
             print(game_board.render())
             print("RED and BLUE board after applying action")
             agent1.board.apply_action(action)
@@ -60,6 +65,7 @@ def play():
     ps.print_stats()
 
     print("GAME OVER")
-    
+
+
 # cProfile.run('play()', filename="out.prof")
 play()
