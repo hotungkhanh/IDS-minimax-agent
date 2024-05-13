@@ -86,6 +86,7 @@ class Agent:
     def minimax_ab(self, board: Board, depth: int, alpha, beta, valid_moves_dict) -> tuple[int, PlaceAction]:
         """
         Minimax algorithm with alpha-beta pruning on the given Board.
+        
         Returns the best move to play accordingly with its eval.
         """
 
@@ -144,11 +145,13 @@ class Agent:
 
             return (minEval, best_move)
 
-    def ids_minimax(self, time: float, valid_moves_dict):
+    def id_minimax(self, time: float, valid_moves_dict):
         """
-        Iterative deepening minimax.
+        Caller function for iterative deepening minimax.        
         If it still within the time limit given for deciding a move,
         do minimax with one extra depth.
+
+        Returns the best move to play accordingly.
         """
 
         depth = 1
@@ -177,8 +180,9 @@ class Agent:
 def eval(board: Board):
     """
     Evaluation function to decide the value of a board.
-    Returns a heuristic value by formula for a non-terminal state.
-    Returns a constant for a terminal state.
+
+    Returns a heuristic value by formula for a non-terminal state and a 
+    constant for a terminal state.
     """
 
     if board.winner_color == PlayerColor.RED:
