@@ -4,13 +4,24 @@
 from referee.game import PlayerColor, Action, PlaceAction
 from referee.game.pieces import BOARD_N
 from .board import Board
-import random, math
+import math
+import random
 from datetime import datetime, timedelta
 
-# Eval for a winning state, ensuring it is bigger than any eval calculated by formula, but smaller than inf
+# Eval for a winning state, ensuring it is bigger
+# than any eval calculated by formula, but smaller than inf
 WINNING_SCORE = 999
+
 # Avoid placing this many cells on one line if possible
 BAD_LINE = 6
+
+# If a board has this many possible moves, it is safe to
+# call minimax at depth of only 1.
+LARGE_BRANCH_FACTOR = 200
+
+# The time limit given to decide a move using IDS minimax
+DECIDING_TIME = 0.5
+
 
 class Agent:
     """
@@ -21,15 +32,15 @@ class Agent:
     def __init__(self, color: PlayerColor, **referee: dict):
         """
         This constructor method runs when the referee instantiates the agent.
-        Any setup and/or precomputation should be done here.
         """
+
         self._color = color
         match color:
             case PlayerColor.RED:
                 print("Testing: I am playing as RED")
             case PlayerColor.BLUE:
                 print("Testing: I am playing as BLUE")
-        
+
         # initialise internal rep of board
         self.board: Board = Board()
 
@@ -53,7 +64,7 @@ class Agent:
             case PlayerColor.RED:
                 print("Testing: RED is playing a PLACE action")
                 return action
-                
+
             case PlayerColor.BLUE:
                 print("Testing: BLUE is playing a PLACE action")
                 return action
@@ -63,7 +74,7 @@ class Agent:
         This method is called by the referee after an agent has taken their
         turn.
         """
-        
+
         # There is only one action type, PlaceAction
         place_action: PlaceAction = action
         c1, c2, c3, c4 = place_action.coords
@@ -73,10 +84,14 @@ class Agent:
         print(f"Testing: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
 
     def minimax_ab(self, board: Board, depth: int, alpha, beta, valid_moves_dict) -> tuple[int, PlaceAction]:
+        """
+        Minimax algorithm with alpha-beta pruning on the given Board.
+        Returns the best move to play accordingly with its eval.
+        """
 
         if depth == 0 or board.game_over:
             return (eval(board), None)
-        
+
         if board.turn_color == PlayerColor.RED:
             best_move = None
             maxEval = -(math.inf)
@@ -90,7 +105,8 @@ class Agent:
             for move in valid_moves:
                 child = board.__copy__()
                 child.apply_action(move)
-                val = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)[0]
+                val = self.minimax_ab(
+                    child, depth - 1, alpha, beta, valid_moves_dict)[0]
 
                 if maxEval < val:
                     maxEval = val
@@ -101,7 +117,7 @@ class Agent:
                     break
 
             return (maxEval, best_move)
-        
+
         else:
             best_move = None
             minEval = math.inf
@@ -115,7 +131,8 @@ class Agent:
             for move in valid_moves:
                 child = board.__copy__()
                 child.apply_action(move)
-                val = self.minimax_ab(child, depth - 1, alpha, beta, valid_moves_dict)[0]
+                val = self.minimax_ab(
+                    child, depth - 1, alpha, beta, valid_moves_dict)[0]
 
                 if minEval > val:
                     minEval = val
@@ -127,37 +144,43 @@ class Agent:
 
             return (minEval, best_move)
 
-    
     def ids_minimax(self, time: float, valid_moves_dict):
+        """
+        Iterative deepening minimax.
+        If it still within the time limit given for deciding a move,
+        do minimax with one extra depth.
+        """
+
         depth = 1
         start_time = datetime.now()
         fin_time = start_time + timedelta(seconds=time)
-        # print("")
-        # print("----------------------------------------------")
-        # print("turn count: ", self.board.turn_count)
-        # print("branching factor: ", len(valid_moves_dict[hash(self.board)]))
+
         while datetime.now() < fin_time:
-            value, action = self.minimax_ab(self.board, depth, -(math.inf), math.inf, valid_moves_dict)
+            value, action = self.minimax_ab(
+                self.board, depth, -(math.inf), math.inf, valid_moves_dict)
             depth += 1
-        # print("depth:", depth, "-----------------------------------------------")
-        # print("time taken:", datetime.now() - start_time)
-        # print("----------------------------------------------")
-        # print("")
+
         return action
 
     def determine_move(self, valid_moves_dict):
         dict_len = len(valid_moves_dict[hash(self.board)])
 
-        if dict_len > 200:
-            move = self.minimax_ab(self.board, 1, -(math.inf), math.inf, valid_moves_dict)[1]
+        if dict_len > LARGE_BRANCH_FACTOR:
+            move = self.minimax_ab(
+                self.board, 1, -(math.inf), math.inf, valid_moves_dict)[1]
         else:
-            time = 0.5
+            time = DECIDING_TIME
             move = self.ids_minimax(time, valid_moves_dict)
         return move
 
 
-
 def eval(board: Board):
+    """
+    Evaluation function to decide the value of a board.
+    Returns a heuristic value by formula for a non-terminal state.
+    Returns a constant for a terminal state.
+    """
+
     if board.winner_color == PlayerColor.RED:
         return WINNING_SCORE
     if board.winner_color == PlayerColor.BLUE:
@@ -166,6 +189,7 @@ def eval(board: Board):
     blue_count = len(board.blue_cells)
     red_count = len(board.red_cells)
 
+    # penalty if board has lines that are filled with too many of our colour
     bad_red_lines = 0
     bad_blue_lines = 0
     for r in range(BOARD_N):
@@ -175,7 +199,7 @@ def eval(board: Board):
             bad_red_lines += 1
         if blue >= BAD_LINE:
             bad_blue_lines += 1
-    
+
     for c in range(BOARD_N):
         red = sum(1 for cell in board.red_cells if cell.c == c)
         blue = sum(1 for cell in board.blue_cells if cell.c == c)
